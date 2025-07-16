@@ -4,15 +4,22 @@
   scroll-behavior: smooth;
 }
 
-
 a {
   color: #fff;
   font-family: "Lato_Regular", sans-serif;
   font-size: 15px;
 }
 
+.cursor {
+  width: 10px;
+  height: 10px;
+  border-radius: 50px;
+  background-color: red;
+  transition: all 1s;
+}
+
 .header__background {
-  background: url(../img/bgTop.jpg) no-repeat #121212;
+  background: url(../img/bgTop.jpg) no-repeat;
   background-size: cover;
   position: absolute;
   top: 0;
@@ -30,20 +37,20 @@ a {
   margin: 0 auto;
 }
 
-.header__top{
+.header__top {
   border-bottom: 1px solid #ffffff3f;
 }
 
 .social__svg {
   fill: #fff;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
-.link__social:hover>svg {
+.link__social:hover > svg {
   fill: #ff6534;
 }
 
-.haeder__flex__element{
+.haeder__flex__element {
   display: flex;
   justify-content: start;
 }
