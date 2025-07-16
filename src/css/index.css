@@ -10,12 +10,15 @@ a {
   font-size: 15px;
 }
 
+li {
+  list-style-type: none;
+}
+
 .cursor {
   width: 10px;
   height: 10px;
   border-radius: 50px;
-  background-color: red;
-  transition: all 1s;
+  background-color: #fff;
 }
 
 .header__background {
@@ -39,18 +42,104 @@ a {
 
 .header__top {
   border-bottom: 1px solid #ffffff3f;
+  display: flex;
+  justify-content: space-between !important;
+  padding: 10px 12px;
+
 }
+
+.header__contacts {
+  max-width: 810px;
+  width: 100%;
+  text-align: start;
+}
+
+.header__contacts a {
+  margin: 5px 10px 0 10px;
+}
+
 
 .social__svg {
   fill: #fff;
-  transition: all 0.3s;
+  transition: all .3s;
 }
 
-.link__social:hover > svg {
+.link__social:hover>svg {
   fill: #ff6534;
 }
 
 .haeder__flex__element {
   display: flex;
   justify-content: start;
+  align-items: center;
+}
+
+.header__bottom {
+  justify-content: space-between;
+  padding: 30px 15px;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 165px;
+  height: 25.22px;
+}
+
+.logo__parent {
+  width: 277.19px;
+}
+
+.header__navbar {
+  display: flex;
+  font-family: "Lato_Bold", sans-serif;
+  font-size: 15px;
+  color: #bdbdbdbd;
+  max-width: 688.89px;
+  width: 100%;
+  justify-content: center;
+}
+
+.header__navbar__element {
+  margin: calc(10px/2) calc(15px/2);
+  transition: color .3s;
+  cursor: pointer;
+
+}
+
+.header__navbar__element:hover {
+  color: #ff6534;
+}
+
+.header__button {
+  color: #fff;
+  width: 133.19px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lato_Bold", sans-serif;
+  font-size: 15px;
+  background: #ff6534;
+  border: none;
+  transition: all .3s;
+  cursor: pointer;
+}
+
+.header__button:hover {
+  background: #c74e29;
+}
+
+.header__button__parrent {
+  width: 100%;
+  max-width: 203.92px;
+  display: flex;
+  justify-content: end;
+}
+.interactive__flex__interactive{
+  max-width: 269px;
+  width: 100%;
+}
+
+.phone{
+  height: 530px;
 }
