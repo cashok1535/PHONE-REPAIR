@@ -8,7 +8,7 @@ export const InteractivePhone = () => {
   useEffect(() => {
     let start = 0.5;
     const end = 34.5;
-    const increment = 9;
+    const increment = 1;
 
     if (start === end) return;
 
@@ -19,7 +19,7 @@ export const InteractivePhone = () => {
         clearInterval(timer);
       }
       setCurrentNumber(start);
-    }, 70);
+    }, 10);
     setCurrentNumber(34.5);
 
     return () => clearInterval(timer);
