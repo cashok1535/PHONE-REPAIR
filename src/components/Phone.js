@@ -5,7 +5,6 @@ export const Phone = () => {
   const [isMouseEnter, setIsMouseEnter] = useState(false);
   const [positionOnPhone, setPositionOnPhone] = useState({ x: 0, y: 0 });
   const phoneRef = useRef(null);
-  console.log(positionOnPhone);
 
   const handleMouseLeave = useCallback(() => {
     setIsMouseEnter(false);
@@ -49,7 +48,7 @@ export const Phone = () => {
                 positionOnPhone.y / 10
               }deg)`
             : "rotateY(0deg) rotateX(0deg)",
-          transition: "transform .2s",
+          transition: isMouseEnter ? "transform .2s" : "transform .6s",
         }}
         className="phone"
         src={phoneImg}
