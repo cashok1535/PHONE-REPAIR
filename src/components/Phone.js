@@ -45,7 +45,7 @@ export const Phone = () => {
       <img
         style={{
           transform: isMouseEnter
-            ? `rotateY(${positionOnPhone.x / 10}deg) rotateX(${
+            ? `rotateY(${positionOnPhone.x / 20}deg) rotateX(${
                 positionOnPhone.y / 10
               }deg)`
             : "rotateY(0deg) rotateX(0deg)",

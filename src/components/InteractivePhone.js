@@ -13,7 +13,8 @@ export const InteractivePhone = () => {
         </div>
         <div className="interactive__flex__info__text">
           Don't let technical troubles slow you down. At TechPro, we're here to
-          breathe new life into your devices, swiftly & seamlessly.
+          breathe new life into your devices, swiftly & seamlessly
+          <span className="interactive__flex__info__orange">.</span>
         </div>
         <div className="info__flex">
           <div className="info__flex__element">Warranty Policy</div>
@@ -22,7 +23,23 @@ export const InteractivePhone = () => {
         </div>
       </div>
       <Phone />
-      <div className="interactive__flex__about"></div>
+      <div className="interactive__flex__about">
+        <div className="interactive__flex__info__title">
+          34.5k <span className="interactive__flex__info__orange">+</span>
+        </div>
+        <div className="interactive__flex__about__title">Clients in NY.</div>
+        <img className="interactive__flex__about__img" alt="" />
+        <div className="interactive__flex__about__text">
+          Our experts are ready to diagnose your device for completely free.
+          <span className="interactive__flex__about__text__bold">
+            Write us!
+          </span>
+        </div>
+        <div className="interactive__flex__about__repair">
+          Get <a href="#123">repair</a> services
+          <span className="interactive__flex__info__orange">→</span>
+        </div>
+      </div>
     </section>
   );
 };
