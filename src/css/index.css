@@ -44,7 +44,7 @@ li {
   border-bottom: 1px solid #ffffff3f;
   display: flex;
   justify-content: space-between !important;
-  padding: 10px 12px;
+  padding: 10px 0;
 }
 
 .header__contacts {
@@ -60,9 +60,10 @@ li {
 .social__svg {
   fill: #fff;
   transition: all 0.3s;
+  margin: 0 7.5px;
 }
 
-.link__social:hover > svg {
+.link__social:hover>svg {
   fill: #ff6534;
 }
 
@@ -123,7 +124,8 @@ li {
 }
 
 .header__button:hover {
-  background: #c74e29;
+  background: #fff;
+  color: #000;
 }
 
 .header__button__parrent {
@@ -132,6 +134,7 @@ li {
   display: flex;
   justify-content: end;
 }
+
 .interactive__flex__interactive {
   max-width: 269px;
   width: 100%;
@@ -256,6 +259,7 @@ li {
   font-family: "Questrial", sans-serif;
   font-size: 24px;
 }
+
 .interactive__arrow {
   margin-left: 5px;
   font-size: 24px;
@@ -266,6 +270,7 @@ li {
   max-width: 1200px;
   width: 100%;
 }
+
 .man__rapair__parrent {
   width: 100%;
   display: flex;
@@ -318,11 +323,77 @@ li {
   margin-top: 20px;
   color: #121212;
   line-height: 1.1;
-  font-weight: 400;
-  max-width: 600px;
-  width: 100%;
+  width: 342px;
 }
+
 .what__we__do__grid__element {
   width: 100%;
-  max-width: 340px;
+  max-width: 355px;
+}
+
+.about__us__section {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  padding: 60px 0 120px;
+}
+
+.about__us__section__img {
+  max-width: 555px;
+  width: 100%;
+}
+
+.orange__title__bold {
+  font-family: "Lato_Black", sans-serif;
+
+}
+
+.about__us__section__text__bold {
+  font-family: "Lato_Bold", sans-serif;
+  font-size: 19px;
+  color: #4e4e4e;
+  max-width: 555px;
+  width: 100%;
+  line-height: 1.5;
+  margin: 25px 0;
+}
+
+.about__us__section__text {
+  font-family: "Lato_Regular", sans-serif;
+  font-size: 17px;
+  color: #727272;
+  max-width: 555px;
+  width: 100%;
+  line-height: 1.5;
+}
+
+.about__us__section__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  border-width: 2px;
+  color: #fff;
+  background-color: #ff6534;
+  width: 161.52px;
+  height: 48px;
+  border-color: transparent;
+  font-family: "Lato_Bold", sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.about__us__section__button svg {
+  fill: #fff;
+  width: 24px;
+  height: 24px;
+  margin-left: 5px;
+}
+
+
+.about__us__section__button:hover {
+  background-color: #000;
 }

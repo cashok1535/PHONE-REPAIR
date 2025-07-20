@@ -11,7 +11,7 @@ export const WhatWeDo = () => {
         <div className="what__we__do__grid__title">
           <div className="orange__title">WE REPAIR YOUR GADGES</div>
           <div className="what__we__do__title">
-            WE MAKE MOBILE REPAIR STRESS-FREE
+            We Make Mobile Repair Stress-free
             <span className="interactive__flex__info__orange">.</span>
           </div>
         </div>
