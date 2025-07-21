@@ -2,6 +2,8 @@ import { InteractivePhone } from "./InteractivePhone";
 import manRepair from "../img/manRepair.webp";
 import { WhatWeDo } from "./WhatWeDo";
 import { AboutUsSection } from "./AboutUsSection";
+import { WhatWeRepair } from "./WhatWeRepair";
+import { Achivments } from "./Achivments";
 export const Main = () => {
   return (
     <main className="main">
@@ -11,6 +13,8 @@ export const Main = () => {
       </div>
       <WhatWeDo />
       <AboutUsSection />
+      <WhatWeRepair />
+      <Achivments />
     </main>
   );
 };

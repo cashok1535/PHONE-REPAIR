@@ -397,3 +397,105 @@ li {
 .about__us__section__button:hover {
   background-color: #000;
 }
+
+.what__we__repair {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 337px !important;
+}
+
+
+.what__we__repair__img {
+  width: 100%;
+  overflow: hidden;
+}
+
+.what__we__repair__img img {
+  width: 500px;
+  min-height: 341px !important;
+}
+
+.hardware__repair, .screen__replasment {
+  display: flex;
+  align-items: center;
+}
+
+.hardware__repair {
+  background: #f6f6f6;
+}
+
+.screen__replasment {
+  background: #181818;
+}
+
+.screen__replasment__info, .hardware__repair__info {
+  padding: 0 60px;
+  max-width: 511px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hardware__repair__info__title, .screen__replasment__info__title {
+  font-family: "Questrial", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.hardware__repair__info__title {
+  color: #121212;
+}
+
+.screen__replasment__info__title {
+  color: #fff;
+}
+
+.hardware__repair__info__text, .screen__replasment__info__text {
+  margin-top: 20px;
+  font-size: 17px;
+  line-height: 1.5;
+  font-family: "Lato_Regular", sans-serif;
+}
+
+.hardware__repair__info__text {
+  color: #727272;
+}
+
+.screen__replasment__info__text {
+  color: #fff;
+}
+
+.hardware__repair__info__text__little, .screen__replasment__info__text__little {
+  font-size: 15px;
+  line-height: 1.5;
+  font-family: "Lato_Regular", sans-serif;
+  margin-top: 20px;
+  position: relative;
+  left: 15px;
+}
+
+.hardware__repair__info__text__little {
+  color: #4e4e4e;
+}
+
+.screen__replasment__info__text__little {
+  color: #e1e1e1;
+}
+
+.screen__replasment__info__text__little::before, .hardware__repair__info__text__little::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50px;
+  background: #ff6534;
+  position: absolute;
+  top: calc(50% - 3.5px);
+  left: -15px;
+}
+
+.achivments {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px 0;
+  background: #121212;
+}
