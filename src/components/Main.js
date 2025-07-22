@@ -4,6 +4,7 @@ import { WhatWeDo } from "./WhatWeDo";
 import { AboutUsSection } from "./AboutUsSection";
 import { WhatWeRepair } from "./WhatWeRepair";
 import { Achivments } from "./Achivments";
+import { HowWeWork } from "./HowWeWork";
 export const Main = () => {
   return (
     <main className="main">
@@ -15,6 +16,7 @@ export const Main = () => {
       <AboutUsSection />
       <WhatWeRepair />
       <Achivments />
+      <HowWeWork />
     </main>
   );
 };

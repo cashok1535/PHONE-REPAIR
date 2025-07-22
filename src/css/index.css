@@ -402,19 +402,26 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 337px !important;
+
 }
 
 
 .what__we__repair__img {
-  width: 100%;
-  overflow: hidden;
+  min-height: 337px;
+  width: 510px;
+
 }
 
-.what__we__repair__img img {
-  width: 500px;
-  min-height: 341px !important;
+.hardware {
+  background: url(../img/hardware.webp), no-repeat;
+  background-size: cover;
 }
+
+.screen {
+  background: url(../img/screen.webp), no-repeat;
+  background-size: cover;
+}
+
 
 .hardware__repair, .screen__replasment {
   display: flex;
@@ -498,4 +505,34 @@ li {
   justify-content: space-around;
   padding: 60px 0;
   background: #121212;
+}
+
+.achivments__element__number {
+  font-family: "Questrial", sans-serif;
+  font-size: 76px;
+  color: #ff6534;
+}
+
+.achivments__element__title {
+  font-family: "Questrial", sans-serif;
+  font-weight: bold;
+  color: #fff;
+  font-size: 24px;
+  margin-top: 40px;
+}
+
+.achivments__element__text {
+  margin-top: 40px;
+  font-size: 17px;
+  line-height: 1.5;
+  font-family: "Lato_Regular", sans-serif;
+  color: #bdbdbdbd;
+  vertical-align: baseline;
+}
+
+.achivments__element{
+  padding: 0 30px;
+  box-sizing: border-box;
+  max-width: 450px;
+  width: 100%;
 }

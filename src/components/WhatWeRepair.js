@@ -1,12 +1,8 @@
-import hardware from "../img/hardware.webp";
-import screen from "../img/screen.webp";
 export const WhatWeRepair = () => {
   return (
     <section className="what__we__repair">
       <div className="hardware__repair">
-        <div className="what__we__repair__img">
-          <img className="hardware__repair__img" src={hardware} alt="" />
-        </div>
+        <div className="what__we__repair__img hardware"></div>
         <div className="hardware__repair__info">
           <div className="hardware__repair__info__title">Hardware Repair</div>
           <div className="hardware__repair__info__text">
@@ -20,9 +16,7 @@ export const WhatWeRepair = () => {
         </div>
       </div>
       <div className="screen__replasment">
-        <div className="what__we__repair__img">
-          <img src={screen} alt="" />
-        </div>
+        <div className="what__we__repair__img screen"></div>
         <div className="screen__replasment__info">
           <div className="screen__replasment__info__title">
             Screen Replacements
