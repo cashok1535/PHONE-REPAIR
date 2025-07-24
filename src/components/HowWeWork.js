@@ -1,7 +1,7 @@
 export const HowWeWork = () => {
   return (
     <section className="how__we__work">
-    <div className="how__we__work__left">
+      <div className="how__we__work__left">
         <div className="orange__title orange__title__bold">HOW WE WORK</div>
         <div className="how__we__work__title">
           3 Steps to Repair
@@ -43,8 +43,8 @@ export const HowWeWork = () => {
                     y2="65"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#FF6534" stop-opacity="0.57" />
-                    <stop offset="1" stop-color="#FF6534" stop-opacity="0" />
+                    <stop stopColor="#FF6534" stopOpacity="0.57" />
+                    <stop offset="1" stopColor="#FF6534" stopOpacity="0" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -92,8 +92,8 @@ export const HowWeWork = () => {
                     y2="70"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#FF6534" stop-opacity="0.57" />
-                    <stop offset="1" stop-color="#FF6534" stop-opacity="0" />
+                    <stop stopColor="#FF6534" stopOpacity="0.57" />
+                    <stop offset="1" stopColor="#FF6534" stopOpacity="0" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -149,8 +149,8 @@ export const HowWeWork = () => {
                     y2="69"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#FF6534" stop-opacity="0.57" />
-                    <stop offset="1" stop-color="#FF6534" stop-opacity="0" />
+                    <stop stopColor="#FF6534" stopOpacity="0.57" />
+                    <stop offset="1" stopColor="#FF6534" stopOpacity="0" />
                   </linearGradient>
                 </defs>
               </svg>

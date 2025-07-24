@@ -323,7 +323,10 @@ li {
   margin-top: 20px;
   color: #121212;
   line-height: 1.1;
-  width: 342px;
+}
+
+.about__us__section__element {
+  padding: 0 30px;
 }
 
 .what__we__do__grid__element {
@@ -343,11 +346,15 @@ li {
 .about__us__section__img {
   max-width: 555px;
   width: 100%;
+  padding: 0 30px;
+  box-sizing: border-box;
 }
 
 .orange__title__bold {
   font-family: "Lato_Black", sans-serif;
-
+  color: #ff6534;
+  font-size: 12px;
+  letter-spacing: calc(1em * 0.2);
 }
 
 .about__us__section__text__bold {
@@ -622,4 +629,85 @@ li {
   line-height: 1.5;
   max-width: 500px;
   width: 100%;
+}
+
+.services {
+  text-align: center;
+  padding: 120px 0 15px;
+}
+
+.services__text__bold {
+  margin: 25px auto 0 auto;
+}
+
+.services__slider__overflow {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  position: relative;
+  left: 0;
+  transition: all .3s;
+}
+
+.services__slider__element {
+  padding: 0 15px;
+  max-width: 360px;
+  position: relative;
+  left: -15px;
+}
+
+.services__slider__element__img {
+  max-width: 360px;
+}
+
+.services__slider {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.services__parent__slider {
+  margin-top: 50px;
+}
+
+.services__slider__button {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.left {
+  position: relative;
+  left: -15px;
+}
+
+.right {
+  position: relative;
+  left: 15px;
+}
+
+.services__slider__element__title {
+  text-align: start;
+  font-family: "Questrial", sans-serif;
+  font-weight: bold;
+  color: #121212;
+  font-size: 24px;
+  margin-top: 20px;
+  line-height: 1.3;
+}
+
+.services__slider__element__text {
+  text-align: start;
+  color: #727272;
+  margin-top: 20px;
+  font-size: 17px;
+  line-height: 1.5;
+  font-family: "Lato_Regular", sans-serif;
 }
