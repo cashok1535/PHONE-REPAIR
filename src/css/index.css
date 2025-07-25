@@ -579,10 +579,14 @@ li {
   line-height: 1.1;
   font-family: "Questrial", sans-serif;
   margin-top: 20px;
+  color: #fff;
 }
 
 .how__we__work__title__orange {
   color: #ff6534;
+  font-size: 56px;
+  font-family: "Questrial", sans-serif;
+  font-weight: bold;
 }
 
 .how__we__work__text {
@@ -651,7 +655,6 @@ li {
   display: flex;
   position: relative;
   left: 0;
-  transition: all .3s;
 }
 
 .services__slider__element {
@@ -710,4 +713,75 @@ li {
   font-size: 17px;
   line-height: 1.5;
   font-family: "Lato_Regular", sans-serif;
+}
+
+.companies__element {
+  width: 170px;
+  position: relative;
+}
+
+.companies__element__background {
+  width: 210px;
+  height: 104px;
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.companies {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+  padding: 25px 0 100px;
+}
+
+.cta {
+  position: relative;
+  background: url(../img/cta.png), no-repeat;
+  background-size: cover;
+  padding: 120px 0 30px;
+  width: 100%;
+}
+
+.cta__title {
+  max-width: 800px;
+  width: 100%;
+}
+
+.cta__top__flex {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cta__top__flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cta__top__flex__element {
+  max-width: 570px;
+  width: 100%;
+}
+
+.cta__title {
+  margin-bottom: 20px;
+}
+
+.cta__discount__text {
+  color: #fff;
+  font-family: "Lato_Bold", sans-serif;
+  font-size: 19px;
+  max-width: 370px;
+  width: 100%;
+  line-height: 1.4;
+}
+
+
+.cta__bottom__flex{
+  margin-top: 50px;
 }

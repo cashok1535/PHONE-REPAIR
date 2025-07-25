@@ -7,50 +7,76 @@ import sliderImg5 from "../img/servicesSlider5.webp";
 
 const sliderElements = [
   {
+    subId: 1,
     id: 1,
     img: sliderImg1,
     title: "Screen Replacement",
     text: "Restore your device's visual clarity with our expert screen replacement service, ensuring a pristine display for uninterrupted usage.",
   },
   {
+    subId: 2,
     id: 2,
     img: sliderImg2,
     title: "Battery Replacement",
     text: "Say goodbye to dwindling battery life with our swift and efficient battery replacement service, rejuvenating your device's power.",
   },
   {
+    subId: 3,
     id: 3,
     img: sliderImg3,
     title: "Water Damage Restoration",
     text: "Trust our specialists to restore water-damaged devices to their optimal functionality, saving your gadgets from irreversible harm.",
   },
   {
+    subId: 4,
     id: 4,
     img: sliderImg4,
     title: "Charging Port Repairs",
     text: "Ensure seamless charging capabilities with our professional charging port repair service, resolving issues to keep your device powered up.",
   },
   {
+    subId: 5,
     id: 5,
     img: sliderImg5,
     title: "Software Issues",
     text: "Resolve frustrating software glitches and malfunctions with our comprehensive software issue diagnostics and repair.",
+  },
+  {
+    subId: 1,
+    id: 6,
+    img: sliderImg1,
+    title: "Screen Replacement",
+    text: "Restore your device's visual clarity with our expert screen replacement service, ensuring a pristine display for uninterrupted usage.",
+  },
+  {
+    subId: 2,
+    id: 7,
+    img: sliderImg2,
+    title: "Battery Replacement",
+    text: "Say goodbye to dwindling battery life with our swift and efficient battery replacement service, rejuvenating your device's power.",
+  },
+  {
+    subId: 3,
+    id: 8,
+    img: sliderImg3,
+    title: "Water Damage Restoration",
+    text: "Trust our specialists to restore water-damaged devices to their optimal functionality, saving your gadgets from irreversible harm.",
   },
 ];
 
 export const ServicesSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isDelay, setIsDelay] = useState(false);
-  const [slideTranslate, setSlideTranslate] = useState(null);
+  const [slideTranslate, setSlideTranslate] = useState(0);
+  const [isTransition, setIsTransition] = useState(true);
   const slide = useRef(null);
   const countSlides = useMemo(() => {
-    return sliderElements.length;
+    return sliderElements.length - 3;
   }, []);
 
   useEffect(() => {
     const handleResize = () => {
       setSlideTranslate(slide.current.offsetWidth * activeSlide);
-      console.log(slideTranslate);
     };
     handleResize();
     document.addEventListener("resize", handleResize);
@@ -63,15 +89,42 @@ export const ServicesSlider = () => {
     setIsDelay(true);
     setTimeout(() => {
       setIsDelay(false);
-    }, 1000);
+    }, 800);
   };
-  const handleNextSlider = () => {
+  const handleNextSlide = () => {
     handleDelay();
-    setActiveSlide((prev) => prev + 1);
+
+    if (countSlides > activeSlide) {
+      setActiveSlide((prev) => prev + 1);
+    } else {
+      setIsTransition(false);
+      setActiveSlide(0);
+      setTimeout(() => {
+        setIsTransition(true);
+        setActiveSlide((prev) => prev + 1);
+      }, 1);
+    }
+  };
+  const handlePrevSlide = () => {
+    handleDelay();
+    if (activeSlide > 0) {
+      setActiveSlide((prev) => prev - 1);
+    } else {
+      setIsTransition(false);
+      setActiveSlide(countSlides);
+      setTimeout(() => {
+        setIsTransition(true);
+        setActiveSlide((prev) => prev - 1);
+      }, 1);
+    }
   };
   return (
     <div className="services__slider">
-      <button className="services__slider__button left">
+      <button
+        disabled={isDelay}
+        onClick={handlePrevSlide}
+        className="services__slider__button left"
+      >
         <svg
           width="30px"
           height="30px"
@@ -94,6 +147,7 @@ export const ServicesSlider = () => {
           style={{
             position: "relative",
             left: "-" + slideTranslate + "px",
+            transition: isTransition ? "all .3s" : "none",
           }}
         >
           {sliderElements.map((el) => (
@@ -114,7 +168,7 @@ export const ServicesSlider = () => {
       </div>
       <button
         disabled={isDelay}
-        onClick={handleNextSlider}
+        onClick={handleNextSlide}
         className="services__slider__button right"
       >
         <svg
@@ -130,6 +184,7 @@ export const ServicesSlider = () => {
           />
         </svg>
       </button>
+      
     </div>
   );
 };

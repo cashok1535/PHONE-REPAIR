@@ -6,6 +6,7 @@ import { WhatWeRepair } from "./WhatWeRepair";
 import { Achivments } from "./Achivments";
 import { HowWeWork } from "./HowWeWork";
 import { Services } from "./Services";
+import { CTA } from "./CTA";
 export const Main = () => {
   return (
     <main className="main">
@@ -19,6 +20,7 @@ export const Main = () => {
       <Achivments />
       <HowWeWork />
       <Services />
+      <CTA />
     </main>
   );
 };
