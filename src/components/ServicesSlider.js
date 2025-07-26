@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import sliderImg1 from "../img/servicesSlider1.webp";
 import sliderImg2 from "../img/servicesSlider2.webp";
 import sliderImg3 from "../img/servicesSlider3.webp";
@@ -69,10 +69,49 @@ export const ServicesSlider = () => {
   const [isDelay, setIsDelay] = useState(false);
   const [slideTranslate, setSlideTranslate] = useState(0);
   const [isTransition, setIsTransition] = useState(true);
+  const [isDragSlider, setIsDragSlider] = useState(false);
+  const [sliderPosition, setSliderPosition] = useState({ x: 0 });
   const slide = useRef(null);
+  const overflowSliderRef = useRef(null);
+  const mouseRef = useRef({ x: 0 });
   const countSlides = useMemo(() => {
     return sliderElements.length - 3;
   }, []);
+  const handleMouseDown = (e) => {
+    setIsDragSlider(true);
+    e.preventDefault();
+    setIsTransition(false);
+    mouseRef.current = { x: e.clientX };
+  };
+  const handleMouseUp = useCallback(
+    (e) => {
+      setIsDragSlider(false);
+      setIsTransition(true);
+      setActiveSlide((prev) => {
+        if (e.clientX - mouseRef.current.x > slideTranslate) {
+          return prev + 1;
+        } else if (e.clientX - mouseRef.current.x < slideTranslate) {
+          return prev - 1;
+        } else return prev;
+      });
+      setSliderPosition(slideTranslate);
+    },
+    [slideTranslate]
+  );
+
+  const handleMouseMove = useCallback((e) => {
+    setSliderPosition(e.clientX - mouseRef.current.x);
+  }, []);
+
+  useEffect(() => {
+    if (slide && isDragSlider) {
+      document.body.addEventListener("mousemove", handleMouseMove);
+      document.body.addEventListener("mouseup", handleMouseUp);
+    } else {
+      document.body.removeEventListener("mousemove", handleMouseMove);
+      document.body.removeEventListener("mouseup", handleMouseUp);
+    }
+  }, [slide, isDragSlider, handleMouseMove, handleMouseUp]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -93,7 +132,6 @@ export const ServicesSlider = () => {
   };
   const handleNextSlide = () => {
     handleDelay();
-
     if (countSlides > activeSlide) {
       setActiveSlide((prev) => prev + 1);
     } else {
@@ -141,12 +179,13 @@ export const ServicesSlider = () => {
           />
         </svg>
       </button>
-      <div className="services__slider__overflow">
+      <div ref={overflowSliderRef} className="services__slider__overflow">
         <div
           className="slider"
+          onMouseDown={handleMouseDown}
           style={{
             position: "relative",
-            left: "-" + slideTranslate + "px",
+            left: sliderPosition + "px",
             transition: isTransition ? "all .3s" : "none",
           }}
         >
@@ -184,7 +223,6 @@ export const ServicesSlider = () => {
           />
         </svg>
       </button>
-      
     </div>
   );
 };
