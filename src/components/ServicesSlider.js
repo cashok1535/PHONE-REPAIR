@@ -87,21 +87,29 @@ export const ServicesSlider = () => {
     (e) => {
       setIsDragSlider(false);
       setIsTransition(true);
-      setActiveSlide((prev) => {
-        if (e.clientX - mouseRef.current.x > slideTranslate) {
-          return prev + 1;
-        } else if (e.clientX - mouseRef.current.x < slideTranslate) {
-          return prev - 1;
-        } else return prev;
-      });
-      setSliderPosition(slideTranslate);
+      // setActiveSlide((prev) => {
+      //   if (e.clientX - mouseRef.current.x > slideTranslate && prev > 0) {
+      //     return prev - 1;
+      //   } else if (
+      //     e.clientX - mouseRef.current.x < slideTranslate &&
+      //     prev < countSlides
+      //   ) {
+      //     return prev + 1;
+      //   } else return prev;
+      // });
+    },
+
+    [slideTranslate, countSlides]
+  );
+  console.log(activeSlide);
+
+  const handleMouseMove = useCallback(
+    (e) => {
+      let dx = e.clientX - mouseRef.current.x;
+      setSliderPosition(slideTranslate - dx);
     },
     [slideTranslate]
   );
-
-  const handleMouseMove = useCallback((e) => {
-    setSliderPosition(e.clientX - mouseRef.current.x);
-  }, []);
 
   useEffect(() => {
     if (slide && isDragSlider) {
@@ -185,7 +193,7 @@ export const ServicesSlider = () => {
           onMouseDown={handleMouseDown}
           style={{
             position: "relative",
-            left: sliderPosition + "px",
+            left: "-" + (isDragSlider ? sliderPosition : slideTranslate) + "px",
             transition: isTransition ? "all .3s" : "none",
           }}
         >
