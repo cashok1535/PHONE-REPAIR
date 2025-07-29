@@ -70,10 +70,11 @@ export const ServicesSlider = () => {
   const [slideTranslate, setSlideTranslate] = useState(0);
   const [isTransition, setIsTransition] = useState(true);
   const [isDragSlider, setIsDragSlider] = useState(false);
+  const [isMouseOnSlider, setIsMouseOnSlider] = useState(false);
   const [sliderPosition, setSliderPosition] = useState({ x: 0 });
   const slide = useRef(null);
   const overflowSliderRef = useRef(null);
-  const mouseRef = useRef({ x: 0 });
+  const mouseRef = useRef({ x: null });
   const countSlides = useMemo(() => {
     return sliderElements.length - 3;
   }, []);
@@ -87,30 +88,38 @@ export const ServicesSlider = () => {
     (e) => {
       setIsDragSlider(false);
       setIsTransition(true);
-      // setActiveSlide((prev) => {
-      //   if (e.clientX - mouseRef.current.x > slideTranslate && prev > 0) {
-      //     return prev - 1;
-      //   } else if (
-      //     e.clientX - mouseRef.current.x < slideTranslate &&
-      //     prev < countSlides
-      //   ) {
-      //     return prev + 1;
-      //   } else return prev;
-      // });
+      setSliderPosition(slideTranslate);
+      setActiveSlide((prev) => {
+        if (e.clientX - mouseRef.current.x > slideTranslate && prev > 0) {
+          return prev - 1;
+        } else if (
+          e.clientX - mouseRef.current.x < slideTranslate &&
+          prev < countSlides
+        ) {
+          return prev + 1;
+        } else return prev;
+      });
     },
-
     [slideTranslate, countSlides]
   );
-  console.log(activeSlide);
-
   const handleMouseMove = useCallback(
     (e) => {
+      const sliderPositionOnWrapper =
+        overflowSliderRef.current.getBoundingClientRect();
+
+      setIsMouseOnSlider(
+        e.clientX > sliderPositionOnWrapper.left &&
+          e.clientY > sliderPositionOnWrapper.top &&
+          e.clientX < sliderPositionOnWrapper.right &&
+          e.clientY < sliderPositionOnWrapper.bottom
+      );
+      console.log(e.clientX < sliderPositionOnWrapper.left);
+
       let dx = e.clientX - mouseRef.current.x;
       setSliderPosition(slideTranslate - dx);
     },
     [slideTranslate]
   );
-
   useEffect(() => {
     if (slide && isDragSlider) {
       document.body.addEventListener("mousemove", handleMouseMove);
@@ -119,6 +128,10 @@ export const ServicesSlider = () => {
       document.body.removeEventListener("mousemove", handleMouseMove);
       document.body.removeEventListener("mouseup", handleMouseUp);
     }
+    return () => {
+      document.body.removeEventListener("mousemove", handleMouseMove);
+      document.body.removeEventListener("mouseup", handleMouseUp);
+    };
   }, [slide, isDragSlider, handleMouseMove, handleMouseUp]);
 
   useEffect(() => {
@@ -164,6 +177,9 @@ export const ServicesSlider = () => {
       }, 1);
     }
   };
+
+  console.log(isMouseOnSlider);
+
   return (
     <div className="services__slider">
       <button
@@ -193,7 +209,12 @@ export const ServicesSlider = () => {
           onMouseDown={handleMouseDown}
           style={{
             position: "relative",
-            left: "-" + (isDragSlider ? sliderPosition : slideTranslate) + "px",
+            left:
+              "-" +
+              (isDragSlider && isMouseOnSlider
+                ? sliderPosition
+                : slideTranslate) +
+              "px",
             transition: isTransition ? "all .3s" : "none",
           }}
         >
