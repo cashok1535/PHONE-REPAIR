@@ -89,37 +89,38 @@ export const ServicesSlider = () => {
       setIsDragSlider(false);
       setIsTransition(true);
       setSliderPosition(slideTranslate);
-      setActiveSlide((prev) => {
-        if (e.clientX - mouseRef.current.x > slideTranslate && prev > 0) {
-          return prev - 1;
-        } else if (
-          e.clientX - mouseRef.current.x < slideTranslate &&
-          prev < countSlides
-        ) {
-          return prev + 1;
-        } else return prev;
-      });
+      if (isMouseOnSlider) {
+        setActiveSlide((prev) => {
+          if (e.clientX - mouseRef.current.x > 0) {
+            return prev - 1;
+          } else if (e.clientX - mouseRef.current.x < 0) {
+            return prev + 1;
+          } else return prev;
+        });
+      }
     },
-    [slideTranslate, countSlides]
+    [slideTranslate, isMouseOnSlider]
   );
   const handleMouseMove = useCallback(
     (e) => {
       const sliderPositionOnWrapper =
         overflowSliderRef.current.getBoundingClientRect();
-
       setIsMouseOnSlider(
         e.clientX > sliderPositionOnWrapper.left &&
           e.clientY > sliderPositionOnWrapper.top &&
           e.clientX < sliderPositionOnWrapper.right &&
           e.clientY < sliderPositionOnWrapper.bottom
       );
-      console.log(e.clientX < sliderPositionOnWrapper.left);
-
       let dx = e.clientX - mouseRef.current.x;
+      if (!(isDragSlider && isMouseOnSlider)) {
+        dx = 0;
+        setIsTransition(true);
+      }
       setSliderPosition(slideTranslate - dx);
     },
-    [slideTranslate]
+    [slideTranslate, isDragSlider, isMouseOnSlider]
   );
+
   useEffect(() => {
     if (slide && isDragSlider) {
       document.body.addEventListener("mousemove", handleMouseMove);
@@ -161,9 +162,10 @@ export const ServicesSlider = () => {
       setTimeout(() => {
         setIsTransition(true);
         setActiveSlide((prev) => prev + 1);
-      }, 1);
+      }, 100);
     }
   };
+
   const handlePrevSlide = () => {
     handleDelay();
     if (activeSlide > 0) {
@@ -174,11 +176,13 @@ export const ServicesSlider = () => {
       setTimeout(() => {
         setIsTransition(true);
         setActiveSlide((prev) => prev - 1);
-      }, 1);
+      }, 100);
     }
   };
 
-  console.log(isMouseOnSlider);
+  useEffect(() => {
+    setSliderPosition(slideTranslate);
+  }, [slideTranslate]);
 
   return (
     <div className="services__slider">
@@ -209,12 +213,7 @@ export const ServicesSlider = () => {
           onMouseDown={handleMouseDown}
           style={{
             position: "relative",
-            left:
-              "-" +
-              (isDragSlider && isMouseOnSlider
-                ? sliderPosition
-                : slideTranslate) +
-              "px",
+            left: "-" + sliderPosition + "px",
             transition: isTransition ? "all .3s" : "none",
           }}
         >
