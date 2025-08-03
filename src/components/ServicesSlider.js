@@ -103,6 +103,7 @@ export const ServicesSlider = () => {
   );
   const handleMouseMove = useCallback(
     (e) => {
+      setIsTransition(false);
       const sliderPositionOnWrapper =
         overflowSliderRef.current.getBoundingClientRect();
       setIsMouseOnSlider(

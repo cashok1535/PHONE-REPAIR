@@ -7,6 +7,7 @@ import { Achivments } from "./Achivments";
 import { HowWeWork } from "./HowWeWork";
 import { Services } from "./Services";
 import { CTA } from "./CTA";
+import { CallUs } from "./CallUs";
 export const Main = () => {
   return (
     <main className="main">
@@ -21,6 +22,7 @@ export const Main = () => {
       <HowWeWork />
       <Services />
       <CTA />
+      <CallUs />
     </main>
   );
 };
