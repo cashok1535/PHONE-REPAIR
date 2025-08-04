@@ -75,8 +75,13 @@ export const ServicesSlider = () => {
   const slide = useRef(null);
   const overflowSliderRef = useRef(null);
   const mouseRef = useRef({ x: null });
+  const sliderRect = useRef(null);
   const countSlides = useMemo(() => {
     return sliderElements.length - 3;
+  }, []);
+
+  useEffect(() => {
+    sliderRect.current = overflowSliderRef.current.getBoundingClientRect();
   }, []);
   const handleMouseDown = (e) => {
     setIsDragSlider(true);
@@ -104,13 +109,11 @@ export const ServicesSlider = () => {
   const handleMouseMove = useCallback(
     (e) => {
       setIsTransition(false);
-      const sliderPositionOnWrapper =
-        overflowSliderRef.current.getBoundingClientRect();
       setIsMouseOnSlider(
-        e.clientX > sliderPositionOnWrapper.left &&
-          e.clientY > sliderPositionOnWrapper.top &&
-          e.clientX < sliderPositionOnWrapper.right &&
-          e.clientY < sliderPositionOnWrapper.bottom
+        e.clientX > sliderRect.current.left &&
+          e.clientY > sliderRect.current.top &&
+          e.clientX < sliderRect.current.right &&
+          e.clientY < sliderRect.current.bottom
       );
       let dx = e.clientX - mouseRef.current.x;
       if (!(isDragSlider && isMouseOnSlider)) {

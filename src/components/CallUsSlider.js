@@ -1,7 +1,7 @@
 import welsh from "../img/welsh.webp";
 import peterson from "../img/peterson..webp";
 import tovoli from "../img/tovoli.webp";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const slides = [
   {
@@ -42,12 +42,46 @@ export const CallUsSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isTransition, setIsTransition] = useState(true);
   const [sliderTranslate, setSliderTranslate] = useState(0);
+  const [sliderPosition, setSliderPosition] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const sliderRef = useRef(null);
+  const mousePosition = useRef({ x: null });
+  const sliderRect = useRef(null);
+  const isDragRef = useRef(false);
 
   const countSlides = useMemo(() => {
     return slides.length - 1;
   }, []);
+
+  useEffect(() => {
+    sliderRect.current = sliderRef.current.getBoundingClientRect();
+  }, []);
+
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    isDragRef.current = true;
+    mousePosition.current = { x: e.clientX };
+  };
+
+  const handleMouseMove = useCallback(
+    (e) => {
+      if (isDragRef.current) {
+        setIsTransition(false);
+        const dx = mousePosition.current.x - e.clientX;
+        setSliderPosition(sliderTranslate + dx);
+      } else {
+        setIsTransition(true);
+        setSliderPosition(sliderTranslate);
+      }
+    },
+    [sliderTranslate]
+  );
+
+  const handleMouseUp = useCallback(() => {
+    isDragRef.current = false;
+    setIsTransition(true);
+    setSliderPosition(sliderTranslate);
+  }, [sliderTranslate]);
 
   const buttonDisabled = () => {
     setIsButtonDisabled(true);
@@ -85,6 +119,20 @@ export const CallUsSlider = () => {
   };
 
   useEffect(() => {
+    setSliderPosition(sliderTranslate);
+  }, [sliderTranslate]);
+
+  useEffect(() => {
+    if (isDragRef.current) {
+      sliderRef.current.addEventListener("mousemove", handleMouseMove);
+      sliderRef.current.addEventListener("mouseup", handleMouseUp);
+    } else {
+      sliderRef.current.removeEventListener("mousemove", handleMouseMove);
+      sliderRef.current.removeEventListener("mouseup", handleMouseUp);
+    }
+  }, [handleMouseMove, handleMouseUp]);
+
+  useEffect(() => {
     const handleResize = () => {
       setSliderTranslate(activeSlide * sliderRef.current.offsetWidth);
     };
@@ -118,11 +166,15 @@ export const CallUsSlider = () => {
           />
         </svg>
       </button>
-      <div ref={sliderRef} className="call__us__slider__parrent">
+      <div
+        ref={sliderRef}
+        onMouseDown={handleMouseDown}
+        className="call__us__slider__parrent"
+      >
         <div
           style={{
             position: "relative",
-            left: "-" + sliderTranslate + "px",
+            left: "-" + sliderPosition + "px",
             transition: isTransition ? "all .5s" : "none",
           }}
           className="call__us__slider"
