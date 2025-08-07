@@ -71,6 +71,7 @@ export const ServicesSlider = () => {
   const [isTransition, setIsTransition] = useState(true);
   const [isDragSlider, setIsDragSlider] = useState(false);
   const [sliderPosition, setSliderPosition] = useState({ x: 0 });
+  const [sliderPositionOnWindow, setSliderPositionOnWindow] = useState({});
   const slide = useRef(null);
   const overflowSliderRef = useRef(null);
   const mouseRef = useRef({ x: null });
@@ -81,6 +82,23 @@ export const ServicesSlider = () => {
 
   useEffect(() => {
     sliderRect.current = overflowSliderRef.current.getBoundingClientRect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (overflowSliderRef.current) {
+        setSliderPositionOnWindow({
+          top: overflowSliderRef.current.getBoundingClientRect().top,
+          left: overflowSliderRef.current.getBoundingClientRect().left,
+          bottom: overflowSliderRef.current.getBoundingClientRect().bottom,
+          right: overflowSliderRef.current.getBoundingClientRect().right,
+        });
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleMouseDown = (e) => {
