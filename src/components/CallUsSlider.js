@@ -40,6 +40,7 @@ const slides = [
 
 export const CallUsSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isDragSlider, setIsDragSlider] = useState(false);
   const [isTransition, setIsTransition] = useState(true);
   const [sliderTranslate, setSliderTranslate] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(0);
@@ -47,7 +48,6 @@ export const CallUsSlider = () => {
   const sliderRef = useRef(null);
   const mousePosition = useRef({ x: null });
   const sliderRect = useRef(null);
-  const isDragRef = useRef(false);
 
   const countSlides = useMemo(() => {
     return slides.length - 1;
@@ -58,30 +58,52 @@ export const CallUsSlider = () => {
   }, []);
 
   const handleMouseDown = (e) => {
+    setIsDragSlider(true);
     e.preventDefault();
-    isDragRef.current = true;
+    setIsTransition(false);
     mousePosition.current = { x: e.clientX };
   };
 
   const handleMouseMove = useCallback(
     (e) => {
-      if (isDragRef.current) {
-        setIsTransition(false);
-        const dx = mousePosition.current.x - e.clientX;
-        setSliderPosition(sliderTranslate + dx);
-      } else {
+      setIsTransition(false);
+      let dx = e.clientX - mousePosition.current.x;
+      if (
+        !(
+          isDragSlider &&
+          e.clientX > sliderRect.current.left &&
+          e.clientY > sliderRect.current.top &&
+          e.clientX < sliderRect.current.right &&
+          e.clientY < sliderRect.current.bottom
+        )
+      ) {
+        dx = 0;
         setIsTransition(true);
-        setSliderPosition(sliderTranslate);
       }
+      setSliderPosition(sliderTranslate - dx);
     },
-    [sliderTranslate]
+    [sliderTranslate, isDragSlider]
   );
 
-  const handleMouseUp = useCallback(() => {
-    isDragRef.current = false;
-    setIsTransition(true);
-    setSliderPosition(sliderTranslate);
-  }, [sliderTranslate]);
+  ///fix
+
+  const handleMouseUp = useCallback(
+    (e) => {      
+      setIsDragSlider(false);
+      setIsTransition(true);
+      setSliderPosition(sliderTranslate);
+      if (isDragSlider) {
+        setActiveSlide((prev) => {
+          if (e.clientX - mousePosition.current.x > 0) {
+            return prev - 1;
+          } else if (e.clientX - mousePosition.current.x < 0) {
+            return prev + 1;
+          } else return prev;
+        });
+      }
+    },
+    [sliderTranslate, isDragSlider]
+  );
 
   const buttonDisabled = () => {
     setIsButtonDisabled(true);
@@ -123,14 +145,14 @@ export const CallUsSlider = () => {
   }, [sliderTranslate]);
 
   useEffect(() => {
-    if (isDragRef.current) {
+    if (sliderRef.current && sliderRef) {
       sliderRef.current.addEventListener("mousemove", handleMouseMove);
       sliderRef.current.addEventListener("mouseup", handleMouseUp);
     } else {
       sliderRef.current.removeEventListener("mousemove", handleMouseMove);
       sliderRef.current.removeEventListener("mouseup", handleMouseUp);
     }
-  }, [handleMouseMove, handleMouseUp]);
+  }, [handleMouseMove, handleMouseUp, isDragSlider]);
 
   useEffect(() => {
     const handleResize = () => {

@@ -67,10 +67,9 @@ const sliderElements = [
 export const ServicesSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isDelay, setIsDelay] = useState(false);
-  const [slideTranslate, setSlideTranslate] = useState(0);
+  const [sliderTranslate, setSliderTranslate] = useState(0);
   const [isTransition, setIsTransition] = useState(true);
   const [isDragSlider, setIsDragSlider] = useState(false);
-  const [isMouseOnSlider, setIsMouseOnSlider] = useState(false);
   const [sliderPosition, setSliderPosition] = useState({ x: 0 });
   const slide = useRef(null);
   const overflowSliderRef = useRef(null);
@@ -83,6 +82,7 @@ export const ServicesSlider = () => {
   useEffect(() => {
     sliderRect.current = overflowSliderRef.current.getBoundingClientRect();
   }, []);
+
   const handleMouseDown = (e) => {
     setIsDragSlider(true);
     e.preventDefault();
@@ -93,8 +93,8 @@ export const ServicesSlider = () => {
     (e) => {
       setIsDragSlider(false);
       setIsTransition(true);
-      setSliderPosition(slideTranslate);
-      if (isMouseOnSlider) {
+      setSliderPosition(sliderTranslate);
+      if (isDragSlider) {
         setActiveSlide((prev) => {
           if (e.clientX - mouseRef.current.x > 0) {
             return prev - 1;
@@ -104,29 +104,31 @@ export const ServicesSlider = () => {
         });
       }
     },
-    [slideTranslate, isMouseOnSlider]
+    [sliderTranslate, isDragSlider]
   );
   const handleMouseMove = useCallback(
     (e) => {
       setIsTransition(false);
-      setIsMouseOnSlider(
-        e.clientX > sliderRect.current.left &&
+      let dx = e.clientX - mouseRef.current.x;
+      if (
+        !(
+          isDragSlider &&
+          e.clientX > sliderRect.current.left &&
           e.clientY > sliderRect.current.top &&
           e.clientX < sliderRect.current.right &&
           e.clientY < sliderRect.current.bottom
-      );
-      let dx = e.clientX - mouseRef.current.x;
-      if (!(isDragSlider && isMouseOnSlider)) {
+        )
+      ) {
         dx = 0;
+        setIsDragSlider(false);
         setIsTransition(true);
       }
-      setSliderPosition(slideTranslate - dx);
+      setSliderPosition(sliderTranslate - dx);
     },
-    [slideTranslate, isDragSlider, isMouseOnSlider]
+    [sliderTranslate, isDragSlider]
   );
-
   useEffect(() => {
-    if (slide && isDragSlider) {
+    if (slide.current && isDragSlider) {
       document.body.addEventListener("mousemove", handleMouseMove);
       document.body.addEventListener("mouseup", handleMouseUp);
     } else {
@@ -141,7 +143,7 @@ export const ServicesSlider = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setSlideTranslate(slide.current.offsetWidth * activeSlide);
+      setSliderTranslate(slide.current.offsetWidth * activeSlide);
     };
     handleResize();
     document.addEventListener("resize", handleResize);
@@ -185,8 +187,8 @@ export const ServicesSlider = () => {
   };
 
   useEffect(() => {
-    setSliderPosition(slideTranslate);
-  }, [slideTranslate]);
+    setSliderPosition(sliderTranslate);
+  }, [sliderTranslate]);
 
   return (
     <div className="services__slider">
