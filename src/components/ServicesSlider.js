@@ -131,10 +131,10 @@ export const ServicesSlider = () => {
       if (
         !(
           isDragSlider &&
-          e.clientX > sliderRect.current.left &&
-          e.clientY > sliderRect.current.top &&
-          e.clientX < sliderRect.current.right &&
-          e.clientY < sliderRect.current.bottom
+          e.clientX > sliderPositionOnWindow.left &&
+          e.clientY > sliderPositionOnWindow.top &&
+          e.clientX < sliderPositionOnWindow.right &&
+          e.clientY < sliderPositionOnWindow.bottom
         )
       ) {
         dx = 0;
@@ -143,7 +143,7 @@ export const ServicesSlider = () => {
       }
       setSliderPosition(sliderTranslate - dx);
     },
-    [sliderTranslate, isDragSlider]
+    [sliderTranslate, isDragSlider, sliderPositionOnWindow]
   );
   useEffect(() => {
     if (slide.current && isDragSlider) {
