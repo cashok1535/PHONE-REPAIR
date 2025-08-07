@@ -1,17 +1,9 @@
-import {
-  useEffect,
-  useState,
-  useRef,
-  useMemo,
-  useCallback,
-  useContext,
-} from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import sliderImg1 from "../img/servicesSlider1.webp";
 import sliderImg2 from "../img/servicesSlider2.webp";
 import sliderImg3 from "../img/servicesSlider3.webp";
 import sliderImg4 from "../img/servicesSlider4.webp";
 import sliderImg5 from "../img/servicesSlider5.webp";
-import { SliderContext } from "./SliderContext";
 
 const sliderElements = [
   {
@@ -73,23 +65,40 @@ const sliderElements = [
 ];
 
 export const ServicesSlider = () => {
-  const { sliderPositionOnWindow, handleRef } = useContext(SliderContext);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isDelay, setIsDelay] = useState(false);
   const [sliderTranslate, setSliderTranslate] = useState(0);
   const [isTransition, setIsTransition] = useState(true);
   const [isDragSlider, setIsDragSlider] = useState(false);
   const [sliderPosition, setSliderPosition] = useState({ x: 0 });
+  const [sliderPositionOnWindow, setSliderPositionOnWindow] = useState({});
   const slide = useRef(null);
   const overflowSliderRef = useRef(null);
   const mouseRef = useRef({ x: null });
-
-  useEffect(() => {
-    handleRef(overflowSliderRef);
-  }, [handleRef]);
-
+  const sliderRect = useRef(null);
   const countSlides = useMemo(() => {
     return sliderElements.length - 3;
+  }, []);
+
+  useEffect(() => {
+    sliderRect.current = overflowSliderRef.current.getBoundingClientRect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (overflowSliderRef.current) {
+        setSliderPositionOnWindow({
+          top: overflowSliderRef.current.getBoundingClientRect().top,
+          left: overflowSliderRef.current.getBoundingClientRect().left,
+          bottom: overflowSliderRef.current.getBoundingClientRect().bottom,
+          right: overflowSliderRef.current.getBoundingClientRect().right,
+        });
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleMouseDown = (e) => {
