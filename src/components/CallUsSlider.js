@@ -56,6 +56,7 @@ export const CallUsSlider = () => {
   useEffect(() => {
     sliderRect.current = sliderRef.current.getBoundingClientRect();
   }, []);
+
   const handleMouseDown = (e) => {
     setIsDragSlider(true);
     e.preventDefault();
@@ -84,13 +85,24 @@ export const CallUsSlider = () => {
     [sliderTranslate, isDragSlider]
   );
 
+  ///fix
+
   const handleMouseUp = useCallback(
-    (e) => {
+    (e) => {      
       setIsDragSlider(false);
       setIsTransition(true);
       setSliderPosition(sliderTranslate);
+      if (isDragSlider) {
+        setActiveSlide((prev) => {
+          if (e.clientX - mousePosition.current.x > 0) {
+            return prev - 1;
+          } else if (e.clientX - mousePosition.current.x < 0) {
+            return prev + 1;
+          } else return prev;
+        });
+      }
     },
-    [sliderTranslate]
+    [sliderTranslate, isDragSlider]
   );
 
   const buttonDisabled = () => {

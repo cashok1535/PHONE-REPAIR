@@ -1,17 +1,9 @@
-import {
-  useEffect,
-  useState,
-  useRef,
-  useMemo,
-  useCallback,
-  useContext,
-} from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import sliderImg1 from "../img/servicesSlider1.webp";
 import sliderImg2 from "../img/servicesSlider2.webp";
 import sliderImg3 from "../img/servicesSlider3.webp";
 import sliderImg4 from "../img/servicesSlider4.webp";
 import sliderImg5 from "../img/servicesSlider5.webp";
-import { SliderContext } from "./SliderContext";
 
 const sliderElements = [
   {
@@ -73,7 +65,6 @@ const sliderElements = [
 ];
 
 export const ServicesSlider = () => {
-  const { sliderPositionOnWindow, handleRef } = useContext(SliderContext);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isDelay, setIsDelay] = useState(false);
   const [sliderTranslate, setSliderTranslate] = useState(0);
@@ -83,13 +74,13 @@ export const ServicesSlider = () => {
   const slide = useRef(null);
   const overflowSliderRef = useRef(null);
   const mouseRef = useRef({ x: null });
-
-  useEffect(() => {
-    handleRef(overflowSliderRef);
-  }, [handleRef]);
-
+  const sliderRect = useRef(null);
   const countSlides = useMemo(() => {
     return sliderElements.length - 3;
+  }, []);
+
+  useEffect(() => {
+    sliderRect.current = overflowSliderRef.current.getBoundingClientRect();
   }, []);
 
   const handleMouseDown = (e) => {
@@ -122,10 +113,10 @@ export const ServicesSlider = () => {
       if (
         !(
           isDragSlider &&
-          e.clientX > sliderPositionOnWindow.left &&
-          e.clientY > sliderPositionOnWindow.top &&
-          e.clientX < sliderPositionOnWindow.right &&
-          e.clientY < sliderPositionOnWindow.bottom
+          e.clientX > sliderRect.current.left &&
+          e.clientY > sliderRect.current.top &&
+          e.clientX < sliderRect.current.right &&
+          e.clientY < sliderRect.current.bottom
         )
       ) {
         dx = 0;
@@ -134,7 +125,7 @@ export const ServicesSlider = () => {
       }
       setSliderPosition(sliderTranslate - dx);
     },
-    [sliderTranslate, isDragSlider, sliderPositionOnWindow]
+    [sliderTranslate, isDragSlider]
   );
   useEffect(() => {
     if (slide.current && isDragSlider) {
