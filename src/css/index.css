@@ -63,7 +63,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover>svg {
+.link__social:hover > svg {
   fill: #ff6534;
 }
 
@@ -390,7 +390,7 @@ li {
   font-family: "Lato_Bold", sans-serif;
   font-size: 15px;
   cursor: pointer;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .about__us__section__button svg {
@@ -400,7 +400,6 @@ li {
   margin-left: 5px;
 }
 
-
 .about__us__section__button:hover {
   background-color: #000;
 }
@@ -409,14 +408,11 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
-
 
 .what__we__repair__img {
   min-height: 337px;
   width: 510px;
-
 }
 
 .hardware {
@@ -429,8 +425,8 @@ li {
   background-size: cover;
 }
 
-
-.hardware__repair, .screen__replasment {
+.hardware__repair,
+.screen__replasment {
   display: flex;
   align-items: center;
 }
@@ -443,14 +439,16 @@ li {
   background: #181818;
 }
 
-.screen__replasment__info, .hardware__repair__info {
+.screen__replasment__info,
+.hardware__repair__info {
   padding: 0 60px;
   max-width: 511px;
   box-sizing: border-box;
   width: 100%;
 }
 
-.hardware__repair__info__title, .screen__replasment__info__title {
+.hardware__repair__info__title,
+.screen__replasment__info__title {
   font-family: "Questrial", sans-serif;
   font-size: 24px;
   font-weight: bold;
@@ -464,7 +462,8 @@ li {
   color: #fff;
 }
 
-.hardware__repair__info__text, .screen__replasment__info__text {
+.hardware__repair__info__text,
+.screen__replasment__info__text {
   margin-top: 20px;
   font-size: 17px;
   line-height: 1.5;
@@ -479,7 +478,8 @@ li {
   color: #fff;
 }
 
-.hardware__repair__info__text__little, .screen__replasment__info__text__little {
+.hardware__repair__info__text__little,
+.screen__replasment__info__text__little {
   font-size: 15px;
   line-height: 1.5;
   font-family: "Lato_Regular", sans-serif;
@@ -496,7 +496,8 @@ li {
   color: #e1e1e1;
 }
 
-.screen__replasment__info__text__little::before, .hardware__repair__info__text__little::before {
+.screen__replasment__info__text__little::before,
+.hardware__repair__info__text__little::before {
   content: "";
   width: 7px;
   height: 7px;
@@ -617,8 +618,9 @@ li {
   font-weight: bold;
 }
 
-.step__info, .step__svg {
-  margin: calc(30px/4);
+.step__info,
+.step__svg {
+  margin: calc(30px / 4);
 }
 
 .step__number {
@@ -848,7 +850,6 @@ li {
   max-width: 1170px;
   width: 100%;
   overflow: hidden;
-
 }
 
 .call__us__slider__text {
@@ -864,7 +865,6 @@ li {
   font-weight: bold;
   width: max-content;
   margin-top: 20px;
-
 }
 
 .call__us__slider__flex__element__text {
@@ -879,13 +879,17 @@ li {
 }
 
 .call__us__slider__flex__element__img {
-  height: 416.98px;
-  width: 585px;
+  max-width: 585px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .call__us__slider__flex__element__img img {
-  width: 100%;
-  height: 100%;
+  height: 500px;
 }
 
 .call__us__slider__flex__element__name {

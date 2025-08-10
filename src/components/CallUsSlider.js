@@ -85,11 +85,13 @@ export const CallUsSlider = () => {
       setIsTransition(false);
       let dx = e.clientX - mousePosition.current.x;
       if (
-        isDragSlider &&
-        e.clientX > sliderRect.current.left &&
-        e.clientY > sliderRect.current.top &&
-        e.clientX < sliderRect.current.right &&
-        e.clientY < sliderRect.current.bottom
+        !(
+          isDragSlider &&
+          e.clientX > sliderRect.current.left &&
+          e.clientY > sliderRect.current.top &&
+          e.clientX < sliderRect.current.right &&
+          e.clientY < sliderRect.current.bottom
+        )
       ) {
         dx = 0;
         setIsTransition(true);
@@ -104,12 +106,25 @@ export const CallUsSlider = () => {
       setIsDragSlider(false);
       setIsTransition(true);
       setSliderPosition(sliderTranslate);
-      if (isDragSlider) {
+      if (
+        isDragSlider &&
+        e.clientX > sliderRect.current.left &&
+        e.clientY > sliderRect.current.top &&
+        e.clientX < sliderRect.current.right &&
+        e.clientY < sliderRect.current.bottom
+      ) {
         if (activeSlide < countSlides) {
           setActiveSlide((prev) => {
-            if (e.clientX - mousePosition.current.x > 0 && prev > 0) {
+            if (
+              e.clientX - mousePosition.current.x >
+                sliderRef.current.offsetWidth / 3 &&
+              prev > 0
+            ) {
               return prev - 1;
-            } else if (e.clientX - mousePosition.current.x < 0) {
+            } else if (
+              e.clientX - mousePosition.current.x <
+              -sliderRef.current.offsetWidth / 3
+            ) {
               return prev + 1;
             } else return prev;
           });
@@ -189,12 +204,14 @@ export const CallUsSlider = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setSliderTranslate(activeSlide * sliderRef.current.offsetWidth);
+      if (sliderRef.current) {
+        setSliderTranslate(activeSlide * sliderRef.current.offsetWidth);
+      }
     };
     handleResize();
-    document.body.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      document.body.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [activeSlide]);
 

@@ -7,57 +7,78 @@ import sliderImg5 from "../img/servicesSlider5.webp";
 
 const sliderElements = [
   {
-    subId: 1,
-    id: 1,
-    img: sliderImg1,
-    title: "Screen Replacement",
-    text: "Restore your device's visual clarity with our expert screen replacement service, ensuring a pristine display for uninterrupted usage.",
-  },
-  {
-    subId: 2,
-    id: 2,
-    img: sliderImg2,
-    title: "Battery Replacement",
-    text: "Say goodbye to dwindling battery life with our swift and efficient battery replacement service, rejuvenating your device's power.",
-  },
-  {
     subId: 3,
-    id: 3,
+    id: 1,
     img: sliderImg3,
     title: "Water Damage Restoration",
     text: "Trust our specialists to restore water-damaged devices to their optimal functionality, saving your gadgets from irreversible harm.",
   },
   {
     subId: 4,
-    id: 4,
+    id: 2,
     img: sliderImg4,
     title: "Charging Port Repairs",
     text: "Ensure seamless charging capabilities with our professional charging port repair service, resolving issues to keep your device powered up.",
   },
   {
     subId: 5,
-    id: 5,
+    id: 3,
     img: sliderImg5,
     title: "Software Issues",
     text: "Resolve frustrating software glitches and malfunctions with our comprehensive software issue diagnostics and repair.",
   },
   {
     subId: 1,
-    id: 6,
+    id: 4,
     img: sliderImg1,
     title: "Screen Replacement",
     text: "Restore your device's visual clarity with our expert screen replacement service, ensuring a pristine display for uninterrupted usage.",
   },
   {
     subId: 2,
-    id: 7,
+    id: 5,
     img: sliderImg2,
     title: "Battery Replacement",
     text: "Say goodbye to dwindling battery life with our swift and efficient battery replacement service, rejuvenating your device's power.",
   },
   {
     subId: 3,
+    id: 6,
+    img: sliderImg3,
+    title: "Water Damage Restoration",
+    text: "Trust our specialists to restore water-damaged devices to their optimal functionality, saving your gadgets from irreversible harm.",
+  },
+  {
+    subId: 4,
+    id: 7,
+    img: sliderImg4,
+    title: "Charging Port Repairs",
+    text: "Ensure seamless charging capabilities with our professional charging port repair service, resolving issues to keep your device powered up.",
+  },
+  {
+    subId: 5,
     id: 8,
+    img: sliderImg5,
+    title: "Software Issues",
+    text: "Resolve frustrating software glitches and malfunctions with our comprehensive software issue diagnostics and repair.",
+  },
+  {
+    subId: 1,
+    id: 9,
+    img: sliderImg1,
+    title: "Screen Replacement",
+    text: "Restore your device's visual clarity with our expert screen replacement service, ensuring a pristine display for uninterrupted usage.",
+  },
+  {
+    subId: 2,
+    id: 10,
+    img: sliderImg2,
+    title: "Battery Replacement",
+    text: "Say goodbye to dwindling battery life with our swift and efficient battery replacement service, rejuvenating your device's power.",
+  },
+  {
+    subId: 3,
+    id: 11,
     img: sliderImg3,
     title: "Water Damage Restoration",
     text: "Trust our specialists to restore water-damaged devices to their optimal functionality, saving your gadgets from irreversible harm.",
@@ -65,10 +86,10 @@ const sliderElements = [
 ];
 
 export const ServicesSlider = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(3);
   const [isDelay, setIsDelay] = useState(false);
   const [sliderTranslate, setSliderTranslate] = useState(0);
-  const [isTransition, setIsTransition] = useState(true);
+  const [isTransition, setIsTransition] = useState(false);
   const [isDragSlider, setIsDragSlider] = useState(false);
   const [sliderPosition, setSliderPosition] = useState({ x: 0 });
   const [sliderPositionOnWindow, setSliderPositionOnWindow] = useState({});
@@ -120,9 +141,20 @@ export const ServicesSlider = () => {
             return prev + 1;
           } else return prev;
         });
+        if (countSlides - 2 < activeSlide) {
+          setTimeout(() => {
+            setIsTransition(false);
+            setActiveSlide(3);
+          }, 300);
+        } else if (activeSlide < 3) {
+          setTimeout(() => {
+            setIsTransition(false);
+            setActiveSlide(countSlides - 2);
+          }, 300);
+        }
       }
     },
-    [sliderTranslate, isDragSlider]
+    [sliderTranslate, isDragSlider, activeSlide, countSlides]
   );
   const handleMouseMove = useCallback(
     (e) => {
@@ -172,17 +204,19 @@ export const ServicesSlider = () => {
 
   const handleDelay = () => {
     setIsDelay(true);
+    setIsTransition(true);
     setTimeout(() => {
       setIsDelay(false);
-    }, 800);
+    }, 400);
   };
+
   const handleNextSlide = () => {
     handleDelay();
-    if (countSlides > activeSlide) {
+    if (countSlides - 2 > activeSlide) {
       setActiveSlide((prev) => prev + 1);
     } else {
       setIsTransition(false);
-      setActiveSlide(0);
+      setActiveSlide(1);
       setTimeout(() => {
         setIsTransition(true);
         setActiveSlide((prev) => prev + 1);
@@ -192,7 +226,7 @@ export const ServicesSlider = () => {
 
   const handlePrevSlide = () => {
     handleDelay();
-    if (activeSlide > 0) {
+    if (activeSlide > 3) {
       setActiveSlide((prev) => prev - 1);
     } else {
       setIsTransition(false);
