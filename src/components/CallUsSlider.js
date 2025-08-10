@@ -6,22 +6,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 const slides = [
   {
     id: 1,
-    subId: 1,
-    title: '"TechPro Saved My Day!"',
-    text: '“TechPro is nothing short of amazing! My phone suffered water damage, and I was worried it was beyond repair. However, the professional team at TechPro worked their magic and restored my device to its former glory. They were efficient, communicative, and provided top-notch service."',
-    name: "AMANDA WELSH",
-    img: welsh,
-  },
-  {
-    id: 2,
-    subId: 2,
-    title: '"Amazing Service!"',
-    text: '“I was in a rush with a cracked screen, and TechPro truly saved me! Their quick repair service had my phone looking brand new in no time. The staff was incredibly friendly and knowledgeable, answering all my questions with patience. I highly recommend their services to anyone in need of reliable mobile repairs."',
-    name: "JACK PETERSON",
-    img: peterson,
-  },
-  {
-    id: 3,
     subId: 3,
     title: '"Five Stars Without a Doubt!"',
     text: `“I can't thank TechPro enough for their exceptional service! When my phone started acting up, I was worried about the potential costs of repairs. However, the free diagnostics put my mind at ease. They quickly identified the issue and provided a transparent breakdown of the repair process and costs involved."`,
@@ -29,19 +13,51 @@ const slides = [
     img: tovoli,
   },
   {
-    id: 4,
+    id: 2,
     subId: 1,
     title: '"TechPro Saved My Day!"',
     text: '“TechPro is nothing short of amazing! My phone suffered water damage, and I was worried it was beyond repair. However, the professional team at TechPro worked their magic and restored my device to its former glory. They were efficient, communicative, and provided top-notch service."',
     name: "AMANDA WELSH",
     img: welsh,
   },
+  {
+    id: 3,
+    subId: 2,
+    title: '"Amazing Service!"',
+    text: '“I was in a rush with a cracked screen, and TechPro truly saved me! Their quick repair service had my phone looking brand new in no time. The staff was incredibly friendly and knowledgeable, answering all my questions with patience. I highly recommend their services to anyone in need of reliable mobile repairs."',
+    name: "JACK PETERSON",
+    img: peterson,
+  },
+  {
+    id: 4,
+    subId: 3,
+    title: '"Five Stars Without a Doubt!"',
+    text: `“I can't thank TechPro enough for their exceptional service! When my phone started acting up, I was worried about the potential costs of repairs. However, the free diagnostics put my mind at ease. They quickly identified the issue and provided a transparent breakdown of the repair process and costs involved."`,
+    name: "SUSAN TIVOLI",
+    img: tovoli,
+  },
+  {
+    id: 5,
+    subId: 1,
+    title: '"TechPro Saved My Day!"',
+    text: '“TechPro is nothing short of amazing! My phone suffered water damage, and I was worried it was beyond repair. However, the professional team at TechPro worked their magic and restored my device to its former glory. They were efficient, communicative, and provided top-notch service."',
+    name: "AMANDA WELSH",
+    img: welsh,
+  },
+  {
+    id: 6,
+    subId: 2,
+    title: '"Amazing Service!"',
+    text: '“I was in a rush with a cracked screen, and TechPro truly saved me! Their quick repair service had my phone looking brand new in no time. The staff was incredibly friendly and knowledgeable, answering all my questions with patience. I highly recommend their services to anyone in need of reliable mobile repairs."',
+    name: "JACK PETERSON",
+    img: peterson,
+  },
 ];
 
 export const CallUsSlider = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(1);
   const [isDragSlider, setIsDragSlider] = useState(false);
-  const [isTransition, setIsTransition] = useState(true);
+  const [isTransition, setIsTransition] = useState(false);
   const [sliderTranslate, setSliderTranslate] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -69,13 +85,11 @@ export const CallUsSlider = () => {
       setIsTransition(false);
       let dx = e.clientX - mousePosition.current.x;
       if (
-        !(
-          isDragSlider &&
-          e.clientX > sliderRect.current.left &&
-          e.clientY > sliderRect.current.top &&
-          e.clientX < sliderRect.current.right &&
-          e.clientY < sliderRect.current.bottom
-        )
+        isDragSlider &&
+        e.clientX > sliderRect.current.left &&
+        e.clientY > sliderRect.current.top &&
+        e.clientX < sliderRect.current.right &&
+        e.clientY < sliderRect.current.bottom
       ) {
         dx = 0;
         setIsTransition(true);
@@ -85,27 +99,42 @@ export const CallUsSlider = () => {
     [sliderTranslate, isDragSlider]
   );
 
-  ///fix
-
   const handleMouseUp = useCallback(
-    (e) => {      
+    (e) => {
       setIsDragSlider(false);
       setIsTransition(true);
       setSliderPosition(sliderTranslate);
       if (isDragSlider) {
-        setActiveSlide((prev) => {
-          if (e.clientX - mousePosition.current.x > 0) {
-            return prev - 1;
-          } else if (e.clientX - mousePosition.current.x < 0) {
-            return prev + 1;
-          } else return prev;
-        });
+        if (activeSlide < countSlides) {
+          setActiveSlide((prev) => {
+            if (e.clientX - mousePosition.current.x > 0 && prev > 0) {
+              return prev - 1;
+            } else if (e.clientX - mousePosition.current.x < 0) {
+              return prev + 1;
+            } else return prev;
+          });
+        }
       }
     },
-    [sliderTranslate, isDragSlider]
+    [sliderTranslate, isDragSlider, activeSlide, countSlides]
   );
 
+  useEffect(() => {
+    if (activeSlide === countSlides) {
+      setTimeout(() => {
+        setIsTransition(false);
+        setActiveSlide(2);
+      }, 500);
+    } else if (activeSlide === 1) {
+      setTimeout(() => {
+        setIsTransition(false);
+        setActiveSlide(countSlides - 1);
+      }, 500);
+    }
+  }, [activeSlide, countSlides]);
+
   const buttonDisabled = () => {
+    setIsTransition(true);
     setIsButtonDisabled(true);
     setTimeout(() => {
       setIsButtonDisabled(false);
@@ -145,13 +174,17 @@ export const CallUsSlider = () => {
   }, [sliderTranslate]);
 
   useEffect(() => {
-    if (sliderRef.current && sliderRef) {
-      sliderRef.current.addEventListener("mousemove", handleMouseMove);
-      sliderRef.current.addEventListener("mouseup", handleMouseUp);
+    if (sliderRef.current && isDragSlider) {
+      document.body.addEventListener("mousemove", handleMouseMove);
+      document.body.addEventListener("mouseup", handleMouseUp);
     } else {
-      sliderRef.current.removeEventListener("mousemove", handleMouseMove);
-      sliderRef.current.removeEventListener("mouseup", handleMouseUp);
+      document.body.removeEventListener("mousemove", handleMouseMove);
+      document.body.removeEventListener("mouseup", handleMouseUp);
     }
+    return () => {
+      document.body.removeEventListener("mousemove", handleMouseMove);
+      document.body.removeEventListener("mouseup", handleMouseUp);
+    };
   }, [handleMouseMove, handleMouseUp, isDragSlider]);
 
   useEffect(() => {
