@@ -8,6 +8,7 @@ import { HowWeWork } from "./HowWeWork";
 import { Services } from "./Services";
 import { CTA } from "./CTA";
 import { CallUs } from "./CallUs";
+import { FAQ } from "./FAQ";
 export const Main = () => {
   return (
     <main className="main">
@@ -23,6 +24,7 @@ export const Main = () => {
       <Services />
       <CTA />
       <CallUs />
+      <FAQ />
     </main>
   );
 };
