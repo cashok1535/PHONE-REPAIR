@@ -36,6 +36,10 @@ const questions = [
 
 export const FAQ = () => {
   const [activeQuestion, setActiveQuestion] = useState();
+
+  const handleActiveSlide = (el) => {
+    setActiveQuestion((prev) => (prev === el.id ? "" : el.id));
+  };
   return (
     <section className="faq">
       <div className="faq__flex__element">
@@ -52,10 +56,22 @@ export const FAQ = () => {
         </div>
         <div className="faq__questions__flex">
           {questions.map((el) => (
-            <div key={el.id} className="faq__question">
+            <div
+              key={el.id}
+              className={`faq__question ${
+                activeQuestion === el.id ? "active" : ""
+              }`}
+            >
               <div className="faq_interactive">
                 <div className="faq__question__text">{el.question}</div>
-                <button className="faq__question__button">
+                <button
+                  onClick={() => {
+                    handleActiveSlide(el);
+                  }}
+                  className={`faq__question__button ${
+                    activeQuestion === el.id ? "active" : ""
+                  }`}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="15"

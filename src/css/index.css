@@ -63,7 +63,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover>svg {
+.link__social:hover > svg {
   fill: #ff6534;
 }
 
@@ -934,7 +934,6 @@ li {
 .faq {
   background: #181818;
   display: flex;
-
 }
 
 .faq__flex__element {
@@ -951,8 +950,9 @@ li {
 }
 
 .faq__flex__element img {
-  height: 859px;
-  width: 1000px;
+  max-height: 1081px;
+  height: 100%;
+  width: 1500px;
 }
 
 .faq__questions__flex {
@@ -988,9 +988,16 @@ li {
   cursor: pointer;
 }
 
+.faq__question__button.active svg{
+  transform: rotate(180deg);
+}
+
 .faq__question__button svg {
   fill: #bdbdbd94;
-  transition: all .3s;
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  transition: all 0.3s;
 }
 
 .faq__question__button:hover svg {
@@ -998,9 +1005,10 @@ li {
 }
 
 .faq__question {
+  transition: all 0.3s;
   position: relative;
   border-bottom: 1px solid #ffffff38;
-  height: 71.9px;
+  max-height: 71.9px;
   overflow: hidden;
 }
 
@@ -1008,4 +1016,10 @@ li {
   font-size: 17px;
   color: #bdbdbd;
   line-height: 1.5;
+  padding-bottom: 20px;
+}
+
+.faq__question.active {
+  height: fit-content;
+  max-height: 200px;
 }
