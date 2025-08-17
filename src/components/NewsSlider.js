@@ -1,3 +1,5 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+
 const news = [
   {
     id: 1,
@@ -58,9 +60,69 @@ const news = [
 ];
 
 export const NewsSlider = () => {
+  const [activeSlide, setActiveSlide] = useState(1);
+  const [sliderTranslate, setSliderTranslate] = useState(0);
+  const [sliderPosition, setSliderPosition] = useState(0);
+  const [isDelay, setIsDelay] = useState(false);
+  const [isTransition, setIsTransition] = useState(false);
+  const mousePositionRef = useRef({ x: 0 });
+  const sliderRef = useRef(null);
+  const slideWidthRef = useRef(null);
+  const slidesCount = useMemo(() => {
+    return news.length - 3;
+  }, []);
+
+  useEffect(() => {
+    setSliderTranslate(activeSlide * slideWidthRef.current.offsetWidth);
+  }, [activeSlide]);
+
+  useEffect(() => {
+    setSliderPosition(sliderTranslate);
+  }, [sliderTranslate]);
+
+  const handleDelay = () => {
+    setIsTransition(true);
+    setIsDelay(true);
+    setTimeout(() => {
+      setIsDelay(false);
+    }, 400);
+  };
+
+  const handleNext = () => {
+    handleDelay();
+    if (activeSlide < slidesCount) {
+      setActiveSlide((prev) => prev + 1);
+    } else {
+      setIsTransition(false);
+      setActiveSlide(1);
+      setTimeout(() => {
+        setIsTransition(true);
+        setActiveSlide((prev) => prev + 1);
+      }, 20);
+    }
+  };
+
+  const handlePrev = () => {
+    handleDelay();
+    if (activeSlide > 1) {
+      setActiveSlide((prev) => prev - 1);
+    } else {
+      setIsTransition(false);
+      setActiveSlide(slidesCount);
+      setTimeout(() => {
+        setIsTransition(true);
+        setActiveSlide((prev) => prev - 1);
+      }, 20);
+    }
+  };
+
   return (
     <section className="news__parrent__slider">
-      <button className="services__slider__button news__button left">
+      <button
+        onClick={handlePrev}
+        disabled={isDelay}
+        className="services__slider__button news__button left"
+      >
         <svg
           width="30px"
           height="30px"
@@ -74,33 +136,50 @@ export const NewsSlider = () => {
           <path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" />
         </svg>
       </button>
-      <div className="news__slider">
-        {news.map((el) => (
-          <div key={el.id} className="news__slider__element">
-            <div className="news__slider__element__date">{el.date}</div>
-            <div className="news__slider__element__title">{el.title}</div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="31"
-              style={{ width: "100%" }}
+      <div ref={sliderRef} className="news__slider">
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            left: "-" + sliderPosition + "px",
+            transition: isTransition ? "all .3s" : "none",
+          }}
+        >
+          {news.map((el) => (
+            <div
+              ref={slideWidthRef}
+              key={el.id}
+              className="news__slider__element"
             >
-              <path
-                d="M0 15.5 L3000 15.5"
-                style={{
-                  fill: "none",
-                  stroke: "rgba(255, 255, 255, 0.4)",
-                  strokeWidth: "1px",
-                }}
-              ></path>
-            </svg>
-            <div className="news__slider__element__text">{el.text}</div>
-            <div className="news__slider__element__link">
-              <a href="#123">Read More</a>
+              <div className="news__slider__element__date">{el.date}</div>
+              <div className="news__slider__element__title">{el.title}</div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="31"
+                style={{ width: "100%" }}
+              >
+                <path
+                  d="M0 15.5 L3000 15.5"
+                  style={{
+                    fill: "none",
+                    stroke: "rgba(255, 255, 255, 0.4)",
+                    strokeWidth: "1px",
+                  }}
+                ></path>
+              </svg>
+              <div className="news__slider__element__text">{el.text}</div>
+              <div className="news__slider__element__link">
+                <a href="#123">Read More</a>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      <button className="services__slider__button news__button right">
+      <button
+        disabled={isDelay}
+        onClick={handleNext}
+        className="services__slider__button news__button right"
+      >
         <svg
           width="30px"
           height="30px"
