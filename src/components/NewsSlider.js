@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const news = [
   {
@@ -65,6 +65,7 @@ export const NewsSlider = () => {
   const [sliderPosition, setSliderPosition] = useState(0);
   const [isDelay, setIsDelay] = useState(false);
   const [isTransition, setIsTransition] = useState(false);
+  const [isDragSlider, setIsDragSlider] = useState(false);
   const mousePositionRef = useRef({ x: 0 });
   const sliderRef = useRef(null);
   const slideWidthRef = useRef(null);
@@ -116,6 +117,42 @@ export const NewsSlider = () => {
     }
   };
 
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    setIsDragSlider(true);
+    mousePositionRef.current.x = e.clientX;
+    setIsTransition(false);
+  };
+
+  const handleMouseMove = useCallback(
+    (e) => {
+      let dx = e.clientX - mousePositionRef.current.x;
+      if (!isDragSlider) {
+        dx = 0;
+      }
+      setSliderPosition(sliderTranslate - dx);
+    },
+    [isDragSlider, sliderTranslate]
+  );
+  const handleMouseUp = useCallback(() => {
+    setIsTransition(true);
+    setSliderPosition(sliderTranslate);
+    setIsDragSlider(false);
+  }, [sliderTranslate]);
+
+  useEffect(() => {
+    if (isDragSlider && sliderRef) {
+      document.body.addEventListener("mousemove", handleMouseMove);
+      document.body.addEventListener("mouseup", handleMouseUp);
+    } else {
+      document.body.removeEventListener("mousemove", handleMouseMove);
+      document.body.removeEventListener("mouseup", handleMouseUp);
+    }
+    return () => {
+      document.body.removeEventListener("mousemove", handleMouseMove);
+      document.body.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragSlider, handleMouseMove, handleMouseUp]);
   return (
     <section className="news__parrent__slider">
       <button
@@ -138,6 +175,7 @@ export const NewsSlider = () => {
       </button>
       <div ref={sliderRef} className="news__slider">
         <div
+          onMouseDown={handleMouseDown}
           style={{
             position: "relative",
             display: "flex",
