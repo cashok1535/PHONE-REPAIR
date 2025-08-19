@@ -96,13 +96,9 @@ export const ServicesSlider = () => {
   const slide = useRef(null);
   const overflowSliderRef = useRef(null);
   const mouseRef = useRef({ x: null });
-  const sliderRect = useRef(null);
+
   const countSlides = useMemo(() => {
     return sliderElements.length - 3;
-  }, []);
-
-  useEffect(() => {
-    sliderRect.current = overflowSliderRef.current.getBoundingClientRect();
   }, []);
 
   useEffect(() => {
@@ -135,9 +131,9 @@ export const ServicesSlider = () => {
       setSliderPosition(sliderTranslate);
       if (isDragSlider) {
         setActiveSlide((prev) => {
-          if (e.clientX - mouseRef.current.x > 0) {
+          if (e.clientX - mouseRef.current.x > 50) {
             return prev - 1;
-          } else if (e.clientX - mouseRef.current.x < 0) {
+          } else if (e.clientX - mouseRef.current.x < 50) {
             return prev + 1;
           } else return prev;
         });
@@ -158,7 +154,6 @@ export const ServicesSlider = () => {
   );
   const handleMouseMove = useCallback(
     (e) => {
-      setIsTransition(false);
       let dx = e.clientX - mouseRef.current.x;
       if (
         !(

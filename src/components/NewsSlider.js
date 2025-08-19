@@ -3,41 +3,48 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 const news = [
   {
     id: 1,
-    subId: 4,
-    date: "22 FEBRUARY 2024 | NEWS",
-    title: "Cracked Screen Chronicles: The Importance of Timely Repairs",
-    text: "Ignoring that cracked screen? Think again. Explore the risks of delaying screen repairs and the potential consequences for your device.",
-  },
-  {
-    id: 2,
-    subId: 1,
-    date: "03 MARH 2024 | NEWS",
-    title: "Navigating Software Snags & Troubleshooting Phone Issues",
-    text: "Unravel the mysteries of common phone software issues and discover effective troubleshooting techniques.",
-  },
-  {
-    id: 3,
-    subId: 2,
-    date: "12 JANUARY 2024 | NEWS",
-    title: "Our Guide to Prolonging Your Phone's Battery Life",
-    text: "Tired of constantly charging your phone? Discover tips and tricks to extend your device's battery life and maximize its performance.",
-  },
-  {
-    id: 4,
     subId: 3,
     date: "02 FEBRUARY 2024 | NEWS",
     title: "Water Damage: What to Do When Your Phone Takes a Dip",
     text: "Has your phone suffered a watery mishap? Learn the essential steps to take when dealing with water damage.",
   },
   {
-    id: 5,
+    id: 2,
     subId: 4,
     date: "22 FEBRUARY 2024 | NEWS",
     title: "Cracked Screen Chronicles: The Importance of Timely Repairs",
     text: "Ignoring that cracked screen? Think again. Explore the risks of delaying screen repairs and the potential consequences for your device.",
   },
   {
+    id: 3,
+    subId: 1,
+    date: "03 MARH 2024 | NEWS",
+    title: "Navigating Software Snags & Troubleshooting Phone Issues",
+    text: "Unravel the mysteries of common phone software issues and discover effective troubleshooting techniques.",
+  },
+  {
+    id: 4,
+    subId: 2,
+    date: "12 JANUARY 2024 | NEWS",
+    title: "Our Guide to Prolonging Your Phone's Battery Life",
+    text: "Tired of constantly charging your phone? Discover tips and tricks to extend your device's battery life and maximize its performance.",
+  },
+  {
+    id: 5,
+    subId: 3,
+    date: "02 FEBRUARY 2024 | NEWS",
+    title: "Water Damage: What to Do When Your Phone Takes a Dip",
+    text: "Has your phone suffered a watery mishap? Learn the essential steps to take when dealing with water damage.",
+  },
+  {
     id: 6,
+    subId: 4,
+    date: "22 FEBRUARY 2024 | NEWS",
+    title: "Cracked Screen Chronicles: The Importance of Timely Repairs",
+    text: "Ignoring that cracked screen? Think again. Explore the risks of delaying screen repairs and the potential consequences for your device.",
+  },
+  {
+    id: 7,
     subId: 1,
     date: "03 MARH 2024 | NEWS",
     title: "Navigating Software Snags & Troubleshooting Phone Issues",
@@ -60,15 +67,17 @@ const news = [
 ];
 
 export const NewsSlider = () => {
-  const [activeSlide, setActiveSlide] = useState(1);
+  const [activeSlide, setActiveSlide] = useState(2);
   const [sliderTranslate, setSliderTranslate] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [isDelay, setIsDelay] = useState(false);
   const [isTransition, setIsTransition] = useState(false);
   const [isDragSlider, setIsDragSlider] = useState(false);
+  const [sliderPositionOnWindow, setSliderPositionOnWindow] = useState({});
   const mousePositionRef = useRef({ x: 0 });
-  const sliderRef = useRef(null);
+  const sliderParrentRef = useRef(null);
   const slideWidthRef = useRef(null);
+
   const slidesCount = useMemo(() => {
     return news.length - 3;
   }, []);
@@ -95,17 +104,17 @@ export const NewsSlider = () => {
       setActiveSlide((prev) => prev + 1);
     } else {
       setIsTransition(false);
-      setActiveSlide(1);
+      setActiveSlide(2);
       setTimeout(() => {
         setIsTransition(true);
         setActiveSlide((prev) => prev + 1);
-      }, 20);
+      }, 50);
     }
   };
 
   const handlePrev = () => {
     handleDelay();
-    if (activeSlide > 1) {
+    if (activeSlide > 2) {
       setActiveSlide((prev) => prev - 1);
     } else {
       setIsTransition(false);
@@ -113,7 +122,7 @@ export const NewsSlider = () => {
       setTimeout(() => {
         setIsTransition(true);
         setActiveSlide((prev) => prev - 1);
-      }, 20);
+      }, 50);
     }
   };
 
@@ -127,21 +136,78 @@ export const NewsSlider = () => {
   const handleMouseMove = useCallback(
     (e) => {
       let dx = e.clientX - mousePositionRef.current.x;
-      if (!isDragSlider) {
+      if (
+        !(
+          isDragSlider &&
+          e.clientX > sliderPositionOnWindow.left &&
+          e.clientY > sliderPositionOnWindow.top &&
+          e.clientX < sliderPositionOnWindow.right &&
+          e.clientY < sliderPositionOnWindow.bottom
+        )
+      ) {
         dx = 0;
+        setIsDragSlider(false);
+        setIsTransition(true);
       }
+
       setSliderPosition(sliderTranslate - dx);
     },
-    [isDragSlider, sliderTranslate]
+    [isDragSlider, sliderTranslate, sliderPositionOnWindow]
   );
-  const handleMouseUp = useCallback(() => {
-    setIsTransition(true);
-    setSliderPosition(sliderTranslate);
-    setIsDragSlider(false);
-  }, [sliderTranslate]);
+  const handleMouseUp = useCallback(
+    (e) => {
+      if (isDragSlider) {
+        setActiveSlide((prev) => {
+          if (
+            e.clientX - mousePositionRef.current.x > 100 &&
+            e.clientX - mousePositionRef.current.x !== 0
+          ) {
+            return prev - 1;
+          } else if (
+            e.clientX - mousePositionRef.current.x < 100 &&
+            e.clientX - mousePositionRef.current.x !== 0
+          ) {
+            return prev + 1;
+          } else return prev;
+        });
+        if (slidesCount - 2 < activeSlide) {
+          setTimeout(() => {
+            setIsTransition(false);
+            setActiveSlide(2);
+          }, 300);
+        } else if (activeSlide < 2) {
+          setTimeout(() => {
+            setIsTransition(false);
+            setActiveSlide(slidesCount - 2);
+          }, 300);
+        }
+        setIsTransition(true);
+        setSliderPosition(sliderTranslate);
+        setIsDragSlider(false);
+      }
+    },
+    [sliderTranslate, activeSlide, isDragSlider, slidesCount]
+  );
 
   useEffect(() => {
-    if (isDragSlider && sliderRef) {
+    const handleScroll = () => {
+      if (sliderParrentRef.current) {
+        setSliderPositionOnWindow({
+          top: sliderParrentRef.current.getBoundingClientRect().top,
+          left: sliderParrentRef.current.getBoundingClientRect().left,
+          bottom: sliderParrentRef.current.getBoundingClientRect().bottom,
+          right: sliderParrentRef.current.getBoundingClientRect().right,
+        });
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isDragSlider && sliderParrentRef.current) {
       document.body.addEventListener("mousemove", handleMouseMove);
       document.body.addEventListener("mouseup", handleMouseUp);
     } else {
@@ -173,7 +239,7 @@ export const NewsSlider = () => {
           <path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" />
         </svg>
       </button>
-      <div ref={sliderRef} className="news__slider">
+      <div ref={sliderParrentRef} className="news__slider">
         <div
           onMouseDown={handleMouseDown}
           style={{
