@@ -61,17 +61,28 @@ export const CallUsSlider = () => {
   const [sliderTranslate, setSliderTranslate] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [sliderPositionOnWindow, setSliderPositionOnWindow] = useState({});
   const sliderRef = useRef(null);
   const mousePosition = useRef({ x: null });
-  const sliderRect = useRef(null);
-
   const countSlides = useMemo(() => {
     return slides.length - 1;
   }, []);
 
   useEffect(() => {
-    sliderRect.current = sliderRef.current.getBoundingClientRect();
-  }, []);
+    const handleScroll = () => {
+      setSliderPositionOnWindow({
+        top: sliderRef.current.getBoundingClientRect().top,
+        bottom: sliderRef.current.getBoundingClientRect().bottom,
+        left: sliderRef.current.getBoundingClientRect().left,
+        right: sliderRef.current.getBoundingClientRect().right,
+      });
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   const handleMouseDown = (e) => {
     setIsDragSlider(true);
@@ -87,10 +98,10 @@ export const CallUsSlider = () => {
       if (
         !(
           isDragSlider &&
-          e.clientX > sliderRect.current.left &&
-          e.clientY > sliderRect.current.top &&
-          e.clientX < sliderRect.current.right &&
-          e.clientY < sliderRect.current.bottom
+          e.clientX > sliderPositionOnWindow.left &&
+          e.clientY > sliderPositionOnWindow.top &&
+          e.clientX < sliderPositionOnWindow.right &&
+          e.clientY < sliderPositionOnWindow.bottom
         )
       ) {
         dx = 0;
@@ -98,7 +109,7 @@ export const CallUsSlider = () => {
       }
       setSliderPosition(sliderTranslate - dx);
     },
-    [sliderTranslate, isDragSlider]
+    [sliderTranslate, isDragSlider, sliderPositionOnWindow]
   );
 
   const handleMouseUp = useCallback(
@@ -106,32 +117,24 @@ export const CallUsSlider = () => {
       setIsDragSlider(false);
       setIsTransition(true);
       setSliderPosition(sliderTranslate);
-      if (
-        isDragSlider &&
-        e.clientX > sliderRect.current.left &&
-        e.clientY > sliderRect.current.top &&
-        e.clientX < sliderRect.current.right &&
-        e.clientY < sliderRect.current.bottom
-      ) {
-        if (activeSlide < countSlides) {
-          setActiveSlide((prev) => {
-            if (
-              e.clientX - mousePosition.current.x >
-                sliderRef.current.offsetWidth / 3 &&
-              prev > 0
-            ) {
-              return prev - 1;
-            } else if (
-              e.clientX - mousePosition.current.x <
-              -sliderRef.current.offsetWidth / 3
-            ) {
-              return prev + 1;
-            } else return prev;
-          });
-        }
+      if (activeSlide < countSlides) {
+        setActiveSlide((prev) => {
+          if (
+            e.clientX - mousePosition.current.x >
+              sliderRef.current.offsetWidth / 3 &&
+            prev > 0
+          ) {
+            return prev - 1;
+          } else if (
+            e.clientX - mousePosition.current.x <
+            -sliderRef.current.offsetWidth / 3
+          ) {
+            return prev + 1;
+          } else return prev;
+        });
       }
     },
-    [sliderTranslate, isDragSlider, activeSlide, countSlides]
+    [sliderTranslate, activeSlide, countSlides]
   );
 
   useEffect(() => {
