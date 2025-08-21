@@ -82,7 +82,7 @@ export const CallUsSlider = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  });
+  }, []);
 
   const handleMouseDown = (e) => {
     setIsDragSlider(true);
@@ -192,7 +192,7 @@ export const CallUsSlider = () => {
   }, [sliderTranslate]);
 
   useEffect(() => {
-    if (sliderRef.current && isDragSlider) {
+    if (sliderRef.current && isDragSlider) {    
       document.body.addEventListener("mousemove", handleMouseMove);
       document.body.addEventListener("mouseup", handleMouseUp);
     } else {

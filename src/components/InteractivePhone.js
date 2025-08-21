@@ -1,30 +1,7 @@
 import { Phone } from "./Phone";
 import man from "../img/man.webp";
-import { useEffect, useState } from "react";
 
 export const InteractivePhone = () => {
-  const [currentNumber, setCurrentNumber] = useState(0);
-
-  useEffect(() => {
-    let start = 0.5;
-    const end = 34.5;
-    const increment = 1;
-
-    if (start === end) return;
-
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= end) {
-        start = end;
-        clearInterval(timer);
-      }
-      setCurrentNumber(start);
-    }, 10);
-    setCurrentNumber(34.5);
-
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <section className="interactive__flex">
       <div className="interactive__flex__element">
@@ -57,7 +34,7 @@ export const InteractivePhone = () => {
       <div className="interactive__flex__element">
         <div className="interactive__flex__about">
           <div className="interactive__flex__info__title number__title">
-            {currentNumber}k
+            34.5k
             <span className="interactive__flex__info__orange">+</span>
           </div>
           <div className="interactive__flex__about__title">CLIENTS IN NY.</div>

@@ -1088,3 +1088,16 @@ li {
 .news__button:hover.news__button svg {
   fill: #fff;
 }
+
+.footer{
+  background: url(../img/bgTop.jpg) no-repeat;
+  padding: 120px 0 0;
+}
+
+.contact__form{
+  max-width: 1200px;
+  padding: 0 30px;
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
