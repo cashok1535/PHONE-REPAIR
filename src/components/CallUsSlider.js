@@ -61,30 +61,23 @@ export const CallUsSlider = () => {
   const [sliderTranslate, setSliderTranslate] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [sliderPositionOnWindow, setSliderPositionOnWindow] = useState({});
+  const sliderPositionOnWindow = useRef({});
   const sliderRef = useRef(null);
   const mousePosition = useRef({ x: null });
   const countSlides = useMemo(() => {
     return slides.length - 1;
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setSliderPositionOnWindow({
+  const handleMouseDown = (e) => {
+    if (sliderRef.current) {
+      sliderPositionOnWindow.current = {
         top: sliderRef.current.getBoundingClientRect().top,
         bottom: sliderRef.current.getBoundingClientRect().bottom,
         left: sliderRef.current.getBoundingClientRect().left,
         right: sliderRef.current.getBoundingClientRect().right,
-      });
-    };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      };
+    }
 
-  const handleMouseDown = (e) => {
     setIsDragSlider(true);
     e.preventDefault();
     setIsTransition(false);
@@ -98,10 +91,10 @@ export const CallUsSlider = () => {
       if (
         !(
           isDragSlider &&
-          e.clientX > sliderPositionOnWindow.left &&
-          e.clientY > sliderPositionOnWindow.top &&
-          e.clientX < sliderPositionOnWindow.right &&
-          e.clientY < sliderPositionOnWindow.bottom
+          e.clientX > sliderPositionOnWindow.current.left &&
+          e.clientY > sliderPositionOnWindow.current.top &&
+          e.clientX < sliderPositionOnWindow.current.right &&
+          e.clientY < sliderPositionOnWindow.current.bottom
         )
       ) {
         dx = 0;
@@ -192,7 +185,7 @@ export const CallUsSlider = () => {
   }, [sliderTranslate]);
 
   useEffect(() => {
-    if (sliderRef.current && isDragSlider) {    
+    if (sliderRef.current && isDragSlider) {
       document.body.addEventListener("mousemove", handleMouseMove);
       document.body.addEventListener("mouseup", handleMouseUp);
     } else {

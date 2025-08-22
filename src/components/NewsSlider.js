@@ -73,7 +73,7 @@ export const NewsSlider = () => {
   const [isDelay, setIsDelay] = useState(false);
   const [isTransition, setIsTransition] = useState(false);
   const [isDragSlider, setIsDragSlider] = useState(false);
-  const [sliderPositionOnWindow, setSliderPositionOnWindow] = useState({});
+  const sliderPositionOnWindow = useRef({});
   const mousePositionRef = useRef({ x: 0 });
   const sliderParrentRef = useRef(null);
   const slideWidthRef = useRef(null);
@@ -127,6 +127,14 @@ export const NewsSlider = () => {
   };
 
   const handleMouseDown = (e) => {
+    if (sliderParrentRef.current) {
+      sliderPositionOnWindow.current = {
+        top: sliderParrentRef.current.getBoundingClientRect().top,
+        left: sliderParrentRef.current.getBoundingClientRect().left,
+        bottom: sliderParrentRef.current.getBoundingClientRect().bottom,
+        right: sliderParrentRef.current.getBoundingClientRect().right,
+      };
+    }
     e.preventDefault();
     setIsDragSlider(true);
     mousePositionRef.current.x = e.clientX;
@@ -139,10 +147,10 @@ export const NewsSlider = () => {
       if (
         !(
           isDragSlider &&
-          e.clientX > sliderPositionOnWindow.left &&
-          e.clientY > sliderPositionOnWindow.top &&
-          e.clientX < sliderPositionOnWindow.right &&
-          e.clientY < sliderPositionOnWindow.bottom
+          e.clientX > sliderPositionOnWindow.current.left &&
+          e.clientY > sliderPositionOnWindow.current.top &&
+          e.clientX < sliderPositionOnWindow.current.right &&
+          e.clientY < sliderPositionOnWindow.current.bottom
         )
       ) {
         dx = 0;
@@ -188,23 +196,6 @@ export const NewsSlider = () => {
     },
     [sliderTranslate, activeSlide, isDragSlider, slidesCount]
   );
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (sliderParrentRef.current) {
-        setSliderPositionOnWindow({
-          top: sliderParrentRef.current.getBoundingClientRect().top,
-          left: sliderParrentRef.current.getBoundingClientRect().left,
-          bottom: sliderParrentRef.current.getBoundingClientRect().bottom,
-          right: sliderParrentRef.current.getBoundingClientRect().right,
-        });
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     if (isDragSlider && sliderParrentRef.current) {

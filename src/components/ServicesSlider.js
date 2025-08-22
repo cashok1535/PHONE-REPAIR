@@ -92,7 +92,7 @@ export const ServicesSlider = () => {
   const [isTransition, setIsTransition] = useState(false);
   const [isDragSlider, setIsDragSlider] = useState(false);
   const [sliderPosition, setSliderPosition] = useState({ x: 0 });
-  const [sliderPositionOnWindow, setSliderPositionOnWindow] = useState({});
+  const sliderPositionOnWindow = useRef({});
   const slide = useRef(null);
   const overflowSliderRef = useRef(null);
   const mouseRef = useRef({ x: null });
@@ -101,24 +101,15 @@ export const ServicesSlider = () => {
     return sliderElements.length - 3;
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (overflowSliderRef.current) {
-        setSliderPositionOnWindow({
-          top: overflowSliderRef.current.getBoundingClientRect().top,
-          left: overflowSliderRef.current.getBoundingClientRect().left,
-          bottom: overflowSliderRef.current.getBoundingClientRect().bottom,
-          right: overflowSliderRef.current.getBoundingClientRect().right,
-        });
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   const handleMouseDown = (e) => {
+    if (overflowSliderRef.current) {
+      sliderPositionOnWindow.current = {
+        top: overflowSliderRef.current.getBoundingClientRect().top,
+        left: overflowSliderRef.current.getBoundingClientRect().left,
+        bottom: overflowSliderRef.current.getBoundingClientRect().bottom,
+        right: overflowSliderRef.current.getBoundingClientRect().right,
+      };
+    }
     setIsDragSlider(true);
     e.preventDefault();
     setIsTransition(false);
@@ -158,10 +149,10 @@ export const ServicesSlider = () => {
       if (
         !(
           isDragSlider &&
-          e.clientX > sliderPositionOnWindow.left &&
-          e.clientY > sliderPositionOnWindow.top &&
-          e.clientX < sliderPositionOnWindow.right &&
-          e.clientY < sliderPositionOnWindow.bottom
+          e.clientX > sliderPositionOnWindow.current.left &&
+          e.clientY > sliderPositionOnWindow.current.top &&
+          e.clientX < sliderPositionOnWindow.current.right &&
+          e.clientY < sliderPositionOnWindow.current.bottom
         )
       ) {
         dx = 0;
