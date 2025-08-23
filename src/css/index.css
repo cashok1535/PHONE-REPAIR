@@ -1089,15 +1089,122 @@ li {
   fill: #fff;
 }
 
-.footer{
+.footer {
   background: url(../img/bgTop.jpg) no-repeat;
   padding: 120px 0 0;
 }
 
-.contact__form{
+.contact__form {
   max-width: 1200px;
+  width: 100%;
   padding: 0 30px;
   display: flex;
   justify-content: center;
   gap: 60px;
+  margin: 0 auto;
+}
+
+.contact__form__info {
+  max-width: 555px;
+}
+
+.form {
+  padding: 66px 60px;
+  background: #181818;
+  display: flex;
+  flex-direction: column;
+  max-width: 555px;
+  width: 100%;
+}
+
+.form__input {
+  padding: 15px 26px;
+  box-sizing: border-box;
+  margin-top: 12px;
+  max-width: 435px;
+  width: 100%;
+  border: none;
+  background: #121212;
+  color: #f6f6f6;
+  font-size: 15px;
+  line-height: 1.33333;
+  margin-bottom: 24px;
+  font-family: "Lato_Bold", sans-serif;
+}
+
+.form__button {
+  min-width: 100%;
+}
+
+.contact__form__title {
+  margin-top: 20px;
+}
+
+.contact__form__little__title {
+  margin-top: 20px;
+  min-width: 100%;
+}
+
+.contact__form__text {
+  margin-top: 25px;
+  min-width: 100%;
+}
+
+.orange_title {
+  color: #ff6534;
+  font-size: 24px;
+  font-family: "Questrial", sans-serif;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.contact__form__a {
+  text-decoration: none;
+  color: #f6f6f6;
+  font-family: "Questrial", sans-serif;
+  font-size: 17px;
+}
+
+.contact__form__address__element__text {
+  color: #f6f6f6;
+  font-family: "Questrial", sans-serif;
+  font-size: 17px;
+}
+
+.contact__form__space {
+  height: 25px;
+}
+
+.contact__form__address {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.contact__form__question__title {
+  color: #fff;
+  font-size: 24px;
+  font-family: "Questrial", sans-serif;
+  font-weight: bold;
+}
+
+.contact__form__question__text {
+  color: #bdbdbd;
+  font-size: 17px;
+  font-family: "Lato_Regular", sans-serif;
+}
+
+.contact__form__question {
+  display: flex;
+  margin-top: 25px;
+}
+
+.contact__form__question img, .contact__form__question__info {
+  margin: calc(30px/4);
+}
+
+.contact__form__question__info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

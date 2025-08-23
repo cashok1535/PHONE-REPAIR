@@ -30,5 +30,3 @@ export const Main = () => {
     </main>
   );
 };
-
-//fix <CallUs /> , <Services />, <NewsSlider />
