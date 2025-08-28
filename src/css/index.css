@@ -1110,16 +1110,15 @@ li {
 
 .form {
   padding: 66px 60px;
+  box-sizing: border-box;
   background: #181818;
-  display: flex;
-  flex-direction: column;
   max-width: 555px;
   width: 100%;
 }
 
 .form__input {
-  padding: 15px 26px;
   box-sizing: border-box;
+  padding: 15px 26px;
   margin-top: 12px;
   max-width: 435px;
   width: 100%;
@@ -1207,4 +1206,14 @@ li {
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.form__message {
+  padding-bottom: calc(150px - 15px);
+}
+
+.footer__line {
+  max-width: 1200px;
+  margin: 50px auto 0 auto;
+  width: 100%;
 }

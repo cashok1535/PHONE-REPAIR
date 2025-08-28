@@ -9,7 +9,7 @@ export const Form = () => {
       <input className="form__input" required placeholder="Your Name*" />
       <input className="form__input" required placeholder="Phone Number*" />
       <input className="form__input" required placeholder="Email*" />
-      <input className="form__input" required placeholder="Your Message" />
+      <input className="form__input form__message" required placeholder="Your Message" />
       <button className="about__us__section__button form__button">
         Request a quote
       </button>
