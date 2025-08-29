@@ -63,7 +63,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover>svg {
+.link__social:hover > svg {
   fill: #ff6534;
 }
 
@@ -1052,7 +1052,7 @@ li {
   font-size: 12px;
   line-height: 1.4;
   font-family: "Lato_Black", sans-serif;
-  letter-spacing: calc(0.2*1em);
+  letter-spacing: calc(0.2 * 1em);
 }
 
 .news__slider__element__title {
@@ -1082,7 +1082,7 @@ li {
 
 .news__button svg {
   fill: #ffffffb9;
-  transition: fill .3s;
+  transition: fill 0.3s;
 }
 
 .news__button:hover.news__button svg {
@@ -1198,8 +1198,9 @@ li {
   margin-top: 25px;
 }
 
-.contact__form__question img, .contact__form__question__info {
-  margin: calc(30px/4);
+.contact__form__question img,
+.contact__form__question__info {
+  margin: calc(30px / 4);
 }
 
 .contact__form__question__info {
@@ -1216,4 +1217,58 @@ li {
   max-width: 1200px;
   margin: 50px auto 0 auto;
   width: 100%;
+}
+
+.footer__links__logo__hrefs__element {
+  width: 30px;
+  height: 30px;
+  background-color: #ff6534;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.footer__links__logo__hrefs {
+  display: flex;
+  gap: 10px;
+}
+
+.footer__links__logo__hrefs__element:hover {
+  background-color: #de3400;
+}
+.footer__links__href__title {
+  color: #fff;
+  font-size: 24px;
+  line-height: 1.3;
+  font-family: "Questrial", sans-serif;
+}
+
+.footer__links__href__element {
+  margin: 20px 0;
+  font-size: 15px;
+  color: #bdbdbd;
+  font-family: "Lato_Regular", sans-serif;
+}
+
+.footer__links {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 60px 0;
+}
+
+.footer__links__logo__text {
+  font-size: 15px;
+  color: #bdbdbd;
+  font-family: "Lato_Regular", sans-serif;
+  margin: 30px 0;
+  line-height: 1.5;
+}
+
+.footer__links__logo__parrent {
+  width: 310px;
 }
