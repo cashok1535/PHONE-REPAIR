@@ -63,7 +63,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover > svg {
+.link__social:hover>svg {
   fill: #ff6534;
 }
 
@@ -1091,6 +1091,7 @@ li {
 
 .footer {
   background: url(../img/bgTop.jpg) no-repeat;
+  background-size: cover;
   padding: 120px 0 0;
 }
 
@@ -1237,6 +1238,7 @@ li {
 .footer__links__logo__hrefs__element:hover {
   background-color: #de3400;
 }
+
 .footer__links__href__title {
   color: #fff;
   font-size: 24px;
@@ -1249,6 +1251,8 @@ li {
   font-size: 15px;
   color: #bdbdbd;
   font-family: "Lato_Regular", sans-serif;
+  cursor: pointer;
+  transition: color .3s;
 }
 
 .footer__links {
@@ -1259,6 +1263,7 @@ li {
   align-items: center;
   margin: 0 auto;
   padding: 60px 0;
+
 }
 
 .footer__links__logo__text {
@@ -1271,4 +1276,20 @@ li {
 
 .footer__links__logo__parrent {
   width: 310px;
+}
+
+.footer__links__href__element:hover {
+  color: #fd6232;
+}
+
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  color: #bdbdbd;
+  padding: 15px;
+  font-family: "Lato_Regular", sans-serif;
+  font-size: 15px;
 }
