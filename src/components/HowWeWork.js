@@ -1,3 +1,5 @@
+import img from "../img/how we work.webp";
+
 export const HowWeWork = () => {
   return (
     <section className="how__we__work">
@@ -167,8 +169,8 @@ export const HowWeWork = () => {
           </div>
         </div>
       </div>
-      <div className="how__we__work__img__parrent">
-        <div className="how__we__work__img"></div>
+      <div className="how__we__work__img">
+        <img src={img} alt="" />
       </div>
     </section>
   );

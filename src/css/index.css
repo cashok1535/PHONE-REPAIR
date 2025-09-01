@@ -63,7 +63,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover > svg {
+.link__social:hover>svg {
   fill: #ff6534;
 }
 
@@ -549,33 +549,27 @@ li {
 
 .how__we__work {
   display: flex;
+  justify-content: space-between;
   color: #fff;
   background-color: #181818;
   position: relative;
 }
 
 .how__we__work__left {
-  padding: 120px 30px 100px 30px;
-  max-width: 1500px;
+  padding: 120px 30px 100px 60px;
   width: 100%;
-  margin: 0 auto;
+  max-width: 670px;
 }
 
 .how__we__work__img {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
-  background: url(../img/how\ we\ work.webp) no-repeat;
-  background-size: cover;
-}
-
-.how__we__work__img__parrent {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 50%;
+  max-width: 50%;
   overflow: hidden;
 }
+
 
 .how__we__work__title {
   font-size: 56px;
@@ -635,8 +629,8 @@ li {
   font-size: 17px;
   color: #bdbdbd;
   line-height: 1.5;
-  max-width: 500px;
-  width: 100%;
+  white-space: initial;
+  max-width: 555px;
 }
 
 .services {
