@@ -120,11 +120,11 @@ export const ServicesSlider = () => {
       setIsDragSlider(false);
       setIsTransition(true);
       setSliderPosition(sliderTranslate);
-      if (isDragSlider) {
+      if (isDragSlider && e.clientX - mouseRef.current.x !== 0) {
         setActiveSlide((prev) => {
-          if (e.clientX - mouseRef.current.x > 50) {
+          if (e.clientX - mouseRef.current.x > 100) {
             return prev - 1;
-          } else if (e.clientX - mouseRef.current.x < 50) {
+          } else if (e.clientX - mouseRef.current.x < 100) {
             return prev + 1;
           } else return prev;
         });

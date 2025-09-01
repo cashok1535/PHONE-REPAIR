@@ -63,7 +63,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover>svg {
+.link__social:hover > svg {
   fill: #ff6534;
 }
 
@@ -433,10 +433,12 @@ li {
 
 .hardware__repair {
   background: #f6f6f6;
+  max-width: 50%;
 }
 
 .screen__replasment {
   background: #181818;
+  max-width: 50%;
 }
 
 .screen__replasment__info,
@@ -690,12 +692,10 @@ li {
 
 .left {
   position: relative;
-  left: -15px;
 }
 
 .right {
   position: relative;
-  left: 15px;
 }
 
 .services__slider__element__title {
@@ -1103,10 +1103,11 @@ li {
   justify-content: center;
   gap: 60px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .contact__form__info {
-  max-width: 555px;
+  max-width: 50%;
 }
 
 .form {
@@ -1252,7 +1253,7 @@ li {
   color: #bdbdbd;
   font-family: "Lato_Regular", sans-serif;
   cursor: pointer;
-  transition: color .3s;
+  transition: color 0.3s;
 }
 
 .footer__links {
@@ -1262,8 +1263,8 @@ li {
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  padding: 60px 0;
-
+  padding: 60px 15px;
+  box-sizing: border-box;
 }
 
 .footer__links__logo__text {
@@ -1292,4 +1293,5 @@ li {
   padding: 15px;
   font-family: "Lato_Regular", sans-serif;
   font-size: 15px;
+  box-sizing: border-box;
 }
