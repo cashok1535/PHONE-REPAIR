@@ -32,6 +32,27 @@ li {
   z-index: -1;
 }
 
+.modal__element{
+  height: 2px;
+  width: 24px;
+  background-color: #ffffff;
+}
+
+
+.modal{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.header__phone{
+  display: flex;
+  max-width: 908px;
+  width: 100%;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
 .header {
   display: flex;
   flex-direction: column;
