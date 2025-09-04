@@ -82,7 +82,7 @@ export const WhatWeDo = () => {
             Repairs from $ 65
           </div>
         </div>
-        <div className="what__we__do__grid__element">
+        <div className="what__we__do__grid__element last__what__we__do__grid__element">
           <img
             src={repairGrid5}
             className="what__we__do__grid__element__img"

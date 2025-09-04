@@ -212,7 +212,7 @@ export const CallUsSlider = () => {
   }, [activeSlide]);
 
   return (
-    <div className="CallUsSlider">
+    <div id="testemonials" className="CallUsSlider">
       <button
         disabled={isButtonDisabled}
         className="services__slider__button left"
