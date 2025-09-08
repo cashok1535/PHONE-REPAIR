@@ -324,6 +324,7 @@ li {
   letter-spacing: calc(0.2 * 1em);
   line-height: 1.5;
   margin-top: 10px;
+  font-weight: bold;
 }
 
 .interactive__flex__about__img {
@@ -436,11 +437,13 @@ li {
   max-width: 1200px;
   width: 100%;
   padding: 60px 0 120px;
+  height: min-content;
 }
 
 .about__us__section__img {
   max-width: 555px;
   width: 100%;
+  height: 100%;
   padding: 0 30px;
   box-sizing: border-box;
 }
@@ -513,11 +516,13 @@ li {
 .hardware {
   background: url(../img/hardware.webp), no-repeat;
   background-size: cover;
+  max-width: 100%;
 }
 
 .screen {
   background: url(../img/screen.webp), no-repeat;
   background-size: cover;
+  max-width: 100%;
 }
 
 .hardware__repair,
@@ -1400,6 +1405,44 @@ li {
   .last__what__we__do__grid__element {
     grid-column: span 2;
     justify-self: center;
+  }
+
+  .interactive__flex__info__title, .interactive__flex__info__orange {
+    font-size: 56px;
+  }
+
+  .phone__adapted {
+    margin-top: 50px;
+  }
+
+  .interactive__flex__about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .interactive__flex__about__img {
+    margin-top: 40px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .about__us__section {
+    flex-direction: column;
+  }
+
+  .about__us__section__element__phone {
+    margin-top: 60px !important;
+  }
+
+  .what__we__repair, .hardware__repair, .screen__replasment {
+    flex-direction: column;
+    min-width: 100%;
+  }
+
+  .hardware__repair__info, .screen__replasment__info {
+    padding: 47px 39px;
   }
 }
 

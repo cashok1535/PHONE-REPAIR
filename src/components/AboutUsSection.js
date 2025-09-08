@@ -4,7 +4,7 @@ export const AboutUsSection = () => {
   return (
     <section className="about__us__section">
       <img className="about__us__section__img" src={img} alt="" />
-      <div className="about__us__section__element">
+      <div className="about__us__section__element about__us__section__element__phone">
         <div className="orange__title orange__title__bold">ABOUT US</div>
         <div className="what__we__do__title">
           Bringing Life Back to Your Gadgets

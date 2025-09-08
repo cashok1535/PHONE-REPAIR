@@ -18,30 +18,27 @@ export const Services = () => {
       <div className="services__parent__slider">
         <ServicesSlider />
       </div>
-      <div
+
+      <svg
         style={{
+          marginTop: "55px",
           maxWidth: "1200px",
           width: "100%",
         }}
+        xmlns="http://www.w3.org/2000/svg"
+        width="1005"
+        height="31"
       >
-        <svg
+        <path
+          d="M0 15.5 L3000 15.5"
           style={{
-            marginTop: "55px",
+            fill: "none",
+            stroke: "#f6f6f6",
+            strokeWidth: "1px",
           }}
-          xmlns="http://www.w3.org/2000/svg"
-          width="1005"
-          height="31"
-        >
-          <path
-            d="M0 15.5 L3000 15.5"
-            style={{
-              fill: "none",
-              stroke: "#f6f6f6",
-              strokeWidth: "1px",
-            }}
-          ></path>
-        </svg>
-      </div>
+        ></path>
+      </svg>
+
       <div className="companies">
         <div className="companies__element__background">
           <img className="companies__element" src={company1} alt="" />

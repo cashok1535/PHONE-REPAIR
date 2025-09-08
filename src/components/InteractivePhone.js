@@ -28,7 +28,7 @@ export const InteractivePhone = () => {
           </div>
         </div>
       </div>
-      <div className="interactive__flex__element">
+      <div className="interactive__flex__element phone__adapted">
         <Phone />
       </div>
       <div className="interactive__flex__element">
