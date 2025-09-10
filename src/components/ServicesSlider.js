@@ -91,7 +91,7 @@ export const ServicesSlider = () => {
   const [sliderTranslate, setSliderTranslate] = useState(0);
   const [isTransition, setIsTransition] = useState(false);
   const [isDragSlider, setIsDragSlider] = useState(false);
-  const [sliderPosition, setSliderPosition] = useState({ x: 0 });
+  const [sliderPosition, setSliderPosition] = useState(0);
   const sliderPositionOnWindow = useRef({});
   const slide = useRef(null);
   const overflowSliderRef = useRef(null);
@@ -186,7 +186,7 @@ export const ServicesSlider = () => {
     return () => {
       document.removeEventListener("resize", handleResize);
     };
-  });
+  }, [activeSlide]);
 
   const handleDelay = () => {
     setIsDelay(true);
@@ -289,10 +289,7 @@ export const ServicesSlider = () => {
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"
-            fill="#000000"
-          />
+          <path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" />
         </svg>
       </button>
     </div>

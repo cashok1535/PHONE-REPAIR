@@ -79,7 +79,7 @@ li {
   width: 30px;
 }
 
-.modal__button:hover>.modal__element {
+.modal__button:hover > .modal__element {
   background-color: #727272;
 }
 
@@ -156,7 +156,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover>svg {
+.link__social:hover > svg {
   fill: #ff6534;
 }
 
@@ -783,6 +783,10 @@ li {
   background: transparent;
 }
 
+.services__slider__button svg path {
+  fill: #000;
+}
+
 .left {
   position: relative;
 }
@@ -948,7 +952,7 @@ li {
 .call__us__slider__text {
   padding: 55px 70px;
   box-sizing: border-box;
-  width: max-content;
+  width: 91vw;
 }
 
 .call__us__slider__flex__element__title {
@@ -956,7 +960,7 @@ li {
   color: #121212;
   font-size: 24px;
   font-weight: bold;
-  width: max-content;
+  width: 100%;
   margin-top: 20px;
 }
 
@@ -968,7 +972,7 @@ li {
   font-style: italic;
   margin-top: 20px;
   max-width: 445px;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .call__us__slider__flex__element__img {
@@ -1389,8 +1393,7 @@ li {
   box-sizing: border-box;
 }
 
-@media (max-width:992px) {
-
+@media (max-width: 992px) {
   .what__we__do__grid {
     grid-template-columns: 1fr 1fr;
     padding: 0 32px;
@@ -1407,7 +1410,8 @@ li {
     justify-self: center;
   }
 
-  .interactive__flex__info__title, .interactive__flex__info__orange {
+  .interactive__flex__info__title,
+  .interactive__flex__info__orange {
     font-size: 56px;
   }
 
@@ -1436,17 +1440,106 @@ li {
     margin-top: 60px !important;
   }
 
-  .what__we__repair, .hardware__repair, .screen__replasment {
+  .what__we__repair,
+  .hardware__repair,
+  .screen__replasment {
     flex-direction: column;
     min-width: 100%;
   }
 
-  .hardware__repair__info, .screen__replasment__info {
+  .hardware__repair__info,
+  .screen__replasment__info {
     padding: 47px 39px;
+  }
+  .achivments,
+  .cta__bottom__flex,
+  .how__we__work {
+    flex-direction: column;
+  }
+  .achivments__element {
+    margin-top: 20px;
+  }
+
+  .how__we__work__title,
+  .how__we__work__title__orange {
+    font-size: 38px;
+  }
+  .step__svg svg {
+    width: 50px;
+    height: 50px;
+    margin: 0 9.617px;
+  }
+  .step__svg {
+    width: min-content;
+    height: min-content;
+  }
+  .step__title {
+    font-size: 22px;
+  }
+  .how__we__work__left {
+    padding: 90px 30px;
+    box-sizing: border-box;
+  }
+  .how__we__work__img {
+    max-width: 100%;
+  }
+
+  .services__slider__button {
+    background-color: #181818;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .services__slider__button svg {
+    width: 15px;
+    height: 15px;
+  }
+  .services__slider__button svg path {
+    fill: #fff;
+  }
+
+  .cta__top__flex {
+    flex-direction: column;
+    padding: 0 24px;
+    box-sizing: border-box;
+  }
+
+  .cta__discount__text {
+    margin-top: 50px;
+  }
+
+  .cta__bottom__flex {
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .call__us__slider__flex {
+    flex-direction: column;
+  }
+  .call__us__slider__flex__element__img img {
+    width: 100%;
+    height: 100%;
+  }
+  .call__us__slider__text {
+    padding: 39px 43px;
+  }
+  .quotes svg {
+    width: 30px;
+    height: 30px;
+  }
+  .call__us__slider__flex__element__text {
+    max-width: 631px;
   }
 }
 
-@media (max-width:768px) {
+@media (max-width: 768px) {
   .what__we__do__grid {
     grid-template-columns: 1fr;
   }
@@ -1476,5 +1569,29 @@ li {
 
   .man__repair {
     padding: 0 24px;
+  }
+
+  .info__flex {
+    display: inline;
+    text-wrap: nowrap;
+  }
+  .info__flex__element {
+    width: fit-content;
+  }
+  .companies {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+  }
+  .companies__element {
+    width: 302px;
+    height: auto;
+  }
+
+  .companies__element__background {
+    max-width: 342px;
+    width: 100%;
+    height: 153.7px;
   }
 }
