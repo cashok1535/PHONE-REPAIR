@@ -1,27 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Context } from "./Context";
 
 export const Header = () => {
-  const [wrapperWidth, setWrapperWidth] = useState(0);
-  const [isPhone, setIsPhone] = useState(false);
+  const { isPhone } = useContext(Context);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWrapperWidth(window.innerWidth);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    setIsPhone(wrapperWidth < 992);
-    if (wrapperWidth > 992) {
+    if (!isPhone) {
       setIsOpenModal(false);
     }
-  }, [wrapperWidth]);
+  }, [isPhone]);
 
   useEffect(() => {
     document.body.style.overflow = isPhone && isOpenModal ? "hidden" : "auto";

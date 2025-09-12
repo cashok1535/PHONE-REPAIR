@@ -182,9 +182,9 @@ export const ServicesSlider = () => {
       setSliderTranslate(slide.current.offsetWidth * activeSlide);
     };
     handleResize();
-    document.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      document.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [activeSlide]);
 
