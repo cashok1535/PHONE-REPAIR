@@ -103,9 +103,6 @@ export const ServicesSlider = () => {
   }, []);
 
   const handleMouseDown = (e) => {
-    if (e.type === "mousedown") {
-      e.preventDefault();
-    }
     if (overflowSliderRef.current) {
       sliderPositionOnWindow.current = {
         top: overflowSliderRef.current.getBoundingClientRect().top,
@@ -126,8 +123,24 @@ export const ServicesSlider = () => {
       setIsDragSlider(false);
       setIsTransition(true);
       setSliderPosition(sliderTranslate);
-      if (isDragSlider && e.clientX - mouseRef.current.x !== 0) {
+      if (
+        isDragSlider &&
+        (e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX) -
+          mouseRef.current.x !==
+          0
+      ) {
         setActiveSlide((prev) => {
+          if (countSlides - 2 < prev) {
+            setTimeout(() => {
+              setIsTransition(false);
+              setActiveSlide(3);
+            }, 300);
+          } else if (prev < 3) {
+            setTimeout(() => {
+              setIsTransition(false);
+              setActiveSlide(countSlides - 2);
+            }, 300);
+          }
           if (
             (e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX) -
               mouseRef.current.x >
@@ -135,28 +148,18 @@ export const ServicesSlider = () => {
           ) {
             return prev - 1;
           } else if (
-            e.type === "mousedown"
+            e.type === "mouseup"
               ? e.clientX
               : e.changedTouches[0].clientX - mouseRef.current.x < 20
           ) {
             return prev + 1;
           } else return prev;
         });
-        if (countSlides - 2 < activeSlide) {
-          setTimeout(() => {
-            setIsTransition(false);
-            setActiveSlide(3);
-          }, 300);
-        } else if (activeSlide < 3) {
-          setTimeout(() => {
-            setIsTransition(false);
-            setActiveSlide(countSlides - 2);
-          }, 300);
-        }
       }
     },
-    [sliderTranslate, isDragSlider, activeSlide, countSlides]
+    [sliderTranslate, isDragSlider, countSlides]
   );
+
   const handleMouseMove = useCallback(
     (e) => {
       let dx =
