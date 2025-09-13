@@ -96,12 +96,16 @@ export const ServicesSlider = () => {
   const slide = useRef(null);
   const overflowSliderRef = useRef(null);
   const mouseRef = useRef({ x: null });
+  const sliderRef = useRef(null);
 
   const countSlides = useMemo(() => {
     return sliderElements.length - 3;
   }, []);
 
   const handleMouseDown = (e) => {
+    if (e.type === "mousedown") {
+      e.preventDefault();
+    }
     if (overflowSliderRef.current) {
       sliderPositionOnWindow.current = {
         top: overflowSliderRef.current.getBoundingClientRect().top,
@@ -111,10 +115,12 @@ export const ServicesSlider = () => {
       };
     }
     setIsDragSlider(true);
-    e.preventDefault();
     setIsTransition(false);
-    mouseRef.current = { x: e.clientX };
+    mouseRef.current = {
+      x: e.type === "mousedown" ? e.clientX : e.changedTouches[0].clientX,
+    };
   };
+
   const handleMouseUp = useCallback(
     (e) => {
       setIsDragSlider(false);
@@ -122,9 +128,17 @@ export const ServicesSlider = () => {
       setSliderPosition(sliderTranslate);
       if (isDragSlider && e.clientX - mouseRef.current.x !== 0) {
         setActiveSlide((prev) => {
-          if (e.clientX - mouseRef.current.x > 100) {
+          if (
+            (e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX) -
+              mouseRef.current.x >
+            20
+          ) {
             return prev - 1;
-          } else if (e.clientX - mouseRef.current.x < 100) {
+          } else if (
+            e.type === "mousedown"
+              ? e.clientX
+              : e.changedTouches[0].clientX - mouseRef.current.x < 20
+          ) {
             return prev + 1;
           } else return prev;
         });
@@ -145,20 +159,25 @@ export const ServicesSlider = () => {
   );
   const handleMouseMove = useCallback(
     (e) => {
-      let dx = e.clientX - mouseRef.current.x;
-      if (
-        !(
-          isDragSlider &&
-          e.clientX > sliderPositionOnWindow.current.left &&
-          e.clientY > sliderPositionOnWindow.current.top &&
-          e.clientX < sliderPositionOnWindow.current.right &&
-          e.clientY < sliderPositionOnWindow.current.bottom
-        )
-      ) {
-        dx = 0;
-        setIsDragSlider(false);
-        setIsTransition(true);
+      let dx =
+        (e.type !== "mousemove" ? e.changedTouches[0].clientX : e.clientX) -
+        mouseRef.current.x;
+      if (e.type === "mousemove") {
+        if (
+          !(
+            isDragSlider &&
+            e.clientX > sliderPositionOnWindow.current.left &&
+            e.clientY > sliderPositionOnWindow.current.top &&
+            e.clientX < sliderPositionOnWindow.current.right &&
+            e.clientY < sliderPositionOnWindow.current.bottom
+          )
+        ) {
+          dx = 0;
+          setIsDragSlider(false);
+          setIsTransition(true);
+        }
       }
+
       setSliderPosition(sliderTranslate - dx);
     },
     [sliderTranslate, isDragSlider, sliderPositionOnWindow]
@@ -167,13 +186,14 @@ export const ServicesSlider = () => {
     if (slide.current && isDragSlider) {
       document.body.addEventListener("mousemove", handleMouseMove);
       document.body.addEventListener("mouseup", handleMouseUp);
-    } else {
-      document.body.removeEventListener("mousemove", handleMouseMove);
-      document.body.removeEventListener("mouseup", handleMouseUp);
+      sliderRef.current.addEventListener("touchmove", handleMouseMove);
+      sliderRef.current.addEventListener("touchend", handleMouseUp);
     }
     return () => {
       document.body.removeEventListener("mousemove", handleMouseMove);
       document.body.removeEventListener("mouseup", handleMouseUp);
+      document.body.removeEventListener("touchmove", handleMouseMove);
+      document.body.removeEventListener("touchend", handleMouseUp);
     };
   }, [slide, isDragSlider, handleMouseMove, handleMouseUp]);
 
@@ -255,6 +275,8 @@ export const ServicesSlider = () => {
         <div
           className="slider"
           onMouseDown={handleMouseDown}
+          onTouchStart={handleMouseDown}
+          ref={sliderRef}
           style={{
             position: "relative",
             left: "-" + sliderPosition + "px",
