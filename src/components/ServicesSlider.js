@@ -102,7 +102,15 @@ export const ServicesSlider = () => {
     return sliderElements.length - 3;
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isDragSlider ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isDragSlider]);
+
   const handleMouseDown = (e) => {
+    e.preventDefault();
     if (overflowSliderRef.current) {
       sliderPositionOnWindow.current = {
         top: overflowSliderRef.current.getBoundingClientRect().top,
@@ -185,12 +193,27 @@ export const ServicesSlider = () => {
     },
     [sliderTranslate, isDragSlider, sliderPositionOnWindow]
   );
+
   useEffect(() => {
-    if (slide.current && isDragSlider) {
+    const sliderElement = sliderRef.current;
+    if (sliderElement) {
+      sliderElement.addEventListener("touchstart", handleMouseDown, {
+        passive: false,
+      });
+    }
+    return () => {
+      if (sliderElement) {
+        sliderElement.removeEventListener("touchstart", handleMouseDown);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isDragSlider) {
       document.body.addEventListener("mousemove", handleMouseMove);
       document.body.addEventListener("mouseup", handleMouseUp);
-      sliderRef.current.addEventListener("touchmove", handleMouseMove);
-      sliderRef.current.addEventListener("touchend", handleMouseUp);
+      document.body.addEventListener("touchmove", handleMouseMove);
+      document.body.addEventListener("touchend", handleMouseUp);
     }
     return () => {
       document.body.removeEventListener("mousemove", handleMouseMove);
@@ -198,7 +221,7 @@ export const ServicesSlider = () => {
       document.body.removeEventListener("touchmove", handleMouseMove);
       document.body.removeEventListener("touchend", handleMouseUp);
     };
-  }, [slide, isDragSlider, handleMouseMove, handleMouseUp]);
+  }, [isDragSlider, handleMouseMove, handleMouseUp]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -278,7 +301,6 @@ export const ServicesSlider = () => {
         <div
           className="slider"
           onMouseDown={handleMouseDown}
-          onTouchStart={handleMouseDown}
           ref={sliderRef}
           style={{
             position: "relative",

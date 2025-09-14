@@ -1,7 +1,15 @@
 import welsh from "../img/welsh.webp";
 import peterson from "../img/peterson..webp";
 import tovoli from "../img/tovoli.webp";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useContext,
+} from "react";
+import { Context } from "./Context";
 
 const slides = [
   {
@@ -55,6 +63,7 @@ const slides = [
 ];
 
 export const CallUsSlider = () => {
+  const { isPhone } = useContext(Context);
   const [activeSlide, setActiveSlide] = useState(1);
   const [isDragSlider, setIsDragSlider] = useState(false);
   const [isTransition, setIsTransition] = useState(false);
@@ -81,24 +90,30 @@ export const CallUsSlider = () => {
     setIsDragSlider(true);
     e.preventDefault();
     setIsTransition(false);
-    mousePosition.current = { x: e.clientX };
+    mousePosition.current = {
+      x: e.type === "mousedown" ? e.clientX : e.changedTouches[0].clientX,
+    };
   };
 
   const handleMouseMove = useCallback(
     (e) => {
       setIsTransition(false);
-      let dx = e.clientX - mousePosition.current.x;
-      if (
-        !(
-          isDragSlider &&
-          e.clientX > sliderPositionOnWindow.current.left &&
-          e.clientY > sliderPositionOnWindow.current.top &&
-          e.clientX < sliderPositionOnWindow.current.right &&
-          e.clientY < sliderPositionOnWindow.current.bottom
-        )
-      ) {
-        dx = 0;
-        setIsTransition(true);
+      let dx =
+        (e.type !== "mousemove" ? e.changedTouches[0].clientX : e.clientX) -
+        mousePosition.current.x;
+      if (e.type === "mousemove") {
+        if (
+          !(
+            isDragSlider &&
+            e.clientX > sliderPositionOnWindow.current.left &&
+            e.clientY > sliderPositionOnWindow.current.top &&
+            e.clientX < sliderPositionOnWindow.current.right &&
+            e.clientY < sliderPositionOnWindow.current.bottom
+          )
+        ) {
+          dx = 0;
+          setIsTransition(true);
+        }
       }
       setSliderPosition(sliderTranslate - dx);
     },
@@ -113,21 +128,25 @@ export const CallUsSlider = () => {
       if (activeSlide < countSlides) {
         setActiveSlide((prev) => {
           if (
-            e.clientX - mousePosition.current.x >
+            isDragSlider &&
+            (e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX) -
+              mousePosition.current.x >
               sliderRef.current.offsetWidth / 3 &&
             prev > 0
           ) {
             return prev - 1;
           } else if (
-            e.clientX - mousePosition.current.x <
-            -sliderRef.current.offsetWidth / 3
+            isDragSlider &&
+            (e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX) -
+              mousePosition.current.x <
+              -sliderRef.current.offsetWidth / 3
           ) {
             return prev + 1;
           } else return prev;
         });
       }
     },
-    [sliderTranslate, activeSlide, countSlides]
+    [sliderTranslate, activeSlide, countSlides, isDragSlider]
   );
 
   useEffect(() => {
@@ -185,18 +204,33 @@ export const CallUsSlider = () => {
   }, [sliderTranslate]);
 
   useEffect(() => {
-    if (sliderRef.current && isDragSlider) {
+    const sliderElement = sliderRef.current;
+    if (sliderElement) {
+      sliderElement.addEventListener("touchstart", handleMouseDown, {
+        passive: false,
+      });
+    }
+    return () => {
+      if (sliderElement) {
+        sliderElement.removeEventListener("touchstart", handleMouseDown);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isDragSlider) {
       document.body.addEventListener("mousemove", handleMouseMove);
       document.body.addEventListener("mouseup", handleMouseUp);
-    } else {
-      document.body.removeEventListener("mousemove", handleMouseMove);
-      document.body.removeEventListener("mouseup", handleMouseUp);
+      document.body.addEventListener("touchmove", handleMouseMove);
+      document.body.addEventListener("touchend", handleMouseUp);
     }
     return () => {
       document.body.removeEventListener("mousemove", handleMouseMove);
       document.body.removeEventListener("mouseup", handleMouseUp);
+      document.body.removeEventListener("touchmove", handleMouseMove);
+      document.body.removeEventListener("touchend", handleMouseUp);
     };
-  }, [handleMouseMove, handleMouseUp, isDragSlider]);
+  }, [isDragSlider, handleMouseMove, handleMouseUp]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -249,6 +283,11 @@ export const CallUsSlider = () => {
         >
           {slides.map((el) => (
             <div className="call__us__slider__flex" key={el.id}>
+              {isPhone && (
+                <div className="call__us__slider__flex__element__img">
+                  <img src={el.img} alt="" />
+                </div>
+              )}
               <div className="call__us__slider__flex__element call__us__slider__text">
                 <div className="quotes">
                   <svg
@@ -283,9 +322,11 @@ export const CallUsSlider = () => {
                   {el.name}
                 </div>
               </div>
-              <div className="call__us__slider__flex__element__img">
-                <img src={el.img} alt="" />
-              </div>
+              {!isPhone && (
+                <div className="call__us__slider__flex__element__img">
+                  <img src={el.img} alt="" />
+                </div>
+              )}
             </div>
           ))}
         </div>
