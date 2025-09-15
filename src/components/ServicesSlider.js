@@ -102,13 +102,6 @@ export const ServicesSlider = () => {
     return sliderElements.length - 3;
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = isDragSlider ? "hidden" : "auto";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isDragSlider]);
-
   const handleMouseDown = (e) => {
     e.preventDefault();
     if (overflowSliderRef.current) {

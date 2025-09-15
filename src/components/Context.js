@@ -4,6 +4,12 @@ export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [isPhone, setIsPhone] = useState(false);
+  const [formData, setFormData] = useState();
+  const handleFormData = (data) => {
+    setFormData(data);
+  };
+
+  console.log(formData);
 
   useEffect(() => {
     const handleResize = () => {
@@ -16,5 +22,9 @@ export const ContextProvider = ({ children }) => {
     };
   }, []);
 
-  return <Context.Provider value={{ isPhone }}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={{ isPhone, formData, handleFormData }}>
+      {children}
+    </Context.Provider>
+  );
 };

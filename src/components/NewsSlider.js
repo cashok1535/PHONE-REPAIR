@@ -77,6 +77,7 @@ export const NewsSlider = () => {
   const mousePositionRef = useRef({ x: 0 });
   const sliderParrentRef = useRef(null);
   const slideWidthRef = useRef(null);
+  const sliderRef = useRef(null);
 
   const slidesCount = useMemo(() => {
     return news.length - 3;
@@ -137,27 +138,32 @@ export const NewsSlider = () => {
     }
     e.preventDefault();
     setIsDragSlider(true);
-    mousePositionRef.current.x = e.clientX;
+    mousePositionRef.current = {
+      x: e.type === "mousedown" ? e.clientX : e.changedTouches[0].clientX,
+    };
     setIsTransition(false);
   };
 
   const handleMouseMove = useCallback(
     (e) => {
-      let dx = e.clientX - mousePositionRef.current.x;
-      if (
-        !(
-          isDragSlider &&
-          e.clientX > sliderPositionOnWindow.current.left &&
-          e.clientY > sliderPositionOnWindow.current.top &&
-          e.clientX < sliderPositionOnWindow.current.right &&
-          e.clientY < sliderPositionOnWindow.current.bottom
-        )
-      ) {
-        dx = 0;
-        setIsDragSlider(false);
-        setIsTransition(true);
+      let dx =
+        (e.type !== "mousemove" ? e.changedTouches[0].clientX : e.clientX) -
+        mousePositionRef.current.x;
+      if (e.type === "mousemove") {
+        if (
+          !(
+            isDragSlider &&
+            e.clientX > sliderPositionOnWindow.current.left &&
+            e.clientY > sliderPositionOnWindow.current.top &&
+            e.clientX < sliderPositionOnWindow.current.right &&
+            e.clientY < sliderPositionOnWindow.current.bottom
+          )
+        ) {
+          dx = 0;
+          setIsDragSlider(false);
+          setIsTransition(true);
+        }
       }
-
       setSliderPosition(sliderTranslate - dx);
     },
     [isDragSlider, sliderTranslate, sliderPositionOnWindow]
@@ -167,13 +173,21 @@ export const NewsSlider = () => {
       if (isDragSlider) {
         setActiveSlide((prev) => {
           if (
-            e.clientX - mousePositionRef.current.x > 100 &&
-            e.clientX - mousePositionRef.current.x !== 0
+            (e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX) -
+              mousePositionRef.current.x >
+              100 &&
+            (e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX) -
+              mousePositionRef.current.x !==
+              0
           ) {
             return prev - 1;
           } else if (
-            e.clientX - mousePositionRef.current.x < 100 &&
-            e.clientX - mousePositionRef.current.x !== 0
+            (e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX) -
+              mousePositionRef.current.x <
+              100 &&
+            (e.type === "mouseup" ? e.clientX : e.changedTouches[0].clientX) -
+              mousePositionRef.current.x !==
+              0
           ) {
             return prev + 1;
           } else return prev;
@@ -198,16 +212,31 @@ export const NewsSlider = () => {
   );
 
   useEffect(() => {
-    if (isDragSlider && sliderParrentRef.current) {
+    const sliderElement = sliderRef.current;
+    if (sliderElement) {
+      sliderElement.addEventListener("touchstart", handleMouseDown, {
+        passive: false,
+      });
+    }
+    return () => {
+      if (sliderElement) {
+        sliderElement.removeEventListener("touchstart", handleMouseDown);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isDragSlider) {
       document.body.addEventListener("mousemove", handleMouseMove);
       document.body.addEventListener("mouseup", handleMouseUp);
-    } else {
-      document.body.removeEventListener("mousemove", handleMouseMove);
-      document.body.removeEventListener("mouseup", handleMouseUp);
+      document.body.addEventListener("touchmove", handleMouseMove);
+      document.body.addEventListener("touchend", handleMouseUp);
     }
     return () => {
       document.body.removeEventListener("mousemove", handleMouseMove);
       document.body.removeEventListener("mouseup", handleMouseUp);
+      document.body.removeEventListener("touchmove", handleMouseMove);
+      document.body.removeEventListener("touchend", handleMouseUp);
     };
   }, [isDragSlider, handleMouseMove, handleMouseUp]);
   return (
@@ -233,6 +262,7 @@ export const NewsSlider = () => {
       <div ref={sliderParrentRef} className="news__slider">
         <div
           onMouseDown={handleMouseDown}
+          ref={sliderRef}
           style={{
             position: "relative",
             display: "flex",
