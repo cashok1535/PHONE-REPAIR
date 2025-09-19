@@ -131,6 +131,7 @@ li {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+  /* background-color: #121212; */
 }
 
 .header__top {
@@ -181,7 +182,8 @@ li {
   width: 277.19px;
 }
 
-.header__navbar {
+.header__navbar,
+.link {
   display: flex;
   font-family: "Lato_Bold", sans-serif;
   font-size: 15px;
@@ -189,6 +191,8 @@ li {
   max-width: 688.89px;
   width: 100%;
   justify-content: center;
+  text-decoration: none;
+  text-wrap: nowrap;
 }
 
 .header__navbar__element {
@@ -1228,6 +1232,12 @@ li {
   line-height: 1.33333;
   margin-bottom: 24px;
   font-family: "Lato_Bold", sans-serif;
+}
+
+.form__input.wrongName,
+.form__input.wrongPhoneNumber,
+.form__input.wrongEmail {
+  border: 1.5px solid rgb(231, 58, 58);
 }
 
 .form__button {

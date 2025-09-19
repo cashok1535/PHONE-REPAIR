@@ -3,11 +3,11 @@ import { Context } from "./Context";
 
 export const Form = () => {
   const { handleFormData } = useContext(Context);
-  const [formData, setFormData] = useState({
-    name: null,
-    phoneNumber: null,
-    email: null,
-    massage: null,
+  const [formData, setFormData] = useState(null);
+  const [isFormRight, setIsFormRight] = useState({
+    name: true,
+    email: true,
+    phoneNumber: true,
   });
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -15,27 +15,38 @@ export const Form = () => {
   const [massage, setMassage] = useState("");
   const handleChangeForm = (e) => {
     e.preventDefault();
-    setFormData({
-      name: name,
-      phoneNumber: phoneNumber,
-      email: email,
-      massage: massage,
+    setIsFormRight({
+      name: name.length !== 0 && name.charAt(0) !== " ",
+      email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email),
+      phone: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/.test(
+        phoneNumber
+      ),
     });
-    handleFormData(formData);
+    if (!Object.values(isFormRight).includes(false)) {
+      setFormData({
+        name: name,
+        phoneNumber: phoneNumber,
+        email: email,
+        massage: massage,
+      });
+      handleFormData(formData);
+    }
   };
+
   return (
     <form
       onSubmit={(e) => {
         handleChangeForm(e);
       }}
       className="form"
+      noValidate
     >
       <input
         onChange={(e) => {
           setName(e.target.value);
         }}
         value={name}
-        className="form__input"
+        className={`form__input ${!isFormRight.name && "wrongName"}`}
         required
         placeholder="Your Name*"
       />
@@ -44,7 +55,9 @@ export const Form = () => {
           setPhoneNumber(e.target.value);
         }}
         value={phoneNumber}
-        className="form__input"
+        className={`form__input ${
+          !isFormRight.phoneNumber && "wrongPhoneNumber"
+        }`}
         required
         placeholder="Phone Number*"
       />
@@ -53,7 +66,7 @@ export const Form = () => {
           setEmail(e.target.value);
         }}
         value={email}
-        className="form__input"
+        className={`form__input ${!isFormRight.email && "wrongEmail"}`}
         required
         placeholder="Email*"
       />

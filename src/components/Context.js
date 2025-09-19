@@ -9,8 +9,6 @@ export const ContextProvider = ({ children }) => {
     setFormData(data);
   };
 
-  console.log(formData);
-
   useEffect(() => {
     const handleResize = () => {
       setIsPhone(window.innerWidth < 767);

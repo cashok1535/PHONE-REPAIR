@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { Context } from "./Context";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const { isPhone } = useContext(Context);
@@ -89,7 +90,9 @@ export const Header = () => {
           <div className="header__phone__links">
             <ul className="header__navbar header__phone__links">
               <li className="header__navbar__element header__phone__link">
-                About us
+                <Link className="link" to="/aboutUs">
+                  About us
+                </Link>
               </li>
               <li className="header__navbar__element header__phone__link">
                 Pricing
@@ -332,7 +335,11 @@ export const Header = () => {
                   </svg>
                 </div>
                 <ul className="header__navbar">
-                  <li className="header__navbar__element">About us</li>
+                  <li className="header__navbar__element">
+                    <Link className="link" to="/aboutUs">
+                      About us
+                    </Link>
+                  </li>
                   <li className="header__navbar__element">Pricing</li>
                   <li className="header__navbar__element">Testimonials</li>
                   <li className="header__navbar__element">News</li>
