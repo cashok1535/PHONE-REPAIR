@@ -79,7 +79,7 @@ li {
   width: 30px;
 }
 
-.modal__button:hover>.modal__element {
+.modal__button:hover > .modal__element {
   background-color: #727272;
 }
 
@@ -125,8 +125,6 @@ li {
   margin: 0 auto;
 }
 
-
-
 .header__child {
   display: flex;
   flex-direction: column;
@@ -162,7 +160,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover>svg {
+.link__social:hover > svg {
   fill: #ff6534;
 }
 
@@ -198,16 +196,17 @@ li {
   justify-content: center;
   text-decoration: none;
   text-wrap: nowrap;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: #ff6534;
 }
 
 .header__navbar__element {
   margin: calc(10px / 2) calc(15px / 2);
   transition: color 0.3s;
   cursor: pointer;
-}
-
-.header__navbar__element:hover {
-  color: #ff6534;
 }
 
 .header__button {
@@ -1427,10 +1426,12 @@ li {
   margin-top: 25px;
 }
 
-.page__home, .page__current__page, .page__home__arrow {
+.page__home,
+.page__current__page,
+.page__home__arrow {
   font-family: "Lato_Bold", sans-serif;
   font-size: 12px;
-  letter-spacing: calc(0.2*1em);
+  letter-spacing: calc(0.2 * 1em);
 }
 
 .page__home {

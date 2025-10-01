@@ -6,7 +6,7 @@ import company4 from "../img/company4.svg";
 import company5 from "../img/company5.svg";
 export const Services = () => {
   return (
-    <section className="services">
+    <section id="services" className="services">
       <div className="orange__title__bold">SERVICES</div>
       <div className="what__we__do__title">
         We Repair Smarthones, That's It

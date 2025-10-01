@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { Context } from "./Context";
 import { Link, useLocation } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 export const Header = () => {
   const { isPhone } = useContext(Context);
@@ -28,6 +29,9 @@ export const Header = () => {
   };
 
   const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
+  const handleClickHref = () => {
     setIsOpenModal(false);
   };
 
@@ -95,24 +99,48 @@ export const Header = () => {
           </div>
           <div className="header__phone__links">
             <ul className="header__navbar header__phone__links">
-              <li className="header__navbar__element header__phone__link">
+              <li
+                onClick={handleClickHref}
+                className="header__navbar__element header__phone__link"
+              >
                 <Link className="link" to="/aboutUs">
                   About us
                 </Link>
               </li>
-              <li className="header__navbar__element header__phone__link">
+              <li
+                onClick={handleClickHref}
+                className="header__navbar__element header__phone__link"
+              >
                 Pricing
               </li>
-              <li className="header__navbar__element header__phone__link">
-                Testimonials
+              <li
+                onClick={handleClickHref}
+                className="header__navbar__element header__phone__link"
+              >
+                <HashLink className="link" to="/#testemonials">
+                  Testimonials
+                </HashLink>
               </li>
-              <li className="header__navbar__element header__phone__link">
-                News
+              <li
+                onClick={handleClickHref}
+                className="header__navbar__element header__phone__link"
+              >
+                <HashLink className="link" to="/#news">
+                  News
+                </HashLink>
               </li>
-              <li className="header__navbar__element header__phone__link">
-                Services
+              <li
+                onClick={handleClickHref}
+                className="header__navbar__element header__phone__link"
+              >
+                <HashLink className="link" to="/#services">
+                  Services
+                </HashLink>
               </li>
-              <li className="header__navbar__element header__phone__link">
+              <li
+                onClick={handleClickHref}
+                className="header__navbar__element header__phone__link"
+              >
                 Contact us
               </li>
             </ul>
@@ -351,9 +379,21 @@ export const Header = () => {
                     </Link>
                   </li>
                   <li className="header__navbar__element">Pricing</li>
-                  <li className="header__navbar__element">Testimonials</li>
-                  <li className="header__navbar__element">News</li>
-                  <li className="header__navbar__element">Services</li>
+                  <li className="header__navbar__element">
+                    <HashLink className="link" to="/#testemonials">
+                      Testimonials
+                    </HashLink>
+                  </li>
+                  <li className="header__navbar__element">
+                    <HashLink className="link" to="/#news">
+                      News
+                    </HashLink>
+                  </li>
+                  <li className="header__navbar__element">
+                    <HashLink className="link" to="/#services">
+                      Services
+                    </HashLink>
+                  </li>
                   <li className="header__navbar__element">Contact us</li>
                 </ul>
                 <div className="header__button__parrent">

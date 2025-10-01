@@ -240,7 +240,7 @@ export const NewsSlider = () => {
     };
   }, [isDragSlider, handleMouseMove, handleMouseUp]);
   return (
-    <section className="news__parrent__slider">
+    <section id="news" className="news__parrent__slider">
       <button
         onClick={handlePrev}
         disabled={isDelay}
