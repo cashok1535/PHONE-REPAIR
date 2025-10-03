@@ -257,11 +257,10 @@ li {
 }
 
 .orange__title {
-  font-family: "Lato_Regular", sans-serif;
+  font-family: "Lato_Bold", sans-serif;
   font-size: 12px;
   color: #ff6534;
   letter-spacing: calc(0.2 * 1em);
-  font-weight: 900;
 }
 
 .interactive__flex__info__title {
@@ -282,6 +281,12 @@ li {
 
 .interactive__flex__info__orange {
   color: #ff6534 !important;
+}
+
+.about__us__page__orange {
+  font-family: "Questrial", sans-serif;
+  font-weight: bold;
+  font-size: 56px;
 }
 
 .interactive__flex__info__big__text {
@@ -1474,6 +1479,41 @@ li {
   max-width: 555px;
   width: 100%;
   margin: 20px 0;
+}
+
+.about__us__page__process {
+  padding: 105px 0;
+  background: #f6f6f6;
+}
+
+.about__us__page__process__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about__us__page__process__text {
+  max-width: none !important;
+  width: fit-content;
+}
+
+.about__us__page__process__flex{
+  display: flex;
+  max-width: 1200px;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+  gap: 30px;
+}
+
+.about__us__page__text{
+  margin-top: 20px;
+}
+
+.about__us__page__process__flex__element{
+  background-color: #fff;
+  padding: 34px;
+  box-sizing: border-box;
 }
 
 @media (max-width: 992px) {
