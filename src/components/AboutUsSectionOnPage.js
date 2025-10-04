@@ -18,7 +18,8 @@ export const AboutUsPageSection = () => {
         <div className="about__us__page__flex__element">
           <div className="orange__title">ABOUT US</div>
           <div className="what__we__do__title about__us__page__flex__title">
-            We Fix Gadgets<span class="interactive__flex__info__orange">.</span>
+            We Fix Gadgets
+            <span className="interactive__flex__info__orange">.</span>
           </div>
           <div className="about__us__section__text__bold about__us__page__flex__little__title">
             Trust TechPro – Where Tech Meets Pro!

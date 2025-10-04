@@ -79,7 +79,7 @@ li {
   width: 30px;
 }
 
-.modal__button:hover > .modal__element {
+.modal__button:hover>.modal__element {
   background-color: #727272;
 }
 
@@ -160,7 +160,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover > svg {
+.link__social:hover>svg {
   fill: #ff6534;
 }
 
@@ -1497,7 +1497,7 @@ li {
   width: fit-content;
 }
 
-.about__us__page__process__flex{
+.about__us__page__process__flex {
   display: flex;
   max-width: 1200px;
   justify-content: space-between;
@@ -1506,15 +1506,29 @@ li {
   gap: 30px;
 }
 
-.about__us__page__text{
+.about__us__page__text {
   margin-top: 20px;
 }
 
-.about__us__page__process__flex__element{
+.about__us__page__process__flex__element {
   background-color: #fff;
   padding: 34px;
   box-sizing: border-box;
 }
+
+.about__us__page__slider {
+  background: url(../img/bgTop.jpg) no-repeat;
+  background-size: cover;
+  padding: 120px 0 0;
+  text-align: center;
+}
+
+.about__us__page__slider__text, .about__us__page__slider__title {
+  max-width: none;
+  width: fit-content;
+  margin: 20px auto 0 auto;
+}
+
 
 @media (max-width: 992px) {
   .what__we__do__grid {
