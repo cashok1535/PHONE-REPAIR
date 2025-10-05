@@ -11,7 +11,7 @@ export const AboutUsPageSlider = () => {
         We hire only the best tech experts to ensure the best possible quality
         of our services.
       </div>
-      <TeamsSlider />
+      <div className="about__us__page__slider__parrent"><TeamsSlider /></div>
     </section>
   );
 };

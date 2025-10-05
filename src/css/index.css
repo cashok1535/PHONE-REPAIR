@@ -79,7 +79,7 @@ li {
   width: 30px;
 }
 
-.modal__button:hover>.modal__element {
+.modal__button:hover > .modal__element {
   background-color: #727272;
 }
 
@@ -160,7 +160,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover>svg {
+.link__social:hover > svg {
   fill: #ff6534;
 }
 
@@ -1523,12 +1523,82 @@ li {
   text-align: center;
 }
 
-.about__us__page__slider__text, .about__us__page__slider__title {
+.about__us__page__slider__text,
+.about__us__page__slider__title {
   max-width: none;
   width: fit-content;
   margin: 20px auto 0 auto;
 }
 
+.teams__slider__element__img__parrent {
+  width: 120px;
+  height: 120px;
+  border-radius: 100px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.teams__slider {
+  display: flex;
+  position: relative;
+  width: max-content;
+}
+
+.teams__parrent__slider {
+  max-width: 1050px;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  margin-top: 50px;
+}
+
+.teams__slider__element {
+  padding: 34px;
+  background-color: #181818;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.teams__slider__element__name {
+  color: #ff6534;
+  font-family: "Questrial", sans-serif;
+  font-size: 23px;
+  margin-top: 20px;
+}
+
+.teams__slider__element__text {
+  color: #bdbdbd;
+  font-family: "Lato_Regular", sans-serif;
+  font-size: 17px;
+  margin-top: 20px;
+  line-height: 1.5;
+  width: 100%;
+  max-width: 420px;
+}
+
+.about__us__page__slider__parrent {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.slider__button{
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.slider__button svg path{
+  fill: #bdbdbd;
+  transition: fill .3s;
+}
+.slider__button:hover > svg path{
+  fill: #fff;
+}
 
 @media (max-width: 992px) {
   .what__we__do__grid {
