@@ -1,10 +1,19 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import img1 from "../img/teamsSlider1.webp";
 import img2 from "../img/teamsSlider2.webp";
 import img3 from "../img/teamsSlider3.webp";
 
 const slides = [
   {
+    subId: 3,
+    id: 0,
+    img: img1,
+    name: "Sam Kirth",
+    text: "Sam's expertise lies in water damage restoration, honed over 6 years of hands-on experience. His meticulous approach ensures devices are rescued from the depths effectively.",
+    width: 120,
+  },
+  {
+    subId: 1,
     id: 1,
     img: img2,
     name: "James Smith",
@@ -12,6 +21,7 @@ const slides = [
     width: 120,
   },
   {
+    subId: 2,
     id: 2,
     img: img3,
     name: "Dean Elgrad",
@@ -19,6 +29,7 @@ const slides = [
     width: 190,
   },
   {
+    subId: 3,
     id: 3,
     img: img1,
     name: "Sam Kirth",
@@ -26,6 +37,7 @@ const slides = [
     width: 120,
   },
   {
+    subId: 1,
     id: 4,
     img: img2,
     name: "James Smith",
@@ -33,6 +45,7 @@ const slides = [
     width: 120,
   },
   {
+    subId: 2,
     id: 5,
     img: img3,
     name: "Dean Elgrad",
@@ -42,17 +55,51 @@ const slides = [
 ];
 
 export const TeamsSlider = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(1);
   const [sliderTranslate, setSliderTranslate] = useState(0);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isTransition, setIsTransition] = useState(true);
   const sliderRef = useRef(null);
   const slideRef = useRef(null);
 
+  const countSlides = useMemo(() => {
+    return slides.length - 2;
+  }, []);
+
+  const handleDelay = () => {
+    setIsTransition(false);
+    setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 700);
+  };
+
   const handleNext = () => {
-    setActiveSlide((prev) => prev + 1);
+    handleDelay();
+    if (activeSlide < countSlides) {
+      setActiveSlide((prev) => prev + 1);
+    } else {
+      setIsTransition(true);
+      setActiveSlide(1);
+      setTimeout(() => {
+        setIsTransition(false);
+        setActiveSlide((prev) => prev + 1);
+      }, 50);
+    }
   };
 
   const handlePrev = () => {
-    setActiveSlide((prev) => prev - 1);
+    handleDelay();
+    if (activeSlide > 0) {
+      setActiveSlide((prev) => prev - 1);
+    } else {
+      setIsTransition(true);
+      setActiveSlide(countSlides - 1);
+      setTimeout(() => {
+        setIsTransition(false);
+        setActiveSlide((prev) => prev - 1);
+      }, 50);
+    }
   };
 
   useEffect(() => {
@@ -68,7 +115,11 @@ export const TeamsSlider = () => {
 
   return (
     <>
-      <button onClick={handlePrev} className="slider__button left">
+      <button
+        disabled={isDisabled}
+        onClick={handlePrev}
+        className="slider__button left"
+      >
         <svg
           width="30px"
           height="30px"
@@ -86,7 +137,7 @@ export const TeamsSlider = () => {
           className="teams__slider"
           style={{
             left: `-${sliderTranslate}px`,
-            transition: "all .3s",
+            transition: isTransition ? "none" : "all .3s",
           }}
         >
           {slides.map((el) => (
@@ -115,7 +166,11 @@ export const TeamsSlider = () => {
           ))}
         </div>
       </div>
-      <button onClick={handleNext} className="slider__button right">
+      <button
+        disabled={isDisabled}
+        onClick={handleNext}
+        className="slider__button right"
+      >
         <svg
           width="30px"
           height="30px"
