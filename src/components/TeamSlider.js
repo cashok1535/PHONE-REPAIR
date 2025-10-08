@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import img1 from "../img/teamsSlider1.webp";
 import img2 from "../img/teamsSlider2.webp";
 import img3 from "../img/teamsSlider3.webp";
@@ -59,12 +59,49 @@ export const TeamsSlider = () => {
   const [sliderTranslate, setSliderTranslate] = useState(0);
   const [isDisabled, setIsDisabled] = useState(false);
   const [isTransition, setIsTransition] = useState(true);
+  const [isDrag, setIsDrag] = useState(false);
+  const [sliderPosition, setSliderPosition] = useState();
   const sliderRef = useRef(null);
   const slideRef = useRef(null);
+  const sliderDragX = useRef(null);
 
   const countSlides = useMemo(() => {
     return slides.length - 2;
   }, []);
+
+  const handleDown = (e) => {
+    e.preventDefault();
+    sliderDragX.current = e.clientX;
+    setIsTransition(true);
+    setIsDrag(true);
+  };
+
+  const handleMove = useCallback(
+    (e) => {
+      let dx = sliderDragX.current;
+      if (isDrag) {
+        dx = e.clientX - sliderDragX.current;
+        setSliderPosition(sliderTranslate - dx);
+      }
+    },
+    [isDrag, sliderTranslate]
+  );
+  const handleUp = useCallback(() => {
+    setIsDrag(false);
+    setIsTransition(false);
+    setSliderPosition(sliderTranslate);
+  }, [sliderTranslate]);
+
+  useEffect(() => {
+    if (sliderRef.current) {
+      document.body.addEventListener("mousemove", handleMove);
+      document.body.addEventListener("mouseup", handleUp);
+    }
+    return () => {
+      document.body.removeEventListener("mousemove", handleMove);
+      document.body.removeEventListener("mouseup", handleUp);
+    };
+  }, [handleMove, handleUp]);
 
   const handleDelay = () => {
     setIsTransition(false);
@@ -135,8 +172,9 @@ export const TeamsSlider = () => {
         <div
           ref={sliderRef}
           className="teams__slider"
+          onMouseDown={handleDown}
           style={{
-            left: `-${sliderTranslate}px`,
+            left: `-${sliderPosition}px`,
             transition: isTransition ? "none" : "all .3s",
           }}
         >
