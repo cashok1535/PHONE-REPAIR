@@ -6,7 +6,7 @@ import img3 from "../img/teamsSlider3.webp";
 const slides = [
   {
     subId: 3,
-    id: 0,
+    id: 1,
     img: img1,
     name: "Sam Kirth",
     text: "Sam's expertise lies in water damage restoration, honed over 6 years of hands-on experience. His meticulous approach ensures devices are rescued from the depths effectively.",
@@ -14,7 +14,7 @@ const slides = [
   },
   {
     subId: 1,
-    id: 1,
+    id: 2,
     img: img2,
     name: "James Smith",
     text: "With a decade of experience, James specializes in intricate hardware repairs. His attention to detail and passion for technology ensure top-notch results for every device.",
@@ -22,7 +22,7 @@ const slides = [
   },
   {
     subId: 2,
-    id: 2,
+    id: 3,
     img: img3,
     name: "Dean Elgrad",
     text: "Dean is a seasoned software guru with a knack for troubleshooting complex issues. With 8 years in the industry, he's your go-to for all software-related concerns.",
@@ -30,7 +30,7 @@ const slides = [
   },
   {
     subId: 3,
-    id: 3,
+    id: 4,
     img: img1,
     name: "Sam Kirth",
     text: "Sam's expertise lies in water damage restoration, honed over 6 years of hands-on experience. His meticulous approach ensures devices are rescued from the depths effectively.",
@@ -38,7 +38,7 @@ const slides = [
   },
   {
     subId: 1,
-    id: 4,
+    id: 5,
     img: img2,
     name: "James Smith",
     text: "With a decade of experience, James specializes in intricate hardware repairs. His attention to detail and passion for technology ensure top-notch results for every device.",
@@ -46,7 +46,7 @@ const slides = [
   },
   {
     subId: 2,
-    id: 5,
+    id: 6,
     img: img3,
     name: "Dean Elgrad",
     text: "Dean is a seasoned software guru with a knack for troubleshooting complex issues. With 8 years in the industry, he's your go-to for all software-related concerns.",
@@ -63,25 +63,50 @@ export const TeamsSlider = () => {
   const [sliderPosition, setSliderPosition] = useState();
   const sliderRef = useRef(null);
   const slideRef = useRef(null);
-  const sliderDragX = useRef(null);
+  const mousePositionRef = useRef(null);
+  const dxRef = useRef(mousePositionRef.current);
+  const overflowSliderRef = useRef(null);
+  const sliderPositionOnWindow = useRef({});
 
   const countSlides = useMemo(() => {
     return slides.length - 2;
   }, []);
 
+  useEffect(() => {
+    setSliderTranslate(activeSlide * slideRef.current.offsetWidth);
+  }, [activeSlide]);
+
   const handleDown = (e) => {
     e.preventDefault();
-    sliderDragX.current = e.clientX;
+    mousePositionRef.current = e.clientX;
     setIsTransition(true);
     setIsDrag(true);
+    if (sliderRef.current) {
+      sliderPositionOnWindow.current = {
+        top: overflowSliderRef.current.getBoundingClientRect().top,
+        left: overflowSliderRef.current.getBoundingClientRect().left,
+        bottom: overflowSliderRef.current.getBoundingClientRect().bottom,
+        right: overflowSliderRef.current.getBoundingClientRect().right,
+      };
+    }
   };
 
   const handleMove = useCallback(
     (e) => {
-      let dx = sliderDragX.current;
-      if (isDrag) {
-        dx = e.clientX - sliderDragX.current;
-        setSliderPosition(sliderTranslate - dx);
+      if (
+        isDrag &&
+        e.clientX > sliderPositionOnWindow.current.left &&
+        e.clientY > sliderPositionOnWindow.current.top &&
+        e.clientX < sliderPositionOnWindow.current.right &&
+        e.clientY < sliderPositionOnWindow.current.bottom
+      ) {
+        dxRef.current = e.clientX - mousePositionRef.current;
+        setSliderPosition(sliderTranslate - dxRef.current);
+      } else {
+        setIsTransition(false);
+        setIsDrag(false);
+        dxRef.current = 0;
+        setSliderPosition(sliderTranslate);
       }
     },
     [isDrag, sliderTranslate]
@@ -90,7 +115,28 @@ export const TeamsSlider = () => {
     setIsDrag(false);
     setIsTransition(false);
     setSliderPosition(sliderTranslate);
-  }, [sliderTranslate]);
+    if (dxRef.current > 50) {
+      if (activeSlide === 1) {
+        setActiveSlide(0);
+        setTimeout(() => {
+          setIsTransition(true);
+          setActiveSlide(countSlides - 1);
+        }, 300);
+        setActiveSlide(0);
+      } else {
+        setActiveSlide((prev) => prev - 1);
+      }
+    } else if (dxRef.current < -50) {
+      if (activeSlide === countSlides - 1) {
+        setActiveSlide(countSlides);
+        setIsTransition(false);
+        setTimeout(() => {
+          setIsTransition(true);
+          setActiveSlide(1);
+        }, 300);
+      } else setActiveSlide((prev) => prev + 1);
+    }
+  }, [sliderTranslate, activeSlide, countSlides]);
 
   useEffect(() => {
     if (sliderRef.current) {
@@ -141,7 +187,7 @@ export const TeamsSlider = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setSliderTranslate(activeSlide * slideRef.current.offsetWidth);
+      setSliderPosition(activeSlide * slideRef.current.offsetWidth);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -168,7 +214,7 @@ export const TeamsSlider = () => {
           <path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"></path>
         </svg>
       </button>
-      <div className="teams__parrent__slider">
+      <div ref={overflowSliderRef} className="teams__parrent__slider">
         <div
           ref={sliderRef}
           className="teams__slider"
