@@ -72,13 +72,10 @@ export const TeamsSlider = () => {
     return slides.length - 2;
   }, []);
 
-  useEffect(() => {
-    setSliderTranslate(activeSlide * slideRef.current.offsetWidth);
-  }, [activeSlide]);
-
   const handleDown = (e) => {
     e.preventDefault();
-    mousePositionRef.current = e.clientX;
+    mousePositionRef.current =
+      e.type === "mousedown" ? e.clientX : e.changedTouches[0].clientX;
     setIsTransition(true);
     setIsDrag(true);
     if (sliderRef.current) {
@@ -93,20 +90,24 @@ export const TeamsSlider = () => {
 
   const handleMove = useCallback(
     (e) => {
-      if (
-        isDrag &&
-        e.clientX > sliderPositionOnWindow.current.left &&
-        e.clientY > sliderPositionOnWindow.current.top &&
-        e.clientX < sliderPositionOnWindow.current.right &&
-        e.clientY < sliderPositionOnWindow.current.bottom
-      ) {
-        dxRef.current = e.clientX - mousePositionRef.current;
-        setSliderPosition(sliderTranslate - dxRef.current);
-      } else {
-        setIsTransition(false);
-        setIsDrag(false);
-        dxRef.current = 0;
-        setSliderPosition(sliderTranslate);
+      if (e.type === "mousemove") {
+        if (
+          isDrag &&
+          e.clientX > sliderPositionOnWindow.current.left &&
+          e.clientY > sliderPositionOnWindow.current.top &&
+          e.clientX < sliderPositionOnWindow.current.right &&
+          e.clientY < sliderPositionOnWindow.current.bottom
+        ) {
+          dxRef.current =
+            (e.type !== "mousemove" ? e.changedTouches[0].clientX : e.clientX) -
+            mousePositionRef.current;
+          setSliderPosition(sliderTranslate - dxRef.current);
+        } else {
+          setIsTransition(false);
+          setIsDrag(false);
+          dxRef.current = 0;
+          setSliderPosition(sliderTranslate);
+        }
       }
     },
     [isDrag, sliderTranslate]
@@ -115,26 +116,29 @@ export const TeamsSlider = () => {
     setIsDrag(false);
     setIsTransition(false);
     setSliderPosition(sliderTranslate);
-    if (dxRef.current > 50) {
+    if (dxRef.current > 200) {
       if (activeSlide === 1) {
-        setActiveSlide(0);
+        setActiveSlide((prev) => prev - 1);
         setTimeout(() => {
           setIsTransition(true);
           setActiveSlide(countSlides - 1);
         }, 300);
-        setActiveSlide(0);
       } else {
-        setActiveSlide((prev) => prev - 1);
+        setTimeout(() => {
+          setActiveSlide((prev) => prev - 1);
+        }, 1);
       }
-    } else if (dxRef.current < -50) {
+    } else if (dxRef.current < -200) {
       if (activeSlide === countSlides - 1) {
-        setActiveSlide(countSlides);
-        setIsTransition(false);
+        setActiveSlide((prev) => prev + 1);
         setTimeout(() => {
           setIsTransition(true);
           setActiveSlide(1);
         }, 300);
-      } else setActiveSlide((prev) => prev + 1);
+      } else
+        setTimeout(() => {
+          setActiveSlide((prev) => prev + 1);
+        }, 1);
     }
   }, [sliderTranslate, activeSlide, countSlides]);
 
@@ -187,14 +191,15 @@ export const TeamsSlider = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setSliderPosition(activeSlide * slideRef.current.offsetWidth);
+      setSliderPosition(sliderTranslate);
+      setSliderTranslate(activeSlide * slideRef.current.offsetWidth);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [activeSlide]);
+  }, [activeSlide, sliderTranslate]);
 
   return (
     <>
