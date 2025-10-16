@@ -1519,7 +1519,7 @@ li {
 .about__us__page__slider {
   background: url(../img/bgTop.jpg) no-repeat;
   background-size: cover;
-  padding: 120px 0 0;
+  padding: 120px 0;
   text-align: center;
 }
 
@@ -1586,18 +1586,51 @@ li {
   margin: 0 auto;
 }
 
-.slider__button{
+.slider__button {
   background: transparent;
   border: none;
   cursor: pointer;
 }
 
-.slider__button svg path{
+.slider__button svg path {
   fill: #bdbdbd;
-  transition: fill .3s;
+  transition: fill 0.3s;
 }
-.slider__button:hover > svg path{
+.slider__button:hover > svg path {
   fill: #fff;
+}
+
+.about__us__page__mission {
+  display: flex;
+}
+
+.about__us__page__mission__info,
+.about__us__page__mission__img {
+  max-width: 50%;
+  overflow: hidden;
+}
+
+.about__us__page__mission__info {
+  padding: 120px 70px;
+  box-sizing: border-box;
+}
+
+.mission__line {
+  color: #fd6232;
+  font-size: 26px;
+}
+
+.about__us__page__mission__img {
+  display: flex;
+  justify-content: center;
+  background: url(../img/mission.webp);
+  width: 50%;
+  background-size: cover;
+  background-position: 50% 0;
+}
+
+.mission__button {
+  width: 121.59px;
 }
 
 @media (max-width: 992px) {

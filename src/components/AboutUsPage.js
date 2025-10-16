@@ -1,6 +1,7 @@
 import { AboutUsPageSection } from "./AboutUsSectionOnPage";
 import { AboutUsPageProcess } from "./AboutUsPageProcess";
 import { AboutUsPageSlider } from "./AboutUsPageSlider";
+import { AboutUsPageMission } from "./AboutUsPageMission";
 
 export const AboutUsPage = () => {
   return (
@@ -8,6 +9,7 @@ export const AboutUsPage = () => {
       <AboutUsPageSection />
       <AboutUsPageProcess />
       <AboutUsPageSlider />
+      <AboutUsPageMission />
     </section>
   );
 };
