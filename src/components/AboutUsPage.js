@@ -2,6 +2,7 @@ import { AboutUsPageSection } from "./AboutUsSectionOnPage";
 import { AboutUsPageProcess } from "./AboutUsPageProcess";
 import { AboutUsPageSlider } from "./AboutUsPageSlider";
 import { AboutUsPageMission } from "./AboutUsPageMission";
+import { AboutUsPageFAQ } from "./AboutUsPageFAQ";
 
 export const AboutUsPage = () => {
   return (
@@ -10,6 +11,7 @@ export const AboutUsPage = () => {
       <AboutUsPageProcess />
       <AboutUsPageSlider />
       <AboutUsPageMission />
+      <AboutUsPageFAQ />
     </section>
   );
 };

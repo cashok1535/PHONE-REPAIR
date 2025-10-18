@@ -79,7 +79,7 @@ li {
   width: 30px;
 }
 
-.modal__button:hover > .modal__element {
+.modal__button:hover>.modal__element {
   background-color: #727272;
 }
 
@@ -160,7 +160,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover > svg {
+.link__social:hover>svg {
   fill: #ff6534;
 }
 
@@ -257,10 +257,11 @@ li {
 }
 
 .orange__title {
-  font-family: "Lato_Bold", sans-serif;
+  font-family: "Lato_Regular", sans-serif;
   font-size: 12px;
   color: #ff6534;
   letter-spacing: calc(0.2 * 1em);
+  font-weight: 600;
 }
 
 .interactive__flex__info__title {
@@ -1561,6 +1562,7 @@ li {
   flex-direction: column;
   align-items: center;
 }
+
 .teams__slider__element__name {
   color: #ff6534;
   font-family: "Questrial", sans-serif;
@@ -1596,7 +1598,8 @@ li {
   fill: #bdbdbd;
   transition: fill 0.3s;
 }
-.slider__button:hover > svg path {
+
+.slider__button:hover>svg path {
   fill: #fff;
 }
 
@@ -1631,6 +1634,67 @@ li {
 
 .mission__button {
   width: 121.59px;
+}
+
+
+.about__us__page__FAQ {
+  padding: 120px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.about__us__page__FAQ__flex {
+  display: flex;
+  max-width: 1230px;
+  width: 100%;
+}
+
+.about__us__page__FAQ__flex__element {
+  padding: 0 30px;
+  box-sizing: border-box;
+}
+
+.faq__page {
+  border-bottom: 1px solid #121212;
+  padding: 20px 0;
+  /* height: 100%; */
+  overflow: hidden;
+  max-width: 555px;
+  width: 100%;
+}
+
+.faq__page__button {
+  width: 15px;
+  height: 15px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.faq__page__button__line {
+  width: 2px;
+  height: 15px;
+  background: #121212;
+  position: relative;
+  left: 50%;
+  transition: transform .4s;
+}
+
+.faq__page__button__line::after {
+  content: "";
+  width: 15px;
+  height: 2px;
+  background: #121212;
+  position: absolute;
+  top: 6.5px;
+  left: -6.5px;
+}
+
+.faq__page__question__parrent {
+  display: flex;
+  justify-content: space-between;
 }
 
 @media (max-width: 992px) {
