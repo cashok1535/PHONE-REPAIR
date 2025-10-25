@@ -77,12 +77,7 @@ export const AboutUsPageFAQ = () => {
       <div className="about__us__page__FAQ__flex">
         <div className="about__us__page__FAQ__flex__element">
           {faq[0].map((el) => (
-            <div
-              className={`faq__page ${
-                numberActiveQuestion === el.id ? "active" : ""
-              }`}
-              key={el.id}
-            >
+            <div className="faq__page" key={el.id}>
               <div className="faq__page__question__parrent">
                 <div className="faq__page__question">{el.question}</div>
                 <button
@@ -98,7 +93,11 @@ export const AboutUsPageFAQ = () => {
                   ></div>
                 </button>
               </div>
-              <div className="about__us__section__text about__us__page__text">
+              <div
+                className={`about__us__section__text about__us__page__text ${
+                  numberActiveQuestion === el.id ? "" : "active"
+                }`}
+              >
                 {el.answer}
               </div>
             </div>
@@ -106,12 +105,7 @@ export const AboutUsPageFAQ = () => {
         </div>
         <div className="about__us__page__FAQ__flex__element">
           {faq[1].map((el) => (
-            <div
-              className={`faq__page ${
-                numberActiveQuestion === el.id ? "active" : ""
-              }`}
-              key={el.id}
-            >
+            <div className="faq__page" key={el.id}>
               <div className="faq__page__question__parrent">
                 <div className="faq__page__question">{el.question}</div>
                 <button
@@ -127,7 +121,11 @@ export const AboutUsPageFAQ = () => {
                   ></div>
                 </button>
               </div>
-              <div className="about__us__section__text about__us__page__text">
+              <div
+                className={`about__us__section__text about__us__page__text ${
+                  numberActiveQuestion === el.id ? "" : "active"
+                }`}
+              >
                 {el.answer}
               </div>
             </div>
