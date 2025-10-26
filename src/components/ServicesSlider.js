@@ -4,6 +4,7 @@ import sliderImg2 from "../img/servicesSlider2.webp";
 import sliderImg3 from "../img/servicesSlider3.webp";
 import sliderImg4 from "../img/servicesSlider4.webp";
 import sliderImg5 from "../img/servicesSlider5.webp";
+import { useLocation } from "react-router-dom";
 
 const sliderElements = [
   {
@@ -97,6 +98,8 @@ export const ServicesSlider = () => {
   const overflowSliderRef = useRef(null);
   const mouseRef = useRef({ x: null });
   const sliderRef = useRef(null);
+
+  const { pathname } = useLocation();
 
   const countSlides = useMemo(() => {
     return sliderElements.length - 3;
@@ -216,16 +219,23 @@ export const ServicesSlider = () => {
     };
   }, [isDragSlider, handleMouseMove, handleMouseUp]);
 
+  const handleResize = useCallback(() => {
+    setSliderTranslate(slide.current.offsetWidth * activeSlide);
+  }, [activeSlide]);
+
   useEffect(() => {
-    const handleResize = () => {
-      setSliderTranslate(slide.current.offsetWidth * activeSlide);
-    };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [activeSlide]);
+  }, [activeSlide, handleResize]);
+
+  useEffect(() => {
+    if (pathname === "/") {
+      handleResize();
+    }
+  }, [handleResize, pathname]);
 
   const handleDelay = () => {
     setIsDelay(true);

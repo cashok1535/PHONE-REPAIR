@@ -1121,20 +1121,23 @@ li {
   transition: all 0.3s;
   position: relative;
   border-bottom: 1px solid #ffffff38;
-  max-height: 71.9px;
+  height: fit-content;
   overflow: hidden;
+  transition: all 0.3s;
 }
 
 .faq__answer {
   font-size: 17px;
   color: #bdbdbd;
   line-height: 1.5;
-  padding-bottom: 20px;
+  height: 0px;
+  overflow: hidden;
+  transition: all 0.3s;
 }
 
-.faq__question.active {
+.faq__answer.active {
   height: fit-content;
-  max-height: 200px;
+  padding-bottom: 20px;
 }
 
 .news__parrent__slider {
@@ -1508,15 +1511,16 @@ li {
 }
 
 .about__us__page__text {
-  margin-top: 5px;
+  margin-top: 20px;
   display: block;
   max-width: 530px;
-  transition: all .3s;
+  transition: all 0.3s;
   height: 80px;
 }
 
 .about__us__page__text.active {
   height: 0px;
+  margin-top: 0;
   overflow: hidden;
 }
 
@@ -1927,19 +1931,6 @@ li {
     padding: 0 24px;
     box-sizing: border-box;
     padding: 0 24px 50px 24px;
-  }
-
-  .faq__question {
-    height: 100%;
-    max-height: 87px;
-  }
-
-  .faq__question:nth-child(3) {
-    max-height: 70px;
-  }
-
-  .faq__question:nth-child(3).active {
-    max-height: 200px;
   }
 
   .faq__question__text {

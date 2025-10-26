@@ -61,12 +61,7 @@ export const FAQ = () => {
         </div>
         <div className="faq__questions__flex">
           {questions.map((el) => (
-            <div
-              key={el.id}
-              className={`faq__question ${
-                activeQuestion === el.id ? "active" : ""
-              }`}
-            >
+            <div key={el.id} className="faq__question">
               <div className="faq_interactive">
                 <div className="faq__question__text">{el.question}</div>
                 <button
@@ -74,7 +69,7 @@ export const FAQ = () => {
                     handleActiveSlide(el);
                   }}
                   className={`faq__question__button ${
-                    activeQuestion === el.id ? "active" : ""
+                    activeQuestion === el.id ? "" : "active"
                   }`}
                 >
                   <svg
@@ -89,7 +84,13 @@ export const FAQ = () => {
                   </svg>
                 </button>
               </div>
-              <div className="faq__answer">{el.answer}</div>
+              <div
+                className={`faq__answer ${
+                  activeQuestion === el.id ? "active" : ""
+                }`}
+              >
+                {el.answer}
+              </div>
             </div>
           ))}
         </div>
