@@ -90,9 +90,10 @@ export const TeamsSlider = () => {
 
   const handleMove = useCallback(
     (e) => {
-      let dx =
+      dxRef.current =
         (e.type !== "mousemove" ? e.changedTouches[0].clientX : e.clientX) -
-        mousePositionRef.current.x;
+        mousePositionRef.current;
+
       if (e.type === "mousemove") {
         if (
           !(
@@ -103,12 +104,13 @@ export const TeamsSlider = () => {
             e.clientY < sliderPositionOnWindow.current.bottom
           )
         ) {
-          dx = 0;
-          isDrag(false);
-          setIsTransition(true);
+          setIsTransition(false);
+          setIsDrag(false);
+          dxRef.current = 0;
+          setSliderPosition(sliderTranslate);
         }
       }
-      setSliderPosition(sliderTranslate - dx);
+      setSliderPosition(sliderTranslate - dxRef.current);
     },
     [isDrag, sliderTranslate]
   );
