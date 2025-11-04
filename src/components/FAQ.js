@@ -7,35 +7,30 @@ const questions = [
     question: "How Long Does a Typical Phone Repair Take?",
     answer:
       "Repair times vary depending on the issue. Our technicians strive to complete repairs swiftly while maintaining quality, typically within 1-2 days.",
-    height: 95,
   },
   {
     id: 2,
     question: "Do You Provide Warranty for Your Services?",
     answer:
       "Yes, we offer a warranty on all our repair services. Contact us for more details about our warranty coverage.",
-    height: 95,
   },
   {
     id: 3,
     question: "Is There a Fee for Diagnostics?",
     answer:
       "No, diagnostics are complimentary at TechPro. Our technicians will assess your device and provide a diagnosis free of charge.",
-    height: 75,
   },
   {
     id: 4,
     question: "Do You Repair All Phone Brands and Models?",
     answer:
       "Yes, we specialize in repairing a wide range of phone brands and models, including the latest releases from Apple, Samsung, Google, and more.",
-    height: 95,
   },
   {
     id: 5,
     question: "What Payment Methods Do You Accept?",
     answer:
       "We accept various payment methods, including cash, credit/debit cards, and digital payment platforms for your convenience.",
-    height: 95,
   },
 ];
 

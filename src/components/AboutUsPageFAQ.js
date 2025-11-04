@@ -67,7 +67,7 @@ export const AboutUsPageFAQ = () => {
   return (
     <section className="about__us__page__FAQ">
       <div className="orange__title">FAQ</div>
-      <div className="what__we__do__title">
+      <div className="what__we__do__title about__us__page__title">
         Where Technology Meets Expertise
         <span className="interactive__flex__info__orange">.</span>
       </div>

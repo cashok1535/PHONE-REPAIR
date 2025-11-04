@@ -3,7 +3,7 @@ export const AboutUsPageProcess = () => {
     <section className="about__us__page__process">
       <div className="about__us__page__process__title">
         <div className="orange__title">PROCESS</div>
-        <div className="what__we__do__title">
+        <div className="what__we__do__title about__us__page__title">
           Revive, Restore, Reconnect
           <span className="interactive__flex__info__orange">.</span>
         </div>

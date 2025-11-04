@@ -166,7 +166,7 @@ export const NewsSlider = () => {
       }
       setSliderPosition(sliderTranslate - dx);
     },
-    [isDragSlider, sliderTranslate, sliderPositionOnWindow]
+    [isDragSlider, sliderTranslate]
   );
   const handleMouseUp = useCallback(
     (e) => {

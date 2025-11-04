@@ -79,7 +79,7 @@ li {
   width: 30px;
 }
 
-.modal__button:hover > .modal__element {
+.modal__button:hover>.modal__element {
   background-color: #727272;
 }
 
@@ -160,7 +160,7 @@ li {
   margin: 0 7.5px;
 }
 
-.link__social:hover > svg {
+.link__social:hover>svg {
   fill: #ff6534;
 }
 
@@ -1118,12 +1118,12 @@ li {
 }
 
 .faq__question {
-  transition: all 0.3s;
+  transition: all 0.4s;
   position: relative;
   border-bottom: 1px solid #ffffff38;
-  height: fit-content;
+  height: 100vh;
+  max-height: fit-content;
   overflow: hidden;
-  transition: all 0.3s;
 }
 
 .faq__answer {
@@ -1133,10 +1133,12 @@ li {
   height: 0px;
   overflow: hidden;
   transition: all 0.3s;
+  padding-bottom: 0px;
 }
 
 .faq__answer.active {
-  height: fit-content;
+  height: 80px;
+  max-height: 70px;
   padding-bottom: 20px;
 }
 
@@ -1458,9 +1460,6 @@ li {
   box-sizing: border-box;
 }
 
-.about__us__page__flex {
-  padding: 120px 0;
-}
 
 .about__us__page__flex__element {
   padding: 0 30px;
@@ -1477,6 +1476,7 @@ li {
 .about__us__page__flex {
   display: flex;
   justify-content: center;
+  padding: 120px 0;
 }
 
 .about__us__page__img {
@@ -1515,7 +1515,6 @@ li {
   display: block;
   max-width: 530px;
   transition: all 0.3s;
-  height: 80px;
 }
 
 .about__us__page__text.active {
@@ -1612,7 +1611,7 @@ li {
   transition: fill 0.3s;
 }
 
-.slider__button:hover > svg path {
+.slider__button:hover>svg path {
   fill: #fff;
 }
 
@@ -2030,5 +2029,67 @@ li {
 
   .cta__bottom__flex__element__line {
     margin: calc(33px / 2 - 3px) auto calc(33px / 2 - 3px) auto;
+  }
+
+  .about__us__page__flex {
+    flex-direction: column;
+  }
+
+  .about__us__page__title {
+    text-align: center;
+    font-size: 38px;
+  }
+
+  .about__us__page__process__flex {
+    flex-direction: column;
+    padding: 0 24px;
+    box-sizing: border-box;
+  }
+
+  .about__us__page__orange {
+    font-size: 38px;
+  }
+
+  .teams__slider__element {
+    max-width: 55%;
+  }
+
+  .about__us__page__mission {
+    flex-direction: column;
+  }
+
+  .about__us__page__mission__img {
+    height: 286px;
+    width: 100%;
+
+  }
+
+  .about__us__page__mission__img, .about__us__page__mission__info {
+    overflow: visible;
+    max-width: none;
+  }
+
+  .about__us__page__mission__info {
+    padding: 120px 24px;
+  }
+
+  .about__us__page__process__text {
+    text-align: center;
+  }
+
+  .about__us__page__FAQ__flex {
+    flex-direction: column;
+  }
+
+  .about__us__page__FAQ__flex__element {
+    padding: 0 24px;
+  }
+
+  .faq__page {
+    width: fit-content;
+  }
+
+  .faq__page__question {
+    width: 80%;
   }
 }

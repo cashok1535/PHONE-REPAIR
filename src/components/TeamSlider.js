@@ -90,28 +90,29 @@ export const TeamsSlider = () => {
 
   const handleMove = useCallback(
     (e) => {
+      let dx =
+        (e.type !== "mousemove" ? e.changedTouches[0].clientX : e.clientX) -
+        mousePositionRef.current.x;
       if (e.type === "mousemove") {
         if (
-          isDrag &&
-          e.clientX > sliderPositionOnWindow.current.left &&
-          e.clientY > sliderPositionOnWindow.current.top &&
-          e.clientX < sliderPositionOnWindow.current.right &&
-          e.clientY < sliderPositionOnWindow.current.bottom
+          !(
+            isDrag &&
+            e.clientX > sliderPositionOnWindow.current.left &&
+            e.clientY > sliderPositionOnWindow.current.top &&
+            e.clientX < sliderPositionOnWindow.current.right &&
+            e.clientY < sliderPositionOnWindow.current.bottom
+          )
         ) {
-          dxRef.current =
-            (e.type !== "mousemove" ? e.changedTouches[0].clientX : e.clientX) -
-            mousePositionRef.current;
-          setSliderPosition(sliderTranslate - dxRef.current);
-        } else {
-          setIsTransition(false);
-          setIsDrag(false);
-          dxRef.current = 0;
-          setSliderPosition(sliderTranslate);
+          dx = 0;
+          isDrag(false);
+          setIsTransition(true);
         }
       }
+      setSliderPosition(sliderTranslate - dx);
     },
     [isDrag, sliderTranslate]
   );
+
   const handleUp = useCallback(() => {
     setIsDrag(false);
     setIsTransition(false);
@@ -143,13 +144,31 @@ export const TeamsSlider = () => {
   }, [sliderTranslate, activeSlide, countSlides]);
 
   useEffect(() => {
+    const sliderElement = slideRef.current;
+    if (sliderElement) {
+      sliderElement.addEventListener("touchstart", handleDown, {
+        passive: false,
+      });
+    }
+    return () => {
+      if (sliderElement) {
+        sliderElement.removeEventListener("touchstart", handleDown);
+      }
+    };
+  });
+
+  useEffect(() => {
     if (sliderRef.current) {
       document.body.addEventListener("mousemove", handleMove);
+      document.body.addEventListener("touchmove", handleMove);
       document.body.addEventListener("mouseup", handleUp);
+      document.body.addEventListener("touchend", handleUp);
     }
     return () => {
       document.body.removeEventListener("mousemove", handleMove);
+      document.body.removeEventListener("touchmove", handleMove);
       document.body.removeEventListener("mouseup", handleUp);
+      document.body.removeEventListener("touchend", handleUp);
     };
   }, [handleMove, handleUp]);
 
