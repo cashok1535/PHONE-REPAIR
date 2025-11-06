@@ -105,7 +105,7 @@ export const ServicesSlider = () => {
     return sliderElements.length - 3;
   }, []);
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e) => {    
     e.preventDefault();
     if (overflowSliderRef.current) {
       sliderPositionOnWindow.current = {

@@ -64,7 +64,7 @@ export const TeamsSlider = () => {
   const sliderRef = useRef(null);
   const slideRef = useRef(null);
   const mousePositionRef = useRef(null);
-  const dxRef = useRef(mousePositionRef.current);
+  const dxRef = useRef(null);
   const overflowSliderRef = useRef(null);
   const sliderPositionOnWindow = useRef({});
 
@@ -74,8 +74,6 @@ export const TeamsSlider = () => {
 
   const handleDown = (e) => {
     e.preventDefault();
-    mousePositionRef.current =
-      e.type === "mousedown" ? e.clientX : e.changedTouches[0].clientX;
     setIsTransition(true);
     setIsDrag(true);
     if (sliderRef.current) {
@@ -85,11 +83,15 @@ export const TeamsSlider = () => {
         bottom: overflowSliderRef.current.getBoundingClientRect().bottom,
         right: overflowSliderRef.current.getBoundingClientRect().right,
       };
+      mousePositionRef.current =
+        e.type === "mousedown" ? e.clientX : e.changedTouches[0].clientX;
     }
+    console.log(e.type);
   };
 
   const handleMove = useCallback(
     (e) => {
+      setIsTransition(true);
       dxRef.current =
         (e.type !== "mousemove" ? e.changedTouches[0].clientX : e.clientX) -
         mousePositionRef.current;
@@ -104,10 +106,8 @@ export const TeamsSlider = () => {
             e.clientY < sliderPositionOnWindow.current.bottom
           )
         ) {
-          setIsTransition(false);
           setIsDrag(false);
           dxRef.current = 0;
-          setSliderPosition(sliderTranslate);
         }
       }
       setSliderPosition(sliderTranslate - dxRef.current);
@@ -119,7 +119,7 @@ export const TeamsSlider = () => {
     setIsDrag(false);
     setIsTransition(false);
     setSliderPosition(sliderTranslate);
-    if (dxRef.current > 200) {
+    if (dxRef.current > 50) {
       if (activeSlide === 1) {
         setActiveSlide((prev) => prev - 1);
         setTimeout(() => {
@@ -131,7 +131,7 @@ export const TeamsSlider = () => {
           setActiveSlide((prev) => prev - 1);
         }, 1);
       }
-    } else if (dxRef.current < -200) {
+    } else if (dxRef.current < -50) {
       if (activeSlide === countSlides - 1) {
         setActiveSlide((prev) => prev + 1);
         setTimeout(() => {
@@ -146,7 +146,7 @@ export const TeamsSlider = () => {
   }, [sliderTranslate, activeSlide, countSlides]);
 
   useEffect(() => {
-    const sliderElement = slideRef.current;
+    const sliderElement = sliderRef.current;
     if (sliderElement) {
       sliderElement.addEventListener("touchstart", handleDown, {
         passive: false,
@@ -157,7 +157,7 @@ export const TeamsSlider = () => {
         sliderElement.removeEventListener("touchstart", handleDown);
       }
     };
-  });
+  }, []);
 
   useEffect(() => {
     if (sliderRef.current) {
