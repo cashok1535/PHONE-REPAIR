@@ -107,6 +107,7 @@ export const TeamsSlider = () => {
           )
         ) {
           setIsDrag(false);
+          setIsTransition(false);
           dxRef.current = 0;
         }
       }
