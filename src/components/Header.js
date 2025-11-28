@@ -111,7 +111,9 @@ export const Header = () => {
                 onClick={handleClickHref}
                 className="header__navbar__element header__phone__link"
               >
-                Pricing
+                <Link className="link" to="/pricing">
+                  Pricing
+                </Link>
               </li>
               <li
                 onClick={handleClickHref}
@@ -378,7 +380,11 @@ export const Header = () => {
                       About us
                     </Link>
                   </li>
-                  <li className="header__navbar__element">Pricing</li>
+                  <li className="header__navbar__element">
+                    <Link className="link" to="/pricing">
+                      Pricing
+                    </Link>
+                  </li>
                   <li className="header__navbar__element">
                     <HashLink className="link" to="/#testemonials">
                       Testimonials

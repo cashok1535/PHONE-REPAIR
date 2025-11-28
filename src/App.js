@@ -4,6 +4,7 @@ import { Footer } from "./components/Footer";
 import { ContextProvider } from "./components/Context";
 import { Route, Routes } from "react-router-dom";
 import { AboutUsPage } from "./components/AboutUsPage";
+import { Pricing } from "./components/Pricing";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/aboutUs" element={<AboutUsPage />} />
+          <Route path="/pricing" element={<Pricing />} />
         </Routes>
         <Footer />
       </ContextProvider>

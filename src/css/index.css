@@ -1435,12 +1435,13 @@ li {
   display: flex;
   justify-content: center;
   margin-top: 25px;
+  font-weight: 900;
 }
 
 .page__home,
 .page__current__page,
 .page__home__arrow {
-  font-family: "Lato_Bold", sans-serif;
+  font-family: "Lato_Regular", sans-serif;
   font-size: 12px;
   letter-spacing: calc(0.2 * 1em);
 }
@@ -1721,6 +1722,112 @@ li {
   max-width: 530px;
   line-height: 1.3;
   font-weight: bold;
+}
+
+.pricing {
+  padding: 120px 0 25px;
+}
+
+.pricing__flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 55px;
+}
+
+.pricing__flex__element {
+  display: flex;
+  padding-bottom: 70px;
+  border-bottom: 1px solid #d8d7d746;
+  justify-content: space-between;
+  max-width: 1250px;
+  width: 100%;
+}
+
+.pricing__flex__element__bottom {
+  border: none;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.pricing__element__grid {
+  display: grid;
+  grid-template: 1fr 1fr/1fr 1fr;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  column-gap: 30px;
+  margin: 0 auto;
+}
+
+.pricing__bottom__title {
+  margin-bottom: 0px !important;
+}
+
+.pricing__bottom {
+  margin: 0 auto;
+  padding: 55px 0 100px;
+  border: none;
+}
+
+
+.pricing__flex__element__img__parrent {
+  max-width: 575px;
+  width: 100%;
+  padding: 0 30px;
+
+}
+
+.pricing__flex__element__text {
+  padding: 0 30px;
+  width: 100%;
+
+}
+
+.pricing__flex__element__title {
+  font-family: "Questrial", sans-serif;
+  color: #ff6534;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.pricing__element__flex__title {
+  text-wrap: nowrap;
+}
+
+.pricing__element__flex__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 5px;
+  font-family: "Questrial", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  max-width: 650px;
+  width: 100%;
+  line-height: 1.3;
+  margin-bottom: 5px;
+}
+
+.pricing__element__flex__price {
+  color: #ff6534;
+  text-wrap: nowrap;
+}
+
+.pricing__element__flex__text {
+  color: #727272;
+  font-family: "Lato_Regular", sans-serif;
+  font-size: 17px;
+  padding-bottom: 30px;
+  width: max-content;
+}
+
+.pricing__element__flex__line {
+  width: 100%;
+  height: 1px;
+  background-color: #12121242;
 }
 
 @media (max-width: 992px) {
