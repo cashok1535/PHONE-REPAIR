@@ -220,7 +220,7 @@ export const Pricing = () => {
                     background: `url('${el.img}')`,
                     backgroundSize: "cover",
                   }}
-                  className="pricing__flex__element__img__parrent"
+                  className="pricing__flex__element__img__parrent pricing__img__left"
                 ></div>
               )}
               <div className="pricing__flex__element__text">
@@ -256,12 +256,12 @@ export const Pricing = () => {
         </div>
         <div className="pricing__bottom">
           <div className="pricing__flex__element pricing__flex__element__bottom">
-            <div className="pricing__flex__element__text">
+            <div className="pricing__flex__element__text pricing__title__left">
               <div className="pricing__flex__element__title pricing__bottom__title">
                 Additional Services
               </div>
             </div>
-            <div className="about__us__section__text__bold about__us__page__process__text">
+            <div className="about__us__section__text__bold about__us__page__process__text pricing__phone__left">
               Feel free to ask our technicians about any additional services we
               may offer to keep your smartphone safe and sound.
             </div>
