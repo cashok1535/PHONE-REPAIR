@@ -3,7 +3,7 @@ import { FooterLinks } from "./FooterLinks.";
 
 export const Footer = () => {
   return (
-    <footer className="footer">
+    <footer id="contactUs" className="footer">
       <ContactForm />
       <div className="footer__line">
         <svg

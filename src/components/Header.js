@@ -143,7 +143,9 @@ export const Header = () => {
                 onClick={handleClickHref}
                 className="header__navbar__element header__phone__link"
               >
-                Contact us
+                <HashLink className="link" to="/#contactUs">
+                  Contact us
+                </HashLink>
               </li>
             </ul>
             <a
@@ -400,7 +402,11 @@ export const Header = () => {
                       Services
                     </HashLink>
                   </li>
-                  <li className="header__navbar__element">Contact us</li>
+                  <li className="header__navbar__element">
+                    <HashLink className="link" to="/#contactUs">
+                      Contact us
+                    </HashLink>
+                  </li>
                 </ul>
                 <div className="header__button__parrent">
                   <button className="header__button">Get a Quote</button>
