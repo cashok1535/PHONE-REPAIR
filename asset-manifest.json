@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/PHONE-REPAIR/static/css/main.4c7f7a36.css",
-    "main.js": "/PHONE-REPAIR/static/js/main.6f3d22a3.js",
+    "main.js": "/PHONE-REPAIR/static/js/main.602cab6f.js",
     "static/js/453.96453769.chunk.js": "/PHONE-REPAIR/static/js/453.96453769.chunk.js",
     "static/media/cta.png": "/PHONE-REPAIR/static/media/cta.5ea1bb8d054918e6b049.png",
     "static/media/AboutUsPageSecond.webp": "/PHONE-REPAIR/static/media/AboutUsPageSecond.ed919ad2dd27c7384527.webp",
@@ -61,11 +61,11 @@
     "static/media/cta4.svg": "/PHONE-REPAIR/static/media/cta4.b3581b2572e5f56f208ff98e0f384525.svg",
     "index.html": "/PHONE-REPAIR/index.html",
     "main.4c7f7a36.css.map": "/PHONE-REPAIR/static/css/main.4c7f7a36.css.map",
-    "main.6f3d22a3.js.map": "/PHONE-REPAIR/static/js/main.6f3d22a3.js.map",
+    "main.602cab6f.js.map": "/PHONE-REPAIR/static/js/main.602cab6f.js.map",
     "453.96453769.chunk.js.map": "/PHONE-REPAIR/static/js/453.96453769.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4c7f7a36.css",
-    "static/js/main.6f3d22a3.js"
+    "static/js/main.602cab6f.js"
   ]
 }
